@@ -1,0 +1,2 @@
+class OrderSchedule < ApplicationRecord
+end
