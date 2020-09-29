@@ -1,2 +1,0 @@
-class OrderSchedule < ApplicationRecord
-end
