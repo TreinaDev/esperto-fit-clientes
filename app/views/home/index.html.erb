@@ -1,0 +1,9 @@
+<% if @subsidiaries.empty? %>
+  <h1>Nenhuma filial encontrada</h1>
+<% else %>
+    <% @subsidiaries.each do |subsidiary| %>
+        <%= subsidiary.name %>
+        <%= subsidiary.address %>
+        <%= subsidiary.cep %>
+    <% end %>
+<% end %>
