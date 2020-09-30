@@ -1,5 +1,3 @@
 class HomeController < ApplicationController
-  def index
-    # Comentarios?
-  end
+  def index; end
 end
