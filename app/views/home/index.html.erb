@@ -1,2 +1,12 @@
 <%= link_to 'Registrar', new_client_registration_path %>
 <%= link_to 'Entrar', new_client_session_path %>
+
+<% if @subsidiaries.empty? %>
+  <h1>Nenhuma filial encontrada</h1>
+<% else %>
+  <% @subsidiaries.each do |subsidiary| %>
+    <h1><%= subsidiary.name %></h1>
+    <%= subsidiary.address %><br>
+    <%= subsidiary.cep %>
+  <% end %>
+<% end %>
