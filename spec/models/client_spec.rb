@@ -6,5 +6,7 @@ RSpec.describe Client, type: :model do
   end
 
   context 'validations' do
+    it {is_expected.to validate_presence_of(:cpf)}
+    it {is_expected.to validate_uniqueness_of(:cpf)}
   end
 end

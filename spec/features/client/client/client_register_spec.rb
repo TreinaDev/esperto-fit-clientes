@@ -37,16 +37,4 @@ feature 'Visitor creates Account' do
 
     expect(page).to have_content('CPF precisa ser válido')
   end
-
-  scenario 'cpf must be uniq' do
-    create(:client, cpf: '082.923.869-71')
-    visit new_client_registration_path
-    fill_in 'CPF', with: '082.923.869-71'
-    fill_in 'Email', with: 'test@email.com'
-    fill_in 'Senha', with: '12345678'
-    fill_in 'Confirmar senha', with: '12345678'
-    click_on 'Registrar'
-
-    expect(page).to have_content('CPF já está em uso')
-  end
 end

@@ -7,6 +7,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :cpf, 'CPF' %><br />
+    <%= f.text_field :cpf %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
@@ -19,7 +24,7 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "Entrar" %>
   </div>
 <% end %>
 
