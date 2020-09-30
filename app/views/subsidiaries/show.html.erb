@@ -1,0 +1,10 @@
+<h1> Unidade <%= @subsidiary.name %> </h1>
+
+<dl>
+  <dt>Endereço:  </dt>
+  <dd><%= @subsidiary.address %></dd>
+  <dt>CEP</dt>
+  <dd><%= @subsidiary.cep %></dd>
+</dl>
+
+<%= link_to 'Matricule-se', enroll_path(@subsidiary) %>
