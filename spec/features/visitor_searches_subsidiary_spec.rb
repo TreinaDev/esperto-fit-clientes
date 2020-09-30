@@ -48,4 +48,20 @@ feature 'Visitor searches subsidiary' do
     expect(page).to_not have_content('Avenida Ipiranga, 150')
     expect(page).to_not have_content('Centro')
   end
+
+  scenario 'search for partial name or neighborhood' do
+    allow(Subsidiary).to receive(:search)
+      .and_return([Subsidiary.new(name: 'EspertoII', address: 'Avenida Paulista, 150',
+                                  neighborhood: 'Bela Vista'),
+                   Subsidiary.new(name: 'Nome Novo', address: 'Endereço Novo, 101',
+                                  neighborhood: 'Espertolândia')])
+
+    visit root_path
+    fill_in 'Busca de filiais', with: 'Esperto'
+    click_on 'Buscar'
+
+    expect(page).to have_content('EspertoII')
+    expect(page).to have_content('Nome Novo')
+    expect(page).to_not have_content('Diferentão')
+  end
 end
