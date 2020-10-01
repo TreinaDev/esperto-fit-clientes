@@ -17,4 +17,16 @@ class Subsidiary
   def self.find
     new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
   end
+
+  def plans
+    Plan.all
+  end
+
+  def self.search(query)
+    all.filter do |subsidiary|
+      subsidiary.name.downcase.include?(query.downcase) or
+        subsidiary.address.downcase.include?(query.downcase) or
+        subsidiary.cep.split('-').join == query.split('-').join
+    end
+  end
 end
