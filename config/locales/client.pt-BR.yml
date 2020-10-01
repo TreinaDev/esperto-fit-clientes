@@ -7,3 +7,5 @@ pt-BR:
         cpf: CPF
         email: Email
         password: Senha
+        password_confirmation: Confirme sua senha
+

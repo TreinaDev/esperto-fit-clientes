@@ -13,6 +13,6 @@ class Client < ApplicationRecord
   def cpf_validation
     return if CPF.valid?(cpf)
 
-    errors.add(:cpf, 'CPF precisa ser válido')
+    errors.add(:cpf, :cpf_invalid)
   end
 end

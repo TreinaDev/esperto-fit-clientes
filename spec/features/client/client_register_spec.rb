@@ -7,10 +7,9 @@ feature 'Visitor creates Account' do
     fill_in 'CPF', with: '082.923.869-71'
     fill_in 'Email', with: 'test@email.com'
     fill_in 'Senha', with: '12345678'
-    fill_in 'Confirmar senha', with: '12345678'
+    fill_in 'Confirme sua senha', with: '12345678'
     click_on 'Registrar'
 
-    expect(Client.all.count).to eq(1)
     expect(page).to have_content('Bem vindo! Você realizou seu registro com sucesso.')
   end
 
@@ -32,7 +31,7 @@ feature 'Visitor creates Account' do
     fill_in 'CPF', with: '333.333.333-33'
     fill_in 'Email', with: 'test@email.com'
     fill_in 'Senha', with: '12345678'
-    fill_in 'Confirmar senha', with: '12345678'
+    fill_in 'Confirme sua senha', with: '12345678'
     click_on 'Registrar'
 
     expect(page).to have_content('CPF precisa ser válido')
@@ -44,7 +43,7 @@ feature 'Visitor creates Account' do
     fill_in 'CPF', with: '082.923.869-71'
     fill_in 'Email', with: 'test@email.com'
     fill_in 'Senha', with: '12345678'
-    fill_in 'Confirmar senha', with: '12345678'
+    fill_in 'Confirme sua senha', with: '12345678'
     click_on 'Registrar'
 
     expect(page).to have_content('CPF já está em uso')

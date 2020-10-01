@@ -9,20 +9,20 @@
   </div>
 
   <div class="field">
-    <%= f.label :cpf, 'CPF' %><br />
+    <%= f.label :cpf %><br />
     <%= f.text_field :cpf %>
   </div>
 
   <div class="field">
-    <%= f.label :password, 'Senha' %>
+    <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em>(Mínimo de <%= @minimum_password_length %> caracteres)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation, 'Confirmar senha' %><br />
+    <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
