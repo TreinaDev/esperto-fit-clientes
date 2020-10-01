@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :personals
-  devise_for :clients, controllers: {registrations: 'registrations'}
+  devise_for :clients
 
   root to: 'home#index'
 end
