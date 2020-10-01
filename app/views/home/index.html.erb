@@ -1,5 +1,4 @@
-<%= link_to 'Registrar', new_client_registration_path %>
-<%= link_to 'Entrar', new_client_session_path %>
+<%= render partial: 'subsidiaries/search' %>
 
 <% if @subsidiaries.empty? %>
   <h1>Nenhuma filial encontrada</h1>
