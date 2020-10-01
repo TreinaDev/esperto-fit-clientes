@@ -26,8 +26,8 @@ pt-BR:
         unlock_token: Token de desbloqueio
         updated_at: Atualizado em
     models:
-      user: Usuário
-  devise:
+      client: Usuário
+  clients:
     confirmations:
       confirmed: A sua conta foi confirmada com sucesso.
       new:
