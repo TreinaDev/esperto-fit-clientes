@@ -14,7 +14,7 @@ class Subsidiary
      new(id: 3, name: 'Santos', address: 'Rua das Hortências, 302', cep: '78150-384')]
   end
 
-  def self.find(id:)
-    # To-do
+  def self.find
+    new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
   end
 end

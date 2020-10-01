@@ -1,0 +1,10 @@
+<%= form_with model: @enroll, local:true do |f| %>
+    <%= f.label 'Selecione seu plano' %>
+    <%= f.collection_select('Selecione seu plano', @plans, :id, :description) %>
+    <%= f.label 'Forma de pagamento' %>
+    <%= f.collection_select('Forma de pagamento', @payment_options, :id, :name) %>
+
+
+    # Plano - Mensalidade
+    <%= f.submit 'Próximo' %>
+<% end %>

@@ -4,5 +4,7 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resources :subsidiaries, only: :show
+  resources :subsidiaries, only: :show do
+    resources :enrolls, only: %i[new create]
+  end
 end
