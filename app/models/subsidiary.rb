@@ -1,23 +1,24 @@
 class Subsidiary
-  attr_reader :name, :address, :neighborhood
+  attr_reader :id, :name, :address, :cep
 
-  def initialize(name:, address:, neighborhood:)
+  def initialize(id:, name:, address:, cep:)
+    @id = id
     @name = name
     @address = address
-    @neighborhood = neighborhood
+    @cep = cep
   end
 
   def self.all
-    [
-      Subsidiary.new(name: 'Esperto', address: 'Av. Paulista, 20', neighborhood: 'Bela Vista'),
-      Subsidiary.new(name: 'Espertão', address: 'Outra Rua, 400', neighborhood: 'Outro Bairro'),
-      Subsidiary.new(name: 'Espertinho', address: 'Rua do Outro Lado, 231', neighborhood: 'Bairro Longe')
-    ]
+    [new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773'),
+     new(id: 2, name: 'Ipiranga', address: 'Rua da Concórdia, 201', cep: '57071-812'),
+     new(id: 3, name: 'Santos', address: 'Rua das Hortências, 302', cep: '78150-384')]
   end
 
   def self.search(query)
     all.filter do |subsidiary|
-      subsidiary.name.downcase.include?(query.downcase) or subsidiary.neighborhood.downcase.include?(query.downcase)
+      subsidiary.name.downcase.include?(query.downcase) or
+        subsidiary.address.downcase.include?(query.downcase) or
+        subsidiary.cep.split('-').join == query.split('-').join
     end
   end
 end
