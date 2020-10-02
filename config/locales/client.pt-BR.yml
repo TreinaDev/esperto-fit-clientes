@@ -2,7 +2,7 @@ pt-BR:
   clients:
    registrations:
     new:
-       submit: Registrar
+       submit: Cadastrar
   activerecord:
     models:
       client: Cliente

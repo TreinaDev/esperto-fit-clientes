@@ -8,7 +8,7 @@ feature 'Visitor creates Account' do
     fill_in 'Email', with: 'test@email.com'
     fill_in 'Senha', with: '12345678'
     fill_in 'Confirme sua senha', with: '12345678'
-    click_on 'Registrar'
+    click_on 'Cadastrar'
 
     expect(page).to have_content('Bem vindo! Você realizou seu registro com sucesso.')
   end
@@ -18,7 +18,7 @@ feature 'Visitor creates Account' do
     fill_in 'CPF', with: ''
     fill_in 'Email', with: ''
     fill_in 'Senha', with: ''
-    click_on 'Registrar'
+    click_on 'Cadastrar'
 
     expect(page).to have_content('não pode ficar em branco', count: 3)
     expect(page).to have_content('Email não pode ficar em branco')
@@ -32,7 +32,7 @@ feature 'Visitor creates Account' do
     fill_in 'Email', with: 'test@email.com'
     fill_in 'Senha', with: '12345678'
     fill_in 'Confirme sua senha', with: '12345678'
-    click_on 'Registrar'
+    click_on 'Cadastrar'
 
     expect(page).to have_content('CPF precisa ser válido')
   end
@@ -44,7 +44,7 @@ feature 'Visitor creates Account' do
     fill_in 'Email', with: 'test@email.com'
     fill_in 'Senha', with: '12345678'
     fill_in 'Confirme sua senha', with: '12345678'
-    click_on 'Registrar'
+    click_on 'Cadastrar'
 
     expect(page).to have_content('CPF já está em uso')
   end
