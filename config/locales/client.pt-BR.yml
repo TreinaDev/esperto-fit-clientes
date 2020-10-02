@@ -1,0 +1,14 @@
+pt-BR:
+  clients:
+   registrations:
+    new:
+       submit: Registrar
+  activerecord:
+    models:
+      client: Cliente
+    attributes:
+      client:
+        cpf: CPF
+        email: Email
+        password: Senha
+        password_confirmation: Confirme sua senha
