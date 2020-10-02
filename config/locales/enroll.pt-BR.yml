@@ -1,0 +1,14 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      enroll:
+    attributes:
+      enroll:
+        subsidiary: Filial
+        subsidiary_id: Filial
+        plan: Plano
+        plan_id: Plano
+        client: Cliente
+        client_id: Cliente
+        payment_option: Forma de pagamento

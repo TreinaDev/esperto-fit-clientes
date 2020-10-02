@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :subsidiaries, only: :show do
-    resources :enrolls, only: %i[new create]
+    post 'enrolls/confirm', to: 'enrolls#confirm'
+    resources :enrolls, only: :new
     get 'search', on: :collection
   end
+
+  resources :enrolls, only: :create
 end

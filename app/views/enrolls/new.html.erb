@@ -1,7 +1,7 @@
-<%= form_with model: @enroll, url: subsidiary_enrolls_path, local:true do |f| %>
-    <%= f.label 'Selecione seu plano' %>
-    <%= f.collection_select('Selecione seu plano', @subsidiary.plans, :id, :description) %>
-    <%= f.label 'Forma de pagamento' %>
-    <%= f.collection_select('Forma de pagamento', @payment_options, :id, :name) %>
+<%= form_with model: @enroll, url: subsidiary_enrolls_confirm_path, local:true do |f| %>
+    <%= f.label :plan_id %>
+    <%= f.collection_select(:plan_id, @subsidiary.plans, :id, :description) %>
+    <%= f.label :payment_option %>
+    <%= f.select :payment_option, options_for_select([['Boleto'],['Cartão de crédito']]), prompt:'Forma de pagamento' %>
     <%= f.submit 'Próximo' %>
 <% end %>

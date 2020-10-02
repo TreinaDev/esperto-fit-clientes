@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_200321) do
+ActiveRecord::Schema.define(version: 2020_10_02_164547) do
 
   create_table "clients", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_200321) do
     t.integer "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "payment_option"
     t.index ["client_id"], name: "index_enrolls_on_client_id"
   end
 

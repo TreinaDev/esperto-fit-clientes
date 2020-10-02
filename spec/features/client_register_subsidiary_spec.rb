@@ -2,16 +2,16 @@ require 'rails_helper'
 
 feature 'client enroll a subsidiary' do
   scenario 'and view details summary' do
-    client = create(:client, name: '')
+    client = create(:client)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
-    login_as(client)
+    login_as client, scope: :client
     visit root_path
     click_on subsidiary.name
     click_on 'Matricule-se agora'
-    select 'Black - 120', from: 'Selecione seu plano'
+    select 'Black - 120', from: 'Plano'
     select 'Boleto', from: 'Forma de pagamento'
     click_on 'Próximo'
 
@@ -19,8 +19,8 @@ feature 'client enroll a subsidiary' do
     expect(page).to have_content(client.email)
     expect(page).to have_content('Black')
     expect(page).to have_content('Boleto')
-    expect(page).to have_content('Permanncia minima: 12 meses')
-    expect(page).to have_content('59,90')
+    expect(page).to have_content('12 meses')
+    expect(page).to have_content('R$ 120,00')
     expect(page).to have_link('Confirmar')
     expect(page).to have_link('Voltar')
     # Plano: preco mensal, nome, permanencia minima, status
@@ -32,11 +32,11 @@ feature 'client enroll a subsidiary' do
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
-    login_as(client)
+    login_as client, scope: :client
     visit root_path
     click_on subsidiary.name
     click_on 'Matricule-se agora'
-    select 'Black', from: 'Selecione seu plano'
+    select 'Black', from: 'Plano'
     select 'Boleto', from: 'Forma de pagamento'
     click_on 'Próximo'
     click_on 'Confirmar'
@@ -50,7 +50,7 @@ feature 'client enroll a subsidiary' do
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
-    login_as(client)
+    login_as client, scope: :client
     visit root_path
     click_on subsidiary.name
     click_on 'Matricule-se agora'
@@ -64,12 +64,12 @@ feature 'client enroll a subsidiary' do
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
-    login_as(client)
+    login_as client, scope: :client
     visit root_path
     click_on subsidiary.name
     click_on 'Matricule-se agora'
-    # fill_in 'Endereço', with: 'Rua Salvado Simoes'
-    select 'Black', from: 'Selecione seu plano'
+    # fill_in 'Endereco', with: 'Rua Salvado Simoes'
+    select 'Black', from: 'Plano'
     select 'Boleto', from: 'Forma de pagamento'
     click_on 'Próximo'
     click_on 'Voltar'
