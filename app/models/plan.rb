@@ -14,7 +14,11 @@ class Plan
      new(id: 2, name: 'Black', monthly_payment: 120.00, permanency: 12, subsidiary: Subsidiary.find)]
   end
 
+  def self.find
+    all[0]
+  end
+
   def description
-    "#{name} - #{monthly_payment}"
+    "#{name} - #{ActionController::Base.helpers.number_to_currency(monthly_payment)}"
   end
 end

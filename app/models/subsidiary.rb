@@ -15,7 +15,7 @@ class Subsidiary
   end
 
   def self.find
-    new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    all[0]
   end
 
   def plans

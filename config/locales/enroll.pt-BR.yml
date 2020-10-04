@@ -1,5 +1,13 @@
 ---
 pt-BR:
+  enrolls:
+    confirm:
+      back: Voltar
+      confirm: Confirmar
+    new:
+      submit: Próximo
+    create:
+      successfully: Matricula realizada com sucesso
   activerecord:
     models:
       enroll:
@@ -12,3 +20,4 @@ pt-BR:
         client: Cliente
         client_id: Cliente
         payment_option: Forma de pagamento
+        payment_option_id: Forma de pagamento

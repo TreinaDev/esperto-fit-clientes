@@ -1,7 +1,14 @@
+<% @enroll.errors.full_messages.each do |message| %>
+  <div>
+    <%= message %>
+  </div>
+<% end %>
+
+
 <%= form_with model: @enroll, url: subsidiary_enrolls_confirm_path, local:true do |f| %>
-    <%= f.label :plan_id %>
-    <%= f.collection_select(:plan_id, @subsidiary.plans, :id, :description) %>
-    <%= f.label :payment_option %>
-    <%= f.select :payment_option, options_for_select([['Boleto'],['Cartão de crédito']]), prompt:'Forma de pagamento' %>
-    <%= f.submit 'Próximo' %>
+  <%= f.label :plan_id %>
+  <%= f.collection_select(:plan_id, @subsidiary.plans, :id, :description, prompt: 'Selecione o plano') %>
+  <%= f.label :payment_option_id %>
+  <%= f.collection_select(:payment_option_id, @payment_options, :id, :name, prompt: 'Selecione a forma de pagamento') %>
+  <%= f.submit t('.submit') %>
 <% end %>

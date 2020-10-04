@@ -6,14 +6,13 @@
   <dt>Plano: </dt>
   <dd><%= @enroll.plan.name %></dd>
   <dt>Forma de Pagamento: </dt>
-  <dd><%= @enroll.payment_option %></dd>
+  <dd><%= @enroll.payment_option.name %></dd>
   <dt>Permanência mínima: </dt>
   <dd><%= "#{@enroll.plan.permanency} meses" %></dd>
   <dt>Mensalidade</dt>
   <dd><%= number_to_currency @enroll.plan.monthly_payment %></dd>
 </dl>
 
+<%= link_to t('.confirm'), enrolls_path(enroll: @enroll.attributes), method: :post %>
 
-<%= link_to 'Confirmar', enrolls_path(@enroll), method: :post %>
-
-<%= link_to 'Voltar' %>
+<%= link_to t('.back'), new_subsidiary_enroll_path(@enroll.subsidiary_id) %>

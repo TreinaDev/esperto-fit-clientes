@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_164547) do
+ActiveRecord::Schema.define(version: 2020_10_03_233957) do
 
   create_table "clients", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -33,8 +33,15 @@ ActiveRecord::Schema.define(version: 2020_10_02_164547) do
     t.integer "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "payment_option"
+    t.integer "payment_option_id", null: false
     t.index ["client_id"], name: "index_enrolls_on_client_id"
+    t.index ["payment_option_id"], name: "index_enrolls_on_payment_option_id"
+  end
+
+  create_table "payment_options", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "personals", force: :cascade do |t|
@@ -53,4 +60,5 @@ ActiveRecord::Schema.define(version: 2020_10_02_164547) do
   end
 
   add_foreign_key "enrolls", "clients"
+  add_foreign_key "enrolls", "payment_options"
 end
