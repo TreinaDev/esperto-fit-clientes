@@ -1,5 +1,6 @@
 class EnrollsController < ApplicationController
   before_action :authenticate_client!
+  before_action :check_already_enrolled
 
   def new
     @enroll = Enroll.new
@@ -42,5 +43,9 @@ class EnrollsController < ApplicationController
 
   def enroll_params_create
     params.require(:enroll).permit(:plan_id, :payment_option_id, :subsidiary_id, :client_id)
+  end
+
+  def check_already_enrolled
+    redirect_to root_path, notice: t('.already_enrolled') if current_client.enrolls.present?
   end
 end

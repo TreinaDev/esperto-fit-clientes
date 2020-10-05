@@ -7,4 +7,6 @@
   <dd><%= @subsidiary.cep %></dd>
 </dl>
 
-<%= link_to t('.enroll_now'), new_subsidiary_enroll_path(@subsidiary.id) %>
+<% if !current_client.present? || !current_client.enrolls.present? %>
+  <%= link_to t('.enroll_now'), new_subsidiary_enroll_path(@subsidiary.id) %>
+<% end %>

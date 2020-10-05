@@ -1,6 +1,7 @@
 ---
 pt-BR:
   enrolls:
+    already_enrolled: Você já está matriculado em uma unidade
     confirm:
       back: Voltar
       confirm: Confirmar

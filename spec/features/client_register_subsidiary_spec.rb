@@ -53,7 +53,6 @@ feature 'client enroll a subsidiary' do
 
   scenario 'not must fill in blank' do
     client = create(:client)
-    create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
