@@ -1,0 +1,7 @@
+<div id = "appointments_list">
+  Nenhuma atividade agendada
+</div>
+
+<% @appointments.each do | appointment | %>
+  <%= appointment.appointment_date %>
+<% end %>
