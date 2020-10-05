@@ -7,7 +7,7 @@ feature 'Personal Trainer register' do
     fill_in 'Nome', with: 'Alberto'
     fill_in 'Email', with: 'alberto@gmail.com'
     fill_in  'CPF', with: '08858754948'
-    fill_in 'CREF', with: '123456-G'
+    fill_in 'CREF', with: '001582-G/ES'
     fill_in 'Senha', with: '123456'
     fill_in 'Confirmar senha', with: '123456'
     click_on 'Enviar'
