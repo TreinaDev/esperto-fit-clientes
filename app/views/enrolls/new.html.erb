@@ -1,9 +1,8 @@
+<ul>
 <% @enroll.errors.full_messages.each do |message| %>
-  <div>
-    <%= message %>
-  </div>
+    <li> <%= message %> </li>
 <% end %>
-
+</ul>
 
 <%= form_with model: @enroll, url: subsidiary_enrolls_confirm_path, local:true do |f| %>
   <%= f.label :plan_id %>
