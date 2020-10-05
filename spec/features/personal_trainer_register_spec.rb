@@ -25,4 +25,14 @@ feature 'Personal Trainer register' do
     expect(current_path).to_not eq root_path
     expect(page).to have_content('não pode ficar em branco', count: 5)
   end
+  
+  scenario 'CPF must be valid' do
+    visit root_path
+    click_on 'Registrar Personal Trainer'
+    fill_in  'CPF', with: '99442568'
+    click_on 'Enviar'
+
+    expect(current_path).to_not eq root_path
+    expect(page).to have_content('CPF não válido')
+  end
 end
