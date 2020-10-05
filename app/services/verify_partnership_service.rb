@@ -9,14 +9,15 @@ class VerifyPartnershipService
     verify_partnership
   end
 
+  private
+
   def api_partnership_data
-    { partners: %i[partner_company.com other_patner.com] }
+    { partners: %w[partner_company.com other_patner.com] }
   end
 
   def verify_partnership
     hash = api_partnership_data
-    partner_email = client.email.split('@')[1]
 
-    hash[:partners].include?(partner_email.to_sym)
+    hash[:partners].include?(client.domain)
   end
 end
