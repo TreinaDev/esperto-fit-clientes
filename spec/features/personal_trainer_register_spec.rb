@@ -6,7 +6,7 @@ feature 'Personal Trainer register' do
     click_on 'Registrar Personal Trainer'
     fill_in 'Nome', with: 'Alberto'
     fill_in 'Email', with: 'alberto@gmail.com'
-    fill_in  'CPF', with: '3399442568'
+    fill_in  'CPF', with: '08858754948'
     fill_in 'CREF', with: '123456-G'
     fill_in 'Senha', with: '123456'
     fill_in 'Confirmar senha', with: '123456'
@@ -33,6 +33,16 @@ feature 'Personal Trainer register' do
     click_on 'Enviar'
 
     expect(current_path).to_not eq root_path
-    expect(page).to have_content('CPF não válido')
+    expect(page).to have_content('CPF inválido')
+  end
+
+  scenario 'CREF must be valid' do
+    visit root_path
+    click_on 'Registrar Personal Trainer'
+    fill_in 'CREF', with: '123'
+    click_on 'Enviar'
+
+    expect(current_path).to_not eq root_path
+    expect(page).to have_content('CREF inválido')
   end
 end

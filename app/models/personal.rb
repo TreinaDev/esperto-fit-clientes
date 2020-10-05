@@ -5,4 +5,11 @@ class Personal < ApplicationRecord
          :recoverable, :rememberable, :validatable
        
   validates :name, :cref, :cpf , presence: true
+  validate :validate_cpf
+
+  def validate_cpf
+    if cpf.present? and not CPF.valid?(cpf, strict: true)
+      errors.add(:cpf, 'inválido')
+    end
+  end
 end
