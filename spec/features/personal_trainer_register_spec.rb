@@ -23,7 +23,11 @@ feature 'Personal Trainer register' do
     click_on 'Enviar'
 
     expect(current_path).to_not eq root_path
-    expect(page).to have_content('não pode ficar em branco', count: 5)
+    expect(page).to have_content('Email não pode ficar em branco')
+    expect(page).to have_content('Senha não pode ficar em branco')
+    expect(page).to have_content('Nome não pode ficar em branco')
+    expect(page).to have_content('CREF não pode ficar em branco')
+    expect(page).to have_content('CPF não pode ficar em branco')
   end
 
   scenario 'CPF must be valid' do
