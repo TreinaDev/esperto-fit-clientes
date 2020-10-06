@@ -37,7 +37,7 @@ feature 'Personal Trainer register' do
     click_on 'Enviar'
 
     expect(current_path).to_not eq root_path
-    expect(page).to have_content('CPF inválido')
+    expect(page).to have_content('CPF não é válido')
   end
 
   scenario 'CREF must be valid' do
@@ -47,6 +47,6 @@ feature 'Personal Trainer register' do
     click_on 'Enviar'
 
     expect(current_path).to_not eq root_path
-    expect(page).to have_content('CREF inválido')
+    expect(page).to have_content('CREF não é válido')
   end
 end
