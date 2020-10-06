@@ -1,0 +1,14 @@
+<%= form_with(model: @appointment, local: true) do |form| %>
+  <div>
+    <% if @appointment.errors.any? %>
+      <% @appointment.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= form.label :appointment_date %>
+  <%= form.date_field :appointment_date %>
+
+  <%= form.submit 'Enviar' %>
+<% end %>

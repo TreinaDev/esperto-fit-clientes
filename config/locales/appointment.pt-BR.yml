@@ -1,0 +1,20 @@
+---
+pt-BR:
+  appointments:
+    date:
+      formats:
+        default: "%d/%m/%Y"
+        long: "%d de %B de %Y"
+        short: "%d de %B"
+    new:
+      submit: Enviar
+    edit:
+      submit: Enviar
+    create:
+      success: Agenda criada com sucesso
+  activerecord:
+    models:
+      appointment: Agenda
+    attributes:
+      appointment:
+        appointment_date: Data

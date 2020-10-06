@@ -11,26 +11,45 @@ feature 'Personal view index appointments' do
     personal = create(:personal); login_as(personal)
     visit root_path
 
-    expect(page).to have_link('Minha Agenda', href: personal_appointments_path(personal))
+    expect(page).to have_link('Minha Agenda', href: appointments_path)
   end
 
   scenario 'personal appointments empty' do
     personal = create(:personal); login_as(personal)
     visit root_path
     click_on 'Minha Agenda'
- 
+
     within('#appointments_list') do
       expect(page).to have_content('Nenhuma atividade agendada') 
     end
   end
 
-  scenario 'personal create appointment' do
-    personal = create(:personal, email: 'personal@mail.com'); login_as(personal)
-    appointment = create(:appointment)
+  scenario 'personal appointments not empty' do
+    personal = create(:personal); login_as(personal)
+    appointment = create(:appointment, personal: personal)
     visit root_path
     click_on 'Minha Agenda'
-    
-    expect(page).to have_content(appointment.appointment_date)
-    #expect(page).to have_content(appointment.appointment_time)
+
+    expect(page).not_to have_content('Nenhuma atividade agendada') 
+  end
+
+  scenario 'personal see list of appointment' do
+    personal = create(:personal); login_as(personal)
+    appointment = create(:appointment, personal: personal)
+    visit root_path
+    click_on 'Minha Agenda'
+
+    expect(page).to have_content(appointment.appointment_date.strftime('%d/%m/%Y'))
+  end
+
+  scenario 'personal see list of only their appointments' do
+    personal = create(:personal); login_as(personal)
+    appointment = create(:appointment, personal: personal)
+    personal2 = create(:personal)
+    personal2_appointment = create(:appointment, personal: personal2, appointment_date: Date.tomorrow)
+    visit root_path
+    click_on 'Minha Agenda'
+
+    expect(page).to have_content(appointment.appointment_date.strftime('%d/%m/%Y'))
   end
 end

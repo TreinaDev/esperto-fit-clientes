@@ -12,7 +12,7 @@
   <body>
     <%= link_to 'Registrar', new_client_registration_path %>
     <%= link_to 'Entrar', new_client_session_path %>
-    <%= link_to 'Minha Agenda', personal_appointments_path(current_personal) if personal_signed_in? %>
+    <%= link_to 'Minha Agenda', appointments_path if personal_signed_in? %>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

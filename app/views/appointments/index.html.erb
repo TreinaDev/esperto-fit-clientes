@@ -1,7 +1,11 @@
-<div id = "appointments_list">
-  Nenhuma atividade agendada
-</div>
+<%= link_to 'Novo horário', new_appointment_path %>
+
+<% if @appointments.empty? %>
+  <div id = "appointments_list">
+    Nenhuma atividade agendada
+  </div>
+<% end %>
 
 <% @appointments.each do | appointment | %>
-  <%= appointment.appointment_date %>
+  <%=  l(appointment.appointment_date, format: :default) %>
 <% end %>

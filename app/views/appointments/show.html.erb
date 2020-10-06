@@ -1,0 +1,3 @@
+<%= link_to 'Editar', edit_appointment_path(@appointment) if current_personal == @appointment.personal %>
+
+<%= I18n.l(@appointment.appointment_date, format: :default) %>
