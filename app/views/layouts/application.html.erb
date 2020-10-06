@@ -10,9 +10,12 @@
   </head>
 
   <body>
-    <%= link_to 'Registrar', new_client_registration_path %>
-    <%= link_to 'Entrar', new_client_session_path %>
-
+    <% if client_signed_in? %>
+      <%= link_to 'Sair', destroy_client_session_path, method: :delete %>
+    <%  elsif !(current_page?(new_client_registration_path) || current_page?(new_client_session_path)) %>
+      <%= link_to 'Registrar', new_client_registration_path %>
+      <%= link_to 'Entrar', new_client_session_path %>
+    <% end %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
