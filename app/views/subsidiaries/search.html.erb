@@ -1,11 +1,11 @@
 <%= render partial: 'subsidiaries/search' %>
 
-<%if @subsidiaries.empty?%>
+<% if @subsidiaries.empty? %>
   <h2>Nenhuma filial encontrada</h2>
-<%else%>
+<% else %>
   <% @subsidiaries.each do |subsidiary| %>
     <div>
-      <h2><%= subsidiary.name %></h2>
+      <h2><%= link_to subsidiary.name, subsidiary_path(subsidiary) %></h2>
       <li><%= subsidiary.address %></li>
       <li><%= subsidiary.cep %></li>
     </div>

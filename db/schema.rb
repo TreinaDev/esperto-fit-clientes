@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_30_212257) do
+ActiveRecord::Schema.define(version: 2020_10_06_202527) do
 
   create_table "clients", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 2020_09_30_212257) do
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
   end
 
+  create_table "personal_subsidiaries", force: :cascade do |t|
+    t.integer "personal_id", null: false
+    t.string "subsidiary_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["personal_id"], name: "index_personal_subsidiaries_on_personal_id"
+  end
+
   create_table "personals", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -38,8 +46,12 @@ ActiveRecord::Schema.define(version: 2020_09_30_212257) do
     t.string "cref"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "personal_subsidiary_id"
     t.index ["email"], name: "index_personals_on_email", unique: true
+    t.index ["personal_subsidiary_id"], name: "index_personals_on_personal_subsidiary_id"
     t.index ["reset_password_token"], name: "index_personals_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "personal_subsidiaries", "personals"
+  add_foreign_key "personals", "personal_subsidiaries"
 end

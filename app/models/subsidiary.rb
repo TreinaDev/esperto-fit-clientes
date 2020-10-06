@@ -21,4 +21,8 @@ class Subsidiary
         subsidiary.cep.split('-').join == query.split('-').join
     end
   end
+
+  def self.find(_id)
+    new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+  end
 end

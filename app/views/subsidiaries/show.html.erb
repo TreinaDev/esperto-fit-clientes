@@ -1,0 +1,7 @@
+<h2><%= @subsidiary.name %></h2>
+<li><%= @subsidiary.address %></li>
+<li><%= @subsidiary.cep %></li>
+
+<% if personal_signed_in? %>
+  <%= button_to 'Adicionar Filial', add_subsidiary_personal_path(@subsidiary, current_personal) %>
+<% end %>
