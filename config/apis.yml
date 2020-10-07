@@ -1,0 +1,10 @@
+test:
+  subsidiaries: http://subsidiaries/api/v1/
+  promotions: http://promotions/api/v1/
+
+development:
+  subsidiaries: http://localhost:4000/api/v1/
+  promotions: http://localhost:5000/api/v1/
+
+production:
+  subsidiaries: http://filiais.espertofit.com.br/api/v1/

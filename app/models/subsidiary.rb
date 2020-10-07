@@ -1,4 +1,4 @@
-class Subsidiary
+class Subsidiary #Plain Old Ruby Object
   attr_reader :id, :name, :address, :cep
 
   def initialize(id:, name:, address:, cep:)
@@ -9,9 +9,20 @@ class Subsidiary
   end
 
   def self.all
-    [new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773'),
-     new(id: 2, name: 'Ipiranga', address: 'Rua da Concórdia, 201', cep: '57071-812'),
-     new(id: 3, name: 'Santos', address: 'Rua das Hortências, 302', cep: '78150-384')]
+    response = Faraday.get "#{Rails.configuration.apis['subsidiaries']}/subsidiaries"
+
+    if response.status == 200
+      list = JSON.parse(response.body, symbolize_names: true)
+      list.map do |item|
+        new(id: item[:id], name: item[:name],
+            address: item[:address], cep: "")
+      end
+    else
+      []
+    end
+  end
+
+  def self.find(id)
   end
 
   def self.search(query)
