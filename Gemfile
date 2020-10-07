@@ -9,7 +9,6 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'cpf_cnpj'
 gem 'devise'
 gem 'puma', '~> 4.1'
-gem 'rails-controller-testing'
 gem 'sass-rails', '>= 6'
 gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
@@ -18,6 +17,7 @@ gem 'webpacker', '~> 4.0'
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry-byebug'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 4.0.1'
 end
 
