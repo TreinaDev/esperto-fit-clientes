@@ -11,6 +11,9 @@ feature 'Visitor creates Account' do
     click_on 'Cadastrar'
 
     expect(page).to have_content('Bem vindo! Você realizou seu registro com sucesso.')
+    expect(page).to_not have_link('Entrar')
+    expect(page).to_not have_link('Registrar')
+    expect(page).to have_link('Sair')
   end
 
   scenario 'must fill all fields' do
