@@ -35,13 +35,4 @@ feature 'Client login on system' do
 
     expect(page).to have_content('Logout efetuado com sucesso')
   end
-
-  scenario 'view sign in page and dont see top authentication buttons' do
-    visit root_path
-    click_on 'Entrar'
-
-    expect(page).to_not have_link('Entrar')
-    expect(page).to_not have_link('Registrar')
-    expect(page).to_not have_link('Sair')
-  end
 end
