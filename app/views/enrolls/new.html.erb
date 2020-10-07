@@ -4,7 +4,7 @@
 <% end %>
 </ul>
 
-<%= form_with model: @enroll, url: subsidiary_enrolls_confirm_path, local:true do |f| %>
+<%= form_with model: @enroll, url: subsidiary_enrolls_confirm_path(@subsidiary.id), local:true do |f| %>
   <%= f.label :plan_id %>
   <%= f.collection_select(:plan_id, @subsidiary.plans, :id, :description, prompt: 'Selecione o plano') %>
   <%= f.label :payment_option_id %>

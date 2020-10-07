@@ -2,9 +2,19 @@
 pt-BR:
   enrolls:
     already_enrolled: Você já está matriculado em uma unidade
+    subsidiary_not_found: Filial não encontrada
     confirm:
       back: Voltar
       confirm: Confirmar
+      client:
+        cpf: CPF
+        email: E-mail
+      plan:
+        name: Plano
+        permanency: Permanência
+        monthly_payment: Mensalidade
+      payment_option:
+        name: Meio de pagamento
     new:
       submit: Próximo
     create:
@@ -22,3 +32,4 @@ pt-BR:
         client_id: Cliente
         payment_option: Forma de pagamento
         payment_option_id: Forma de pagamento
+          

@@ -17,6 +17,10 @@ class Client < ApplicationRecord
     email.split('@')[1]
   end
 
+  def already_enrolled?
+    enrolls.present?
+  end
+
   private
 
   def cpf_validation

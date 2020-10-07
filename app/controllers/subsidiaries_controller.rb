@@ -1,7 +1,6 @@
 class SubsidiariesController < ApplicationController
   def show
-    @subsidiary = Subsidiary.find
-    # Ajustar quando mudar o model
+    @subsidiary = Subsidiary.find(params[:id])
   end
 
   def search

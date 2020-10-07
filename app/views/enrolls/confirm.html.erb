@@ -1,15 +1,15 @@
 <dl>
-  <dt>CPF:  </dt>
+  <dt><%= t('.client.cpf') %></dt>
   <dd><%= @enroll.client.cpf %></dd>
-  <dt>Email: </dt>
+  <dt><%= t('.client.email') %></dt>
   <dd><%= @enroll.client.email %></dd>
-  <dt>Plano: </dt>
+  <dt><%= t('.plan.name') %></dt>
   <dd><%= @enroll.plan.name %></dd>
-  <dt>Forma de Pagamento: </dt>
+  <dt><%= t('.payment_option.name')%></dt>
   <dd><%= @enroll.payment_option.name %></dd>
-  <dt>Permanência mínima: </dt>
+  <dt><%= t('.plan.permanency')%></dt>
   <dd><%= "#{@enroll.plan.permanency} meses" %></dd>
-  <dt>Mensalidade</dt>
+  <dt><%= t('.plan.monthly_payment')%></dt>
   <dd><%= number_to_currency @enroll.plan.monthly_payment %></dd>
 </dl>
 

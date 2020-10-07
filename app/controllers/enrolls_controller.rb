@@ -4,10 +4,8 @@ class EnrollsController < ApplicationController
 
   def new
     @enroll = Enroll.new
-    @subsidiary = Subsidiary.find
-    # ajustar quando mudar o model
+    @subsidiary = Subsidiary.find(params[:subsidiary_id])
     @payment_options = PaymentOption.all
-    # no futuro find(params[:subsidiary_id])
   end
 
   def create
@@ -15,11 +13,9 @@ class EnrollsController < ApplicationController
     if @enroll.save
       redirect_to root_path, notice: t('.successfully')
     else
-      @subsidiary = Subsidiary.find
-      # ajustar quando mudar o model
+      @subsidiary = Subsidiary.find(@enroll.subsidiary_id)
       @payment_options = PaymentOption.all
-      # no futuro passar @enroll.subsidiary
-      render :new
+      redirect_invalid
     end
   end
 
@@ -27,11 +23,9 @@ class EnrollsController < ApplicationController
     @enroll = Enroll.new(enroll_params_confirm)
     return if @enroll.valid?
 
-    @subsidiary = Subsidiary.find
-    # ajustar quando mudar o model
+    @subsidiary = Subsidiary.find(params[:subsidiary_id])
     @payment_options = PaymentOption.all
-    # no futuro passar @enroll.subsidiary
-    render :new
+    redirect_invalid
   end
 
   private
@@ -46,6 +40,14 @@ class EnrollsController < ApplicationController
   end
 
   def check_already_enrolled
-    redirect_to root_path, notice: t('.already_enrolled') if current_client.enrolls.present?
+    redirect_to root_path, notice: t('.already_enrolled') if current_client.already_enrolled?
+  end
+
+  def redirect_invalid
+    if @subsidiary
+      render :new
+    else
+      redirect_to root_path, notice: t('.subsidiary_not_found')
+    end
   end
 end

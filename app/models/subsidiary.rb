@@ -14,8 +14,9 @@ class Subsidiary
      new(id: 3, name: 'Santos', address: 'Rua das Hortências, 302', cep: '78150-384')]
   end
 
-  def self.find
-    all[0]
+  def self.find(id)
+    id = id.to_i
+    all.find { |hash| hash.id == id }
   end
 
   def plans

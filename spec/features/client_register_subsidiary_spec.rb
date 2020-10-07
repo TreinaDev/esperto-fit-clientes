@@ -66,7 +66,8 @@ feature 'client enroll a subsidiary' do
     click_on 'Matricule-se agora'
     click_on 'Próximo'
 
-    expect(page).to have_content('não pode ficar em branco', count: 2)
+    expect(page).to have_content('não pode ficar em branco', count: 1)
+    expect(page).to have_content('é obrigatório(a)', count: 1)
   end
 
   scenario 'and return to enroll form' do
