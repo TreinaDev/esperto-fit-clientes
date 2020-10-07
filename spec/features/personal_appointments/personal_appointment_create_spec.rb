@@ -20,10 +20,12 @@ feature 'Personal Creates Appointment' do
     click_on 'Novo horário'
 
     fill_in 'Data', with: Date.tomorrow
+    fill_in 'Preço por hora', with: 50.00
     click_on 'Enviar'
 
     expect(page).to have_content('Agenda criada com sucesso')
     expect(page).to have_content(Date.tomorrow.strftime('%d/%m/%Y'))
+    expect(page).to have_content('R$ 50,00')
   end
 
   scenario 'fail error messages' do

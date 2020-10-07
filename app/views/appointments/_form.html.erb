@@ -10,5 +10,8 @@
   <%= form.label :appointment_date %>
   <%= form.date_field :appointment_date %>
 
+  <%= form.label :price_per_hour %>
+  <%= form.number_field :price_per_hour, min: 0%>
+
   <%= form.submit 'Enviar' %>
 <% end %>

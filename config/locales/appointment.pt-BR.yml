@@ -18,3 +18,4 @@ pt-BR:
     attributes:
       appointment:
         appointment_date: Data
+        price_per_hour: Preço por hora
