@@ -8,6 +8,14 @@ class Client < ApplicationRecord
   validates :cpf, uniqueness: true
   validate :cpf_validation
 
+  def partner?
+    VerifyPartnershipService.new(self).call
+  end
+
+  def domain
+    email.split('@')[1]
+  end
+
   private
 
   def cpf_validation
