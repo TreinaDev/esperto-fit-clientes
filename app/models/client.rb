@@ -1,5 +1,5 @@
 class Client < ApplicationRecord
-  has_many :enrolls, dependent: :destroy
+  has_one :enroll, -> { order(created_at: :desc) }, inverse_of: :client
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -18,7 +18,7 @@ class Client < ApplicationRecord
   end
 
   def already_enrolled?
-    enrolls.present?
+    enroll.present?
   end
 
   private
