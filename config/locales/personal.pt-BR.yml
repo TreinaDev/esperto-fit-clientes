@@ -1,0 +1,12 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      personal: Personal Trainer
+    attributes:
+      personal:
+        email: Email
+        password: Senha
+        name: Nome
+        cpf: CPF
+        cref: CREF
