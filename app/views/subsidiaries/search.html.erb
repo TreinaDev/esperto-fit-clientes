@@ -5,7 +5,7 @@
 <% else %>
   <% @subsidiaries.each do |subsidiary| %>
     <div>
-      <h2><%= link_to subsidiary.name, subsidiary_path(subsidiary) %></h2>
+      <h2><%= link_to subsidiary.name, subsidiary_path(subsidiary.id) %></h2>
       <li><%= subsidiary.address %></li>
       <li><%= subsidiary.cep %></li>
     </div>

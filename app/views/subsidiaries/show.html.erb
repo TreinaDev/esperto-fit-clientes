@@ -3,5 +3,5 @@
 <li><%= @subsidiary.cep %></li>
 
 <% if personal_signed_in? %>
-  <%= button_to 'Adicionar Filial', add_subsidiary_personal_path(@subsidiary, current_personal) %>
+  <%= button_to 'Adicionar Filial', add_subsidiary_personal_path(@subsidiary.id, current_personal) %>
 <% end %>
