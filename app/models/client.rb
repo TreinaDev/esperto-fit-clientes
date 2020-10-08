@@ -9,6 +9,14 @@ class Client < ApplicationRecord
   validate :cpf_validation
   # validate :cpf_ban? is true
 
+  def partner?
+    VerifyPartnershipService.new(self).call
+  end
+
+  def domain
+    email.split('@')[1]
+  end
+
   private
 
   def cpf_validation
