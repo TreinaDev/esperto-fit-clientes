@@ -39,5 +39,18 @@ describe 'Clients API' do
         expect(response_json[:email]).to include(client.email)
       end
     end
+    context 'record not exist' do
+      it 'return status code 404' do
+        get '/api/v1/clients/000'
+
+        expect(response).to be_not_found
+      end
+
+      it 'return not found message' do
+        get '/api/v1/clients/000'
+
+        expect(response.body).to include('Cliente não encontrado')
+      end
+    end
   end
 end
