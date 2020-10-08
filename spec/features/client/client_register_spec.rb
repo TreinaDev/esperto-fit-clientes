@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Visitor creates Account' do
   scenario 'successfully' do
     visit root_path
-    click_on 'Registrar'
+    click_on 'Registrar cliente'
     fill_in 'CPF', with: '082.923.869-71'
     fill_in 'Email', with: 'test@email.com'
     fill_in 'Senha', with: '12345678'
@@ -12,7 +12,7 @@ feature 'Visitor creates Account' do
 
     expect(page).to have_content('Bem vindo! Você realizou seu registro com sucesso.')
     expect(page).to_not have_link('Entrar')
-    expect(page).to_not have_link('Registrar')
+    expect(page).to_not have_link('Registrar cliente', exact: true)
     expect(page).to have_link('Sair')
   end
 
