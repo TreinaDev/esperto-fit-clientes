@@ -3,3 +3,5 @@ pt-BR:
   subsidiaries:
     search:
       submit: Buscar
+    show:
+      enroll_now: Matricule-se agora
