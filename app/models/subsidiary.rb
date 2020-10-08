@@ -14,15 +14,20 @@ class Subsidiary
      new(id: 3, name: 'Santos', address: 'Rua das Hortências, 302', cep: '78150-384')]
   end
 
+  def self.find(id)
+    id = id.to_i
+    all.find { |hash| hash.id == id }
+  end
+
+  def plans
+    Plan.all
+  end
+
   def self.search(query)
     all.filter do |subsidiary|
       subsidiary.name.downcase.include?(query.downcase) or
         subsidiary.address.downcase.include?(query.downcase) or
         subsidiary.cep.split('-').join == query.split('-').join
     end
-  end
-
-  def self.find(_id)
-    new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
   end
 end

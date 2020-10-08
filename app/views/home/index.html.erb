@@ -8,7 +8,7 @@
   <h1>Nenhuma filial encontrada</h1>
 <% else %>
   <% @subsidiaries.each do |subsidiary| %>
-    <h1><%= subsidiary.name %></h1>
+    <h1><%= link_to subsidiary.name, subsidiary_path(subsidiary.id) %></h1>
     <%= subsidiary.address %><br>
     <%= subsidiary.cep %>
   <% end %>

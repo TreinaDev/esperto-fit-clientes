@@ -1,7 +1,16 @@
-<h2><%= @subsidiary.name %></h2>
-<li><%= @subsidiary.address %></li>
-<li><%= @subsidiary.cep %></li>
+<h1> Unidade <%= @subsidiary.name %> </h1>
+
+<dl>
+  <dt>Endereço:  </dt>
+  <dd><%= @subsidiary.address %></dd>
+  <dt>CEP</dt>
+  <dd><%= @subsidiary.cep %></dd>
+</dl>
 
 <% if personal_signed_in? %>
   <%= button_to 'Adicionar Filial', add_subsidiary_personal_path(@subsidiary.id, current_personal) %>
+<% end %>
+
+<% if !client_signed_in? || !current_client.already_enrolled? %>
+  <%= link_to t('.enroll_now'), new_subsidiary_enroll_path(@subsidiary.id) %>
 <% end %>
