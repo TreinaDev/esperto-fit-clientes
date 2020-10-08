@@ -32,13 +32,13 @@ describe 'Clients API' do
       it 'returns client' do
         get "/api/v1/clients/#{client.id}"
 
-        response_json = JSON.parse(response.body)
+        response_json = JSON.parse(response.body, symbolize_names: true)
 
         expect(response).to have_http_status(200)
-        expect(json_response).to include(client.cpf)
-        expect(json_response).to include(client.email)
+        expect(response_json[:cpf]).to include(client.cpf)
+        expect(response_json[:email]).to include(client.email)
       end
     end
-
+    
   end
 end
