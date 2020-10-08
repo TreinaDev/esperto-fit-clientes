@@ -6,4 +6,10 @@ Rails.application.routes.draw do
   resources :subsidiaries, only: [] do
     get 'search', on: :collection
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :clients, only: [:index]
+    end
+  end
 end

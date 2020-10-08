@@ -5,7 +5,7 @@ describe 'Clients API' do
     it 'return clients' do 
       clients = create_list(:client, 2)
 
-      get 'api/v1/clients'
+      get '/api/v1/clients'
   
       expect(response).to have_http_status(200)
       expect(response.body).to include(clients[0].cpf)
