@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'Clients API' do
   context 'index' do
-    it 'return clients' do 
+    it 'return clients' do
       clients = create_list(:client, 2)
 
       get '/api/v1/clients'
-  
+
       expect(response).to have_http_status(200)
       expect(response.body).to include(clients[0].cpf)
       expect(response.body).to include(clients[0].email)
@@ -16,7 +16,7 @@ describe 'Clients API' do
 
     it 'returns []' do
       get '/api/v1/clients'
-      
+
       response_json = JSON.parse(response.body)
 
       expect(response).to have_http_status(200)
@@ -39,6 +39,5 @@ describe 'Clients API' do
         expect(response_json[:email]).to include(client.email)
       end
     end
-    
   end
 end
