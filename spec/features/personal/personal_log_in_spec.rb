@@ -1,12 +1,14 @@
 require 'rails_helper'
 
-feature 'Client login on system' do
+feature 'Personal login on system' do
   scenario 'successfully' do
-    cliente = create(:client)
+    personal = create(:personal)
+
     visit root_path
     click_on 'Entrar'
-    fill_in 'CPF', with: cliente.cpf
-    fill_in 'Senha', with: cliente.password
+    click_on 'aqui'
+    fill_in 'CPF', with: personal.cpf
+    fill_in 'Senha', with: personal.password
     click_on 'Log in'
 
     expect(page).to have_content('Login efetuado com sucesso')
@@ -15,21 +17,23 @@ feature 'Client login on system' do
     expect(page).to have_link('Sair')
   end
 
-  scenario 'client failed to login' do
-    cliente = create(:client)
+  scenario 'personal failed to login' do
+    personal = create(:personal)
+
     visit root_path
     click_on 'Entrar'
+    click_on 'aqui'
     fill_in 'CPF', with: ''
-    fill_in 'Senha', with: cliente.password
+    fill_in 'Senha', with: personal.password
     click_on 'Log in'
 
     expect(page).to have_content('CPF ou senha inválidos.')
   end
 
   scenario 'and log out' do
-    client = create(:client)
-    login_as client, scope: :client
+    personal = create(:personal)
 
+    login_as personal, scope: :personal
     visit root_path
     click_on 'Sair'
 

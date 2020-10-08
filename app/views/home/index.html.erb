@@ -1,7 +1,5 @@
-<%= link_to 'Registrar Personal Trainer', new_personal_registration_path %>
-
 <% if personal_signed_in? %>
-  <p><%= current_personal.name %></p>
+  <p>Bem vindo, <%= current_personal.name %>!</p>
 <% end %>
 
 <%= render partial: 'subsidiaries/search' %>

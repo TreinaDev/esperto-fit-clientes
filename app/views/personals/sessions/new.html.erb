@@ -1,9 +1,11 @@
-<h2>Log in</h2>
+<h2>Log in de <span style="color:red">Personal</span></h2>
+
+<h4>Se você é um cliente regular, clique <%= link_to 'aqui', new_client_session_path %>.</h3>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :cpf %><br />
+    <%= f.text_field :cpf %>
   </div>
 
   <div class="field">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_06_202527) do
+ActiveRecord::Schema.define(version: 2020_10_08_184715) do
 
   create_table "clients", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 2020_10_06_202527) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "personal_subsidiary_id"
+    t.index ["cpf"], name: "index_personals_on_cpf", unique: true
+    t.index ["cref"], name: "index_personals_on_cref", unique: true
     t.index ["email"], name: "index_personals_on_email", unique: true
     t.index ["personal_subsidiary_id"], name: "index_personals_on_personal_subsidiary_id"
     t.index ["reset_password_token"], name: "index_personals_on_reset_password_token", unique: true
