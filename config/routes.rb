@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   end
 
   resources :enrolls, only: :create
+  resources :profiles, only: [:index, :new,:create, :show, :update]
 end

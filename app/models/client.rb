@@ -1,5 +1,6 @@
 class Client < ApplicationRecord
   has_one :enroll, -> { order(created_at: :desc) }, inverse_of: :client
+  has_one :profile, through: :enroll
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -1,7 +1,17 @@
 <%= link_to 'Registrar Personal Trainer', new_personal_registration_path %>
 
-<% if personal_signed_in? %>
+
+
+<% if personal_signed_in?  %>
   <%= current_personal.name %><br>
+<% end %>
+
+<% if client_signed_in? && current_client.enroll.present? %>
+  <% if current_client.profile.nil?%>
+    <%= link_to 'Complete seu perfil', new_profile_path %>
+  <% else %>
+    <%= link_to 'Ver perfil', profile_path(current_client.profile) %>
+  <% end %>
 <% end %>
 
 <%= render partial: 'subsidiaries/search' %>
