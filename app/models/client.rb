@@ -8,7 +8,7 @@ class Client < ApplicationRecord
   validates :cpf, uniqueness: true
   validate :cpf_validation
   # validate :status.active?,  acceptance: true
-  # enum status: { active: 0, banned: 50 }
+  enum status: { active: 0, banned: 900 }
 
   def partner?
     VerifyPartnershipService.new(self).call

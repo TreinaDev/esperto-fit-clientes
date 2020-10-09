@@ -17,4 +17,51 @@ RSpec.describe Personal, type: :model do
     expect(personal.errors[:cref]).to include('não é válido')
     expect(personal.errors[:cpf]).to include('não é válido')
   end
+
+  it 'status cannot be blank' do
+    personal = Personal.create
+
+    expect(personal.errors[:status]).to include('ocorreu um erro, tente novamente mais tarde')
+  end
+
+  context '#cpf_banned?' do
+    it 'response is true from API' do
+      personal = build(:personal, status: nil)
+
+      faraday_response = double('cpf_ban', status: 200, body: 'true')
+
+      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
+                                     .and_return(faraday_response)
+
+      personal.valid?
+
+      expect(personal.status).to eq 'banned'
+    end
+
+    it 'response is false from API' do
+      personal = build(:personal, status: nil)
+      faraday_response = double('cpf_ban', status: 200, body: 'false')
+
+      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
+                                     .and_return(faraday_response)
+
+      personal.valid?
+
+      expect(personal.status).to eq 'active'
+    end
+
+    it 'error on API' do
+      personal = build(:personal, status: nil)
+
+      faraday_response = double('cpf_ban', status: 500)
+
+      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
+                                     .and_return(faraday_response)
+
+      personal.valid?
+
+      expect(personal.status).to eq nil
+      expect(personal.valid?).to eq false
+    end
+  end
 end
