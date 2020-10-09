@@ -18,6 +18,7 @@ gem 'webpacker', '~> 4.0'
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry-byebug'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 4.0.1'
 end
 
