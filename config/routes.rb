@@ -10,4 +10,8 @@ Rails.application.routes.draw do
   end
 
   resources :enrolls, only: :create
+
+  namespace :api do
+    get 'user/:cpf/ban', to: 'users#ban', as: 'user_ban'
+  end
 end

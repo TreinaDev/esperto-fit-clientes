@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Banned client' do
   scenario 'try register client banned' do
     client = build(:client)
-    allow(Client).to receive(:cpf_banned?).and_return(true)
+    allow(client).to receive(:cpf_get_status).and_return(true)
 
     visit root_path
     click_on 'Registrar'
@@ -18,7 +18,7 @@ feature 'Banned client' do
 
   scenario 'try login client banned' do
     client = create(:client)
-    allow(Client).to receive(:cpf_banned?).and_return(true)
+    allow(client).to receive(:cpf_get_status).and_return(true)
 
     visit root_path
     click_on 'Entrar'
@@ -31,7 +31,7 @@ feature 'Banned client' do
 
   scenario 'try register personal trainer banned' do
     personal = build(:personal)
-    allow(Personal).to receive(:cpf_banned?).and_return(true)
+    allow(personal).to receive(:cpf_get_status).and_return(true)
 
     visit root_path
     click_on 'Registrar Personal Trainer'
@@ -47,7 +47,7 @@ feature 'Banned client' do
 
   scenario 'try login personal trainer banned' do
     personal = create(:personal)
-    allow(Personal).to receive(:cpf_banned?).and_return(true)
+    allow(personal).to receive(:cpf_get_status).and_return(true)
 
     visit root_path
     click_on 'Entrar Personal Trainer'

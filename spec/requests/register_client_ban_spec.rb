@@ -4,34 +4,43 @@ describe 'Ban user' do
   context 'GET /api/user/:user_cpf/ban' do
     context 'with valid parameters' do
       it 'return 200 status if user have client account' do
-        create(:client)
+        client = create(:client)
 
-        get "/api/user/#{client.cpf}/ban"
+        get "/api/user/#{CPF.new(client.cpf).stripped}/ban"
 
         expect(response).to be_ok
-        expect(response.body).to include('Usuário banido com sucesso')
+        expect(response.body).to include('Cliente banido com sucesso')
       end
 
       it 'return 200 status if user have personal account' do
-        create(:personal)
+        personal = create(:personal)
 
-        get "/api/user/#{personal.cpf}/ban"
+        get "/api/user/#{CPF.new(personal.cpf).stripped}/ban"
 
         expect(response).to be_ok
-        expect(response.body).to include('Usuário banido com sucesso')
+        expect(response.body).to include('Personal banido com sucesso')
       end
 
-      it 'return 409 if user already banned' do
-        create(:client, status: 'banned')
+      it 'return 200 if client already banned' do
+        client = create(:client, status: 'banned')
 
-        get "/api/user/#{client.cpf}/ban"
+        get "/api/user/#{CPF.new(client.cpf).stripped}/ban"
 
-        expect(response).to be_conflict
-        expect(response.body).to include('Usuário já banido anteriormente')
+        expect(response).to be_ok
+        expect(response.body).to include('Cliente já banido anteriormente')
+      end
+
+      it 'return 200 if personal already banned' do
+        personal = create(:personal, status: 'banned')
+
+        get "/api/user/#{CPF.new(personal.cpf).stripped}/ban"
+
+        expect(response).to be_ok
+        expect(response.body).to include('Personal já banido anteriormente')
       end
 
       it 'return 404 if user dont have account' do
-        get "/api/user/#{CPF.generate(formatted: true)}/ban"
+        get '/api/user/08858754948/ban'
 
         expect(response).to be_not_found
         expect(response.body).to include('O usuário não possui cadastro ativo')

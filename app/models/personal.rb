@@ -23,6 +23,7 @@ class Personal < ApplicationRecord
       self.status = 'banned'
     when 'false'
       self.status = 'active'
+      false
     end
   end
 

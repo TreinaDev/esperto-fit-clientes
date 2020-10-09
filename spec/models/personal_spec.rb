@@ -24,7 +24,7 @@ RSpec.describe Personal, type: :model do
     expect(personal.errors[:status]).to include('ocorreu um erro, tente novamente mais tarde')
   end
 
-  context '#cpf_banned?' do
+  context '#cpf_get_status' do
     it 'response is true from API' do
       personal = build(:personal, status: nil)
 
@@ -33,7 +33,7 @@ RSpec.describe Personal, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
                                      .and_return(faraday_response)
 
-      personal.valid?
+      personal.cpf_get_status
 
       expect(personal.status).to eq 'banned'
     end
@@ -45,7 +45,7 @@ RSpec.describe Personal, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
                                      .and_return(faraday_response)
 
-      personal.valid?
+      personal.cpf_get_status
 
       expect(personal.status).to eq 'active'
     end
@@ -58,7 +58,7 @@ RSpec.describe Personal, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
                                      .and_return(faraday_response)
 
-      personal.valid?
+      personal.cpf_get_status
 
       expect(personal.status).to eq nil
       expect(personal.valid?).to eq false
