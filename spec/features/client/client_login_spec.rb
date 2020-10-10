@@ -11,7 +11,8 @@ feature 'Client login on system' do
 
     expect(page).to have_content('Login efetuado com sucesso')
     expect(page).to_not have_link('Entrar')
-    expect(page).to_not have_link('Registrar', exact: true)
+    expect(page).to_not have_link('Registrar',
+                                  href: new_client_registration_path)
     expect(page).to have_link('Sair')
   end
 

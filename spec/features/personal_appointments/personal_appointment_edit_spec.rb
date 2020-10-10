@@ -9,7 +9,8 @@ feature 'Personal edit Appointment' do
   end
 
   scenario 'successfully' do
-    personal = create(:personal); login_as(personal)
+    personal = create(:personal)
+    login_as(personal)
     appointment = create(:appointment, personal: personal)
     visit appointment_path(appointment)
     click_link 'Editar'
@@ -21,7 +22,8 @@ feature 'Personal edit Appointment' do
   end
 
   scenario 'edit only their own' do
-    personal = create(:personal, email: 'not_owner@email.com'); login_as(personal)
+    personal = create(:personal, email: 'not_owner@email.com')
+    login_as(personal)
     appointment = create(:appointment)
     visit appointment_path(appointment)
 

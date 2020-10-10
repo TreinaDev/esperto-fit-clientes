@@ -8,14 +8,16 @@ feature 'Personal Creates Appointment' do
   end
 
   scenario 'page have link to new_appointment_path' do
-    personal = create(:personal); login_as(personal)
+    personal = create(:personal)
+    login_as(personal)
     visit appointments_path
-    
+
     expect(page).to have_link('Novo horário', href: new_appointment_path)
   end
 
   scenario 'successfully' do
-    personal = create(:personal); login_as(personal)
+    personal = create(:personal)
+    login_as(personal)
     visit appointments_path
     click_on 'Novo horário'
 
@@ -29,7 +31,8 @@ feature 'Personal Creates Appointment' do
   end
 
   scenario 'fail error messages' do
-    personal = create(:personal); login_as(personal)
+    personal = create(:personal)
+    login_as(personal)
     visit appointments_path
     click_on 'Novo horário'
 
