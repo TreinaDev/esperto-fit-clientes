@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :profile do
-    name { "MyString" }
-    address { "MyString" }
+    name { 'Aluno' }
+    address { 'Av. Paulista' }
+    enroll
   end
 end
