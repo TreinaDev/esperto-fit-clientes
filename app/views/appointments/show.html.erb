@@ -1,4 +1,4 @@
-<%= link_to 'Editar', edit_appointment_path(@appointment) if owner?(@appointment) %>
+<%= link_to 'Editar', edit_appointment_path(@appointment) if @appointment.owner?(current_personal) %>
 
 <%= l(@appointment.appointment_date, format: :default) %>
 <%= number_to_currency(@appointment.price_per_hour) %>
