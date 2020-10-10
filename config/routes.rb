@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
   devise_for :personals
   devise_for :clients
-  root to: 'home#index'
+
+  resources :appointments, only: [:index, :show, :new, :create, :edit, :update]
 
   resources :subsidiaries, only: :show do
     post 'enrolls/confirm', to: 'enrolls#confirm'
