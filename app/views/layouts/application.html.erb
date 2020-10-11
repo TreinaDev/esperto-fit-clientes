@@ -13,6 +13,7 @@
     <% if client_signed_in? %>
       <%= link_to 'Sair', destroy_client_session_path, method: :delete %>
       <%= link_to 'Personais disponíveis', order_appointments_path %>
+      <%= link_to 'Treinos agendados', order_appointments_path %>
     <%  else %>
       <%= link_to 'Registrar', new_client_registration_path %>
       <%= link_to 'Entrar', new_client_session_path %>

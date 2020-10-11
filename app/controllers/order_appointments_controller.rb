@@ -1,6 +1,6 @@
 class OrderAppointmentsController < ApplicationController
   def index
-    @appointments = Appointment.all
+    @appointments = Appointment.available
   end
 
   def create

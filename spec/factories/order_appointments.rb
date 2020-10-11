@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :order_appointment do
-    client { nil }
-    appointment { nil }
+    client
+    appointment
   end
 end

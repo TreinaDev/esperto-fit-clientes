@@ -15,6 +15,20 @@ feature 'Order Appointments' do
     expect(page).to have_content(appointments[1].appointment_time)
   end
 
+  scenario 'only available appointments' do
+    client = create(:client)
+    login_as(client, scope: :client)
+    appointments = create_list(:appointment, 2)
+    not_available = create(:appointment, status: :ordered, appointment_date: Time.zone.tomorrow)
+
+    visit root_path
+    click_link 'Personais disponíveis'
+
+    expect(page).to have_content(appointments[0].appointment_date)
+    expect(page).to have_content(appointments[1].appointment_date)
+    expect(page).not_to have_content(not_available.appointment_date)
+  end
+
   scenario 'view details' do
     client = create(:client)
     login_as(client, scope: :client)
