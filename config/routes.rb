@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   resources :appointments, only: [:index, :show, :new, :create, :edit, :update] do
     resources :order_appointments, only: [:create]
   end
+
   resources :order_appointments, only: [:index]
+
+  resources :clients, only: [] do
+    resources :ordered_appointments, only: :index, module: :clients
+  end
 
   resources :subsidiaries, only: :show do
     post 'enrolls/confirm', to: 'enrolls#confirm'
