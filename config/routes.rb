@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   devise_for :personals
   devise_for :clients
 
-  resources :appointments, only: [:index, :show, :new, :create, :edit, :update]
+  resources :appointments, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :order_appointments, only: [:create]
+  end
+  resources :order_appointments, only: [:index]
 
   resources :subsidiaries, only: :show do
     post 'enrolls/confirm', to: 'enrolls#confirm'

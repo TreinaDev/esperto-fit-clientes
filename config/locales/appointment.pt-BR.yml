@@ -19,3 +19,7 @@ pt-BR:
       appointment:
         appointment_date: Data
         price_per_hour: Preço por hora
+        stutus:
+          available: Disponível
+          ordered: Agendado
+          canceled: Cancelado

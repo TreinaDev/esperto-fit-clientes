@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_07_162709) do
+ActiveRecord::Schema.define(version: 2020_10_10_233955) do
 
   create_table "appointments", force: :cascade do |t|
     t.time "appointment_time"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_10_07_162709) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "price_per_hour"
+    t.integer "status", default: 0
     t.index ["personal_id"], name: "index_appointments_on_personal_id"
   end
 
@@ -48,6 +49,15 @@ ActiveRecord::Schema.define(version: 2020_10_07_162709) do
     t.index ["payment_option_id"], name: "index_enrolls_on_payment_option_id"
   end
 
+  create_table "order_appointments", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.integer "appointment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_order_appointments_on_appointment_id"
+    t.index ["client_id"], name: "index_order_appointments_on_client_id"
+  end
+
   create_table "payment_options", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -73,4 +83,6 @@ ActiveRecord::Schema.define(version: 2020_10_07_162709) do
   add_foreign_key "appointments", "personals"
   add_foreign_key "enrolls", "clients"
   add_foreign_key "enrolls", "payment_options"
+  add_foreign_key "order_appointments", "appointments"
+  add_foreign_key "order_appointments", "clients"
 end

@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :authenticate_personal!
+  before_action :authenticate_personal!, only: %i[index new create edit update]
 
   def index
     @appointments = current_personal.appointments
