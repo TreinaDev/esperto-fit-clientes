@@ -37,6 +37,12 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def cancel
+    @appointment = Appointment.find(params[:id])
+    @appointment.update(status: :canceled)
+    redirect_to @appointment, notice: 'Agendamento cancelado'
+  end
+
   private
 
   def appointment_params

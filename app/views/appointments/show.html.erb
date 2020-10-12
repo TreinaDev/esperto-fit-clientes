@@ -7,4 +7,6 @@
 <%= l(@appointment.appointment_date, format: :default) %>
 <%= number_to_currency(@appointment.price_per_hour) %>
 
-<%= @appointment.status %>
+<% if @appointment.ordered? %>
+  <%= link_to 'Cancelar agendamento', cancel_appointment_path(@appointment), method: :put if @appointment.owner?(current_personal) %>
+<% end %>

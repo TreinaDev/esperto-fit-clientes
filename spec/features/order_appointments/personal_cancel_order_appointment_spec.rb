@@ -1,0 +1,19 @@
+require 'rails_helper'
+
+feature 'Personal cancel order appointment' do
+  scenario 'successfully' do
+    personal = create(:personal)
+    login_as(personal, scope: :personal)
+    appointment = create(:appointment, personal: personal, status: 'ordered')
+    create(:order_appointment, appointment: appointment)
+
+    visit root_path
+    click_link 'Minha Agenda'
+    click_link 'Detalhes'
+    click_link 'Cancelar agendamento'
+
+    appointment.reload
+    expect(page).to have_content('Agendamento cancelado')
+    expect(appointment.status).to eq('canceled')
+  end
+end
