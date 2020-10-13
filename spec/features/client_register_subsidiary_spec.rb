@@ -2,7 +2,10 @@ require 'rails_helper'
 
 feature 'client enroll a subsidiary' do
   scenario 'and view details summary' do
-    client = create(:client)
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
@@ -30,7 +33,10 @@ feature 'client enroll a subsidiary' do
   end
 
   scenario 'sucessfully' do
-    client = create(:client)
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
@@ -52,7 +58,10 @@ feature 'client enroll a subsidiary' do
   end
 
   scenario 'not must fill in blank' do
-    client = create(:client)
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    client = create(:client, cpf: '478.145.318-02')
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
@@ -71,7 +80,10 @@ feature 'client enroll a subsidiary' do
   end
 
   scenario 'and return to enroll form' do
-    client = create(:client)
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')

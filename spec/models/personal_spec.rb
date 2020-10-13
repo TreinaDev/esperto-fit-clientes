@@ -9,6 +9,7 @@ RSpec.describe Personal, type: :model do
     expect(personal.errors[:cpf]).to include('não pode ficar em branco')
     expect(personal.errors[:email]).to include('não pode ficar em branco')
     expect(personal.errors[:password]).to include('não pode ficar em branco')
+    expect(personal.errors[:status]).to include('não pode ficar em branco')
   end
 
   it 'CPF and CREF must be valid' do
@@ -18,19 +19,13 @@ RSpec.describe Personal, type: :model do
     expect(personal.errors[:cpf]).to include('não é válido')
   end
 
-  it 'status cannot be blank' do
-    personal = Personal.create
-
-    expect(personal.errors[:status]).to include('ocorreu um erro, tente novamente mais tarde')
-  end
-
   context '#cpf_get_status' do
     it 'response is true from API' do
       personal = build(:personal, status: nil)
 
       faraday_response = double('cpf_ban', status: 200, body: 'true')
 
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
+      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
                                      .and_return(faraday_response)
 
       personal.cpf_get_status
@@ -42,7 +37,7 @@ RSpec.describe Personal, type: :model do
       personal = build(:personal, status: nil)
       faraday_response = double('cpf_ban', status: 200, body: 'false')
 
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
+      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
                                      .and_return(faraday_response)
 
       personal.cpf_get_status
@@ -55,7 +50,7 @@ RSpec.describe Personal, type: :model do
 
       faraday_response = double('cpf_ban', status: 500)
 
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{personal.cpf}")
+      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
                                      .and_return(faraday_response)
 
       personal.cpf_get_status

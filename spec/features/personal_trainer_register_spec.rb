@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Personal Trainer register' do
   scenario 'successfully' do
     faraday_response = double('cpf_ban', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/08858754948")
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/08858754948')
                                    .and_return(faraday_response)
 
     visit root_path

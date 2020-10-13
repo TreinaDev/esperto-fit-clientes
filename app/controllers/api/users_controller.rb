@@ -1,30 +1,27 @@
 class Api::UsersController < ActionController::API
   def ban
-    client = Client.find_by(cpf: CPF.new(params[:cpf]).formatted)
-    personal = Personal.find_by(cpf: CPF.new(params[:cpf]).formatted)
+    return render status: :precondition_failed, json: 'CPF inválido' unless CPF.valid?(params[:cpf])
 
-    return render status: :not_found, json: 'O usuário não possui cadastro ativo' if  client==nil && personal==nil
+    cpf_formatted = CPF.new(params[:cpf]).formatted
+    client = Client.find_by(cpf: cpf_formatted)
+    personal = Personal.find_by(cpf: cpf_formatted)
+    return render status: :not_found, json: 'O usuário não possui cadastro ativo' if client.nil? && personal.nil?
 
-    messages = []
-
-    if client
-      if client.active?
-        client.banned!
-        messages.add('Cliente banido com sucesso')
-      elsif client.banned?
-        messages.add('Cliente já banido anteriormente')
-      end
-    end
-
-    if personal
-      if personal.active?
-        personal.banned!
-        messages.add('Personal banido com sucesso')
-      elsif personal.banned?
-        messages.add('Personal já banido anteriormente')
-      end
-    end
+    messages = [user_ban(client), user_ban(personal)]
 
     render status: :ok, json: messages
+  end
+
+  private
+
+  def user_ban(user)
+    return unless user
+
+    if user.active?
+      user.banned!
+      "#{user.model_name.human} banido com sucesso"
+    elsif user.banned?
+      "#{user.model_name.human} já banido anteriormente"
+    end
   end
 end

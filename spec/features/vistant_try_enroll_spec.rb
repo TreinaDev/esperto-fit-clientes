@@ -14,7 +14,10 @@ feature 'visitant try enroll' do
   end
 
   scenario 'and has a enroll' do
-    client = create(:client)
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
@@ -33,7 +36,10 @@ feature 'visitant try enroll' do
   end
 
   scenario 'sucessfully' do
-    client = create(:client)
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    client = create(:client, cpf: '478.145.318-02')
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -57,7 +63,10 @@ feature 'visitant try enroll' do
   end
 
   scenario 'and already enrolled to access new path' do
-    client = create(:client)
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')

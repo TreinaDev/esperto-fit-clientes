@@ -5,26 +5,25 @@ class Client < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :cpf, presence: true
+  validates :cpf, :status, presence: true
   validates :cpf, uniqueness: true
   validate :cpf_validation
-  validate :check_ban
+  before_validation :cpf_get_status
 
   enum status: { active: 0, banned: 900 }
 
   def cpf_get_status
     return unless CPF.valid?(cpf)
 
-    response = Faraday.get "http://subsidiaries/api/v1/banned_user/#{cpf}"
-
+    response = Faraday.get "http://subsidiaries/api/v1/banned_user/#{CPF.new(cpf).stripped}"
     return unless response.status == 200
 
     case response.body
     when 'true'
       self.status = 'banned'
+      false
     when 'false'
       self.status = 'active'
-      false
     end
   end
 
@@ -40,19 +39,19 @@ class Client < ApplicationRecord
     enroll.present?
   end
 
+  def active_for_authentication?
+    super && cpf_get_status
+  end
+
+  def inactive_message
+    'Você foi banido'
+  end
+
   private
 
   def cpf_validation
     return if CPF.valid?(cpf)
 
     errors.add(:cpf, :cpf_invalid)
-  end
-
-  def check_ban
-    if banned?
-      errors.add(:status, 'teste')
-    elsif status.blank?
-      errors.add(:status, 'ocorreu um erro, tente novamente mais tarde')
-    end
   end
 end

@@ -2,6 +2,11 @@ require 'rails_helper'
 
 feature 'Visitor creates Account' do
   scenario 'successfully' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/08292386971')
+                                   .and_return(faraday_response)
+
     visit root_path
     click_on 'Registrar'
     fill_in 'CPF', with: '082.923.869-71'
@@ -23,7 +28,6 @@ feature 'Visitor creates Account' do
     fill_in 'Senha', with: ''
     click_on 'Cadastrar'
 
-    expect(page).to have_content('não pode ficar em branco', count: 3)
     expect(page).to have_content('Email não pode ficar em branco')
     expect(page).to have_content('CPF não pode ficar em branco')
     expect(page).to have_content('Senha não pode ficar em branco')
@@ -41,6 +45,10 @@ feature 'Visitor creates Account' do
   end
 
   scenario 'cpf must be uniq' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/08292386971')
+                                   .and_return(faraday_response)
     create(:client, cpf: '082.923.869-71')
     visit new_client_registration_path
     fill_in 'CPF', with: '082.923.869-71'

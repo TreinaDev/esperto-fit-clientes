@@ -3,38 +3,41 @@ require 'rails_helper'
 feature 'Banned client' do
   scenario 'try register client banned' do
     client = build(:client)
-    allow(client).to receive(:cpf_get_status).and_return(true)
+    faraday_response = double('cpf_check', status: 200, body: 'true')
+    allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(client.cpf).stripped}")
+                                   .and_return(faraday_response)
 
-    visit root_path
-    click_on 'Registrar'
+    visit new_client_registration_path
     fill_in 'CPF', with: client.cpf
     fill_in 'Email', with: client.email
     fill_in 'Senha', with: client.password
     fill_in 'Confirme sua senha', with: client.password
     click_on 'Cadastrar'
 
-    expect(page).to have_content('Você foi banido e não pode registrar-se')
+    expect(page).to have_content('Você foi banido')
   end
 
   scenario 'try login client banned' do
-    client = create(:client)
-    allow(client).to receive(:cpf_get_status).and_return(true)
+    faraday_response = double('cpf_check', status: 200, body: 'true')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    client = create(:client, cpf: '478.145.318-02')
 
-    visit root_path
-    click_on 'Entrar'
+    visit new_client_session_path
     fill_in 'CPF', with: client.cpf
     fill_in 'Senha', with: client.password
     click_on 'Login'
 
-    expect(page).to have_content('Você foi banido e não pode logar-se')
+    expect(page).to have_content('Você foi banido')
   end
 
   scenario 'try register personal trainer banned' do
     personal = build(:personal)
-    allow(personal).to receive(:cpf_get_status).and_return(true)
+    faraday_response = double('cpf_check', status: 200, body: 'true')
+    allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
+                                   .and_return(faraday_response)
 
-    visit root_path
-    click_on 'Registrar Personal Trainer'
+    visit new_personal_registration_path
     fill_in 'CPF', with: personal.cpf
     fill_in 'CREF', with: personal.cref
     fill_in 'Email', with: personal.email
@@ -42,19 +45,20 @@ feature 'Banned client' do
     fill_in 'Confirme sua senha', with: personal.password
     click_on 'Cadastrar'
 
-    expect(page).to have_content('Você foi banido e não pode registrar-se')
+    expect(page).to have_content('Você foi banido')
   end
 
   scenario 'try login personal trainer banned' do
-    personal = create(:personal)
-    allow(personal).to receive(:cpf_get_status).and_return(true)
+    faraday_response = double('cpf_check', status: 200, body: 'true')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    personal = create(:personal, cpf: '478.145.318-02')
 
-    visit root_path
-    click_on 'Entrar Personal Trainer'
+    visit new_personal_session_path
     fill_in 'CPF', with: personal.cpf
     fill_in 'Senha', with: personal.password
     click_on 'Login'
 
-    expect(page).to have_content('Você foi banido e não pode logar-se')
+    expect(page).to have_content('Você foi banido')
   end
 end
