@@ -18,20 +18,21 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # def edit
-  # @profile = Profile.find(params[:id])
-  # end
+  def edit
+    @profile = Profile.find(params[:id])
+  end
 
-  # def update
-  # @profile_params = params.require(:profile)
-  # .permit(:name, :address)
-  # @profile = Profile.find_by(id: params[:id])
-  # if @profile.update(@profile_params)
-  # redirect_to @profile
-  # else
-  # render :edit
-  # end
-  # end
+  def update
+    @enroll = Enroll.find(current_client.id)
+    @profile = Profile.find(params[:id])
+    @profile.update(params_profile)
+    if @profile.save
+      redirect_to @profile
+    else
+      render :edit
+    end
+  end
+
   private
 
   def params_profile

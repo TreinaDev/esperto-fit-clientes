@@ -14,4 +14,6 @@
   <dt>Permanencia minima</dt>
   <dd><%= @profile.enroll.plan.permanency %></dd>
 </dl>
+
+<%= link_to 'Editar perfil', edit_profile_path(@profile) %>
 <%= link_to 'Voltar', root_path %>

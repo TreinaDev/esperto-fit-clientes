@@ -20,15 +20,15 @@ feature 'client edit profile' do
     enroll = Enroll.create!(client: client, plan_id: plan.id,
                             payment_option: payment_option,
                             subsidiary_id: subsidiary.id)
-    create(:profile, enroll: enroll)
+    profile = create(:profile, enroll: enroll)
 
     login_as client, scope: :client
     visit root_path
     click_on 'Meu perfil'
     click_on 'Editar perfil'
-    fill_in 'Nome', with: 'Jonas'
-    fill_in 'Endereço', with: 'Rua Vila Velha, 101'
-    click_on 'Salvar alterações'
+    fill_in 'Nome', with: profile.name
+    fill_in 'Endereço', with: profile.address
+    click_on 'Salvar dados'
 
     expect(page).to have_content(profile.name)
     expect(page).to have_content(profile.address)
@@ -45,13 +45,15 @@ feature 'client edit profile' do
     enroll = Enroll.create!(client: client, plan_id: plan.id,
                             payment_option: payment_option,
                             subsidiary_id: subsidiary.id)
-    create(:profile, enroll: enroll)
+    profile = create(:profile, enroll: enroll)
 
     login_as client, scope: :client
     visit root_path
     click_on 'Meu perfil'
     click_on 'Editar perfil'
-    click_on 'Salvar alterações'
+    fill_in 'Nome', with: ''
+    fill_in 'Endereço', with: ''
+    click_on 'Salvar dados'
 
     expect(page).to have_content('não pode ficar em branco', count: 2)
     expect(page).to have_link('Voltar', href: profile_path(profile))
