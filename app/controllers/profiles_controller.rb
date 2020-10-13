@@ -5,6 +5,7 @@ class ProfilesController < ApplicationController
 
   def new
     return redirect_to root_path if current_client.enroll.nil?
+
     @profile = Profile.new
   end
 

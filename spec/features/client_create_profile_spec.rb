@@ -26,8 +26,8 @@ feature 'cliente create profile' do
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     Enroll.create!(client: client, plan_id: plan.id,
-                            payment_option: payment_option,
-                            subsidiary_id: subsidiary.id)
+                   payment_option: payment_option,
+                   subsidiary_id: subsidiary.id)
 
     login_as client, scope: :client
     visit root_path
@@ -51,8 +51,8 @@ feature 'cliente create profile' do
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     Enroll.create!(client_id: client.id, plan_id: plan.id,
-                            payment_option_id: payment_option.id,
-                            subsidiary_id: subsidiary.id)
+                   payment_option_id: payment_option.id,
+                   subsidiary_id: subsidiary.id)
 
     root_path
     login_as client, scope: :client
