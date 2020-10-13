@@ -4,6 +4,6 @@ FactoryBot.define do
     appointment_time { '12:00' }
     price_per_hour { 100 }
     personal
-    status {'available'}
+    status { 'available' }
   end
 end
