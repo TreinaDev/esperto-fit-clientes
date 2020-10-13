@@ -1,9 +1,12 @@
 ---
 pt-BR:
+  profiles:
+    create:
+      successfully: Perfil criado com sucesso
   activerecord:
     models:
       profile: Perfil
     attributes:
       profile:
         name: Nome
-        address: Endereços
+        address: Endereço

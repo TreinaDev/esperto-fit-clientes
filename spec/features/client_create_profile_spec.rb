@@ -38,6 +38,7 @@ feature 'cliente create profile' do
 
     expect(page).to have_content('Jonas')
     expect(page).to have_content('Rua Vila Velha, 101')
+    expect(page).to have_content('Perfil criado com sucesso')
     expect(page).not_to have_content('Complete seu perfil')
     expect(page).to have_link('Voltar', href: root_path)
   end

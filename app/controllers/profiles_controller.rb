@@ -4,15 +4,18 @@ class ProfilesController < ApplicationController
   end
 
   def new
+    return redirect_to root_path if current_client.enroll.nil?
     @profile = Profile.new
   end
 
   def create
     @enroll = Enroll.find(current_client.id)
     @profile = Profile.new(params_profile)
-    @profile.enroll_id = @enroll.id
-    @profile.save!
-    redirect_to @profile
+    if @profile.save
+      redirect_to @profile, notice: t('.successfully')
+    else
+      render :new
+    end
   end
 
   # def edit
@@ -32,6 +35,6 @@ class ProfilesController < ApplicationController
   private
 
   def params_profile
-    params.require(:profile).permit(:name, :address)
+    params.require(:profile).permit(:name, :address).merge(enroll_id: @enroll.id)
   end
 end
