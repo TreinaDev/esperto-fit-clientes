@@ -6,6 +6,7 @@
   <%= current_personal.name %><br>
 <% end %>
 
+
 <% if client_signed_in? && current_client.enroll.present? %>
   <% if current_client.profile.nil?%>
     <%= link_to 'Complete seu perfil', new_profile_path %>

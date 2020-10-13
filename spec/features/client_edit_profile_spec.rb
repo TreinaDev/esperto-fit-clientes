@@ -1,16 +1,7 @@
 require 'rails_helper'
 
 feature 'client edit profile' do
-  xscenario 'from edit_profile_path' do
-    client = create(:client)
-
-    login_as client, scope: :client
-    visit edit_profile_path
-
-    expect(current_path).to eq root_path
-  end
-
-  scenario 'and sucessfully' do
+  scenario 'sucessfully' do
     client = create(:client)
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
