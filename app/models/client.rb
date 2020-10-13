@@ -1,4 +1,6 @@
 class Client < ApplicationRecord
+  has_one :enroll, -> { order(created_at: :desc) }, inverse_of: :client
+  has_many :order_appointments, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -14,6 +16,10 @@ class Client < ApplicationRecord
 
   def domain
     email.split('@')[1]
+  end
+
+  def already_enrolled?
+    enroll.present?
   end
 
   private

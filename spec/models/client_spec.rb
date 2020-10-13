@@ -13,6 +13,10 @@ RSpec.describe Client, type: :model do
     it { is_expected.to validate_presence_of(:email) }
   end
 
+  context 'associations' do
+    it { is_expected.to have_many(:order_appointments).dependent(:destroy) }
+  end
+
   context 'verify partnership' do
     it '#partner? => true' do
       client = create(:client)
