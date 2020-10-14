@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Personal, type: :model do
+  context 'associations' do
+    it { is_expected.to have_many(:appointments).dependent(:destroy) }
+  end
+
   it 'Name, CREF, CPF, Email and Password cannot be blank' do
     personal = Personal.create
 
@@ -17,6 +21,18 @@ RSpec.describe Personal, type: :model do
 
     expect(personal.errors[:cref]).to include('não é válido')
     expect(personal.errors[:cpf]).to include('não é válido')
+  end
+
+  it 'CPF and CREF must be unique' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                   .and_return(faraday_response)
+    personal = create(:personal, cpf: '478.145.318-02')
+    personal2 = build(:personal, cpf: personal.cpf, cref: personal.cref)
+    personal2.valid?
+
+    expect(personal2.errors[:cpf]).to include('já está em uso')
+    expect(personal2.errors[:cref]).to include('já está em uso')
   end
 
   context '#cpf_get_status' do

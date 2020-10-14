@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_131704) do
+ActiveRecord::Schema.define(version: 2020_10_13_194809) do
+
+  create_table "appointments", force: :cascade do |t|
+    t.time "appointment_time"
+    t.date "appointment_date"
+    t.integer "personal_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "price_per_hour"
+    t.integer "status", default: 0
+    t.index ["personal_id"], name: "index_appointments_on_personal_id"
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -39,11 +50,28 @@ ActiveRecord::Schema.define(version: 2020_10_09_131704) do
     t.index ["payment_option_id"], name: "index_enrolls_on_payment_option_id"
   end
 
+  create_table "order_appointments", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.integer "appointment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_order_appointments_on_appointment_id"
+    t.index ["client_id"], name: "index_order_appointments_on_client_id"
+  end
+
   create_table "payment_options", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_payment_options_on_name", unique: true
+  end
+
+  create_table "personal_subsidiaries", force: :cascade do |t|
+    t.integer "personal_id", null: false
+    t.string "subsidiary_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["personal_id"], name: "index_personal_subsidiaries_on_personal_id"
   end
 
   create_table "personals", force: :cascade do |t|
@@ -58,10 +86,16 @@ ActiveRecord::Schema.define(version: 2020_10_09_131704) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status"
+    t.index ["cpf"], name: "index_personals_on_cpf", unique: true
+    t.index ["cref"], name: "index_personals_on_cref", unique: true
     t.index ["email"], name: "index_personals_on_email", unique: true
     t.index ["reset_password_token"], name: "index_personals_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "appointments", "personals"
   add_foreign_key "enrolls", "clients"
   add_foreign_key "enrolls", "payment_options"
+  add_foreign_key "order_appointments", "appointments"
+  add_foreign_key "order_appointments", "clients"
+  add_foreign_key "personal_subsidiaries", "personals"
 end

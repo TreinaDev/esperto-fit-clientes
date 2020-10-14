@@ -7,7 +7,8 @@ feature 'Personal Trainer register' do
                                    .and_return(faraday_response)
 
     visit root_path
-    click_on 'Registrar Personal Trainer'
+    click_on 'Registrar'
+    click_on 'aqui'
     fill_in 'Nome', with: 'Alberto'
     fill_in 'Email', with: 'alberto@gmail.com'
     fill_in 'CPF', with: '08858754948'
@@ -23,7 +24,8 @@ feature 'Personal Trainer register' do
 
   scenario 'did not fill all the fields' do
     visit root_path
-    click_on 'Registrar Personal Trainer'
+    click_on 'Registrar'
+    click_on 'aqui'
     click_on 'Enviar'
 
     expect(current_path).to_not eq root_path
@@ -36,7 +38,8 @@ feature 'Personal Trainer register' do
 
   scenario 'CPF must be valid' do
     visit root_path
-    click_on 'Registrar Personal Trainer'
+    click_on 'Registrar'
+    click_on 'aqui'
     fill_in 'CPF', with: '99442568'
     click_on 'Enviar'
 
@@ -46,7 +49,8 @@ feature 'Personal Trainer register' do
 
   scenario 'CREF must be valid' do
     visit root_path
-    click_on 'Registrar Personal Trainer'
+    click_on 'Registrar'
+    click_on 'aqui'
     fill_in 'CREF', with: '123'
     click_on 'Enviar'
 
