@@ -22,6 +22,6 @@ module Client::PartnerClient
   end
 
   def json_response_body
-    JSON.parse(json_response.body, symbolize_names: true)
+    @json_response_body ||= JSON.parse(json_response.body, symbolize_names: true)
   end
 end
