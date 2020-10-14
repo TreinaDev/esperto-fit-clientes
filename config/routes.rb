@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+rRails.application.routes.draw do
   root to: 'home#index'
   devise_for :personals
   devise_for :clients
@@ -22,6 +22,13 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :clients, only: %i[index show]
+    end
+  end
+
   resources :enrolls, only: :create
   resources :profiles, only: [:index, :show, :new,:create, :edit, :update]
+
 end
