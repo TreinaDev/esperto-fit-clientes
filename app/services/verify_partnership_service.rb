@@ -6,18 +6,13 @@ class VerifyPartnershipService
   end
 
   def call
-    verify_partnership
+    api_partnership_data
   end
 
   private
 
   def api_partnership_data
-    { partners: %w[partner_company.com other_patner.com] }
-  end
-
-  def verify_partnership
-    hash = api_partnership_data
-
-    hash[:partners].include?(client.domain)
+    uri = 'http://localhost:4000/api/v1/partner_companies/search/'
+    Faraday.get(uri, { q: client.cpf })
   end
 end

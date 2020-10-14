@@ -18,21 +18,33 @@ RSpec.describe Client, type: :model do
   end
 
   context 'verify partnership' do
+    let(:client) { create(:client, cpf: '816.125.298-01') }
+
     it '#partner? => true' do
-      client = create(:client)
       allow(client).to receive(:partner?).and_return(true)
 
       expect(client.partner?).to be_truthy
     end
 
-    it '#is_partner? => true' do
-      client = create(:client, email: 'client@partner_company.com')
+    it '#company_name' do
+      allow(client).to receive(:company_name).and_return('Empresa1')
 
-      expect(client.partner?).to be_truthy
+      expect(client.company_name).to eq('Empresa1')
+    end
+
+    it '#partner_discount' do
+      allow(client).to receive(:partner_discount).and_return('30.0')
+
+      expect(client.partner_discount).to eq('30.0')
+    end
+
+    it '#discount_duration' do
+      allow(client).to receive(:discount_duration).and_return('12')
+
+      expect(client.discount_duration).to eq('12')
     end
 
     it '#is_partner? => false' do
-      client = create(:client)
       allow(client).to receive(:partner?).and_return(false)
 
       expect(client.partner?).to be_falsey
