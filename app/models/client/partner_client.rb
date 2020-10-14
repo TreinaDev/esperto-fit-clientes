@@ -18,7 +18,7 @@ module Client::PartnerClient
   private
 
   def json_response
-    VerifyPartnershipService.new(self).call
+    @json_response ||= VerifyPartnershipService.new(self).call
   end
 
   def json_response_body
