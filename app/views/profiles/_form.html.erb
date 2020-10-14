@@ -6,12 +6,16 @@
 
 <%= form_with model: @profile, local:true do |f| %>
   <div>
-    <%= f.label :name, 'Nome' %>
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div>
-    <%= f.label :address, 'Endereço' %>
+    <%= f.label :address %>
     <%= f.text_field :address %>
+  </div>
+  <div>
+  <%= f.label :telephone %>
+  <%= f.text_field :telephone %>
   </div>
   <%= f.submit 'Salvar dados'%>
 <%end%>

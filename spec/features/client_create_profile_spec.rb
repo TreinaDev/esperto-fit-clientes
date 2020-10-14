@@ -34,6 +34,8 @@ feature 'cliente create profile' do
     click_on 'Complete seu perfil'
     fill_in 'Nome', with: 'Jonas'
     fill_in 'Endereço', with: 'Rua Vila Velha, 101'
+    fill_in 'Telefone', with: '1199999999'
+
     click_on 'Salvar dados'
 
     expect(page).to have_content('Jonas')
