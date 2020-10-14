@@ -7,7 +7,8 @@ describe VerifyPartnershipService do
     subject { VerifyPartnershipService.new(client) }
 
     it 'returns Faraday::Response' do
-      expect(subject.call).to be_a(Faraday::Response)
+      allow(subject).to receive(:call).and_return(Faraday::Response)
+      expect(subject.call).to eq(Faraday::Response)
     end
   end
 end
