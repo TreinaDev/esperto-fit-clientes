@@ -11,7 +11,7 @@ class ProfilesController < ApplicationController
 
   def create
     @enroll = Enroll.find(current_client.id)
-    @profile = Profile.new(params_profile)
+    @profile = Profile.new(**params_profile, enroll_id: @enroll.id)
     if @profile.save
       redirect_to @profile, notice: t('.successfully')
     else
@@ -26,7 +26,7 @@ class ProfilesController < ApplicationController
   def update
     @enroll = Enroll.find(current_client.id)
     @profile = Profile.find(params[:id])
-    @profile.update(params_profile)
+    @profile.update(**params_profile, enroll_id: @enroll.id)
     if @profile.save
       redirect_to @profile
     else
@@ -37,6 +37,6 @@ class ProfilesController < ApplicationController
   private
 
   def params_profile
-    params.require(:profile).permit(:name, :address).merge(enroll_id: @enroll.id)
+    params.require(:profile).permit(:name, :address)
   end
 end
