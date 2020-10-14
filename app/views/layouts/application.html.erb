@@ -11,10 +11,12 @@
 
   <body>
     <% if client_signed_in? %>
+      <%= link_to 'Editar Cadastro', edit_client_registration_path %>
       <%= link_to 'Sair', destroy_client_session_path, method: :delete %>
       <%= link_to 'Personais disponíveis', order_appointments_path %>
       <%= link_to 'Treinos agendados', client_ordered_appointments_path(current_client) %>
     <% elsif personal_signed_in? %>
+      <%= link_to 'Editar Cadastro', edit_personal_registration_path %>
       <%= link_to 'Sair', destroy_personal_session_path, method: :delete %>
     <%  else %>
       <%= link_to 'Registrar', new_client_registration_path %>

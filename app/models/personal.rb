@@ -1,6 +1,7 @@
 class Personal < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :personal_subsidiaries, dependent: :destroy
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,6 +11,7 @@ class Personal < ApplicationRecord
   validate :cpf_validation
   validates :cref, format: { with: %r{\d{6}-[G|P]/\w{2}} }
   before_validation :cpf_get_status
+  before_validation :clean_cpf
 
   enum status: { active: 0, banned: 900 }
 
@@ -43,5 +45,9 @@ class Personal < ApplicationRecord
     return if CPF.valid?(cpf)
 
     errors.add(:cpf)
+  end
+
+  def clean_cpf
+    self[:cpf] = CPF.new(cpf).stripped
   end
 end

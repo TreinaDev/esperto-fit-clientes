@@ -1,9 +1,9 @@
 class Api::UsersController < ActionController::API
   def ban
-    return render status: :precondition_failed, json: I18n.t('users.invalid_cpf') unless CPF.valid?(params[:cpf])
+    return render status: :precondition_failed, json: I18n.t('users.invalid_cpf') unless CPF.valid?(cpf_param)
 
-    client = Client.find_by(cpf: cpf_formatted)
-    personal = Personal.find_by(cpf: cpf_formatted)
+    client = Client.find_by(cpf: cpf_param)
+    personal = Personal.find_by(cpf: cpf_param)
     return render status: :not_found, json: I18n.t('users.no_account') if client.nil? && personal.nil?
 
     messages = []
@@ -25,7 +25,7 @@ class Api::UsersController < ActionController::API
     end
   end
 
-  def cpf_formatted
-    CPF.new(params[:cpf]).formatted
+  def cpf_param
+    params[:cpf]
   end
 end

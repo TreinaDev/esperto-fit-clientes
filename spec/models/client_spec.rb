@@ -9,9 +9,17 @@ RSpec.describe Client, type: :model do
 
   context 'validations' do
     it { is_expected.to validate_presence_of(:cpf) }
-    it { is_expected.to validate_uniqueness_of(:cpf) }
     it { is_expected.to validate_presence_of(:email) }
-    it { is_expected.to validate_presence_of(:email) }
+    it 'Uniqueness CPF' do
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).and_return(faraday_response)
+      create(:client, cpf: '08858754948')
+      client = build(:client, cpf: '0885875-4948')
+      client.valid?
+
+      expect(client).to_not be_valid
+      expect(client.errors[:cpf]).to include('já está em uso')
+    end
   end
 
   context 'associations' do

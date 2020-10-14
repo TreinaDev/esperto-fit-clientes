@@ -33,6 +33,6 @@ feature 'Personal edit Appointment' do
     appointment = create(:appointment)
     visit appointment_path(appointment)
 
-    expect(page).not_to have_link('Editar')
+    expect(page).not_to have_link('Editar', exact: true)
   end
 end

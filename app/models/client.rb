@@ -10,6 +10,7 @@ class Client < ApplicationRecord
   validates :cpf, uniqueness: true
   validate :cpf_validation
   before_validation :cpf_get_status
+  before_validation :clean_cpf
 
   enum status: { active: 0, banned: 900 }
 
@@ -54,5 +55,9 @@ class Client < ApplicationRecord
     return if CPF.valid?(cpf)
 
     errors.add(:cpf)
+  end
+
+  def clean_cpf
+    self[:cpf] = CPF.new(cpf).stripped
   end
 end
