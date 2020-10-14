@@ -8,6 +8,8 @@ feature 'Personal Creates Appointment' do
   end
 
   scenario 'page have link to new_appointment_path' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     login_as(personal)
     visit appointments_path
@@ -16,6 +18,8 @@ feature 'Personal Creates Appointment' do
   end
 
   scenario 'successfully' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     login_as(personal)
     visit appointments_path
@@ -31,6 +35,8 @@ feature 'Personal Creates Appointment' do
   end
 
   scenario 'fail error messages' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     login_as(personal)
     visit appointments_path

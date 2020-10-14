@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'Personal Trainer bind subsidiaries' do
   scenario 'sucessly' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     allow(Subsidiary).to receive(:search)
       .and_return([Subsidiary.new(name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',

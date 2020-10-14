@@ -26,7 +26,7 @@ feature 'Banned client' do
     visit new_client_session_path
     fill_in 'CPF', with: client.cpf
     fill_in 'Senha', with: client.password
-    click_on 'Login'
+    click_on 'Log in'
 
     expect(page).to have_content('Você foi banido')
   end
@@ -38,12 +38,13 @@ feature 'Banned client' do
                                    .and_return(faraday_response)
 
     visit new_personal_registration_path
+    fill_in 'Nome', with: personal.name
     fill_in 'CPF', with: personal.cpf
     fill_in 'CREF', with: personal.cref
     fill_in 'Email', with: personal.email
     fill_in 'Senha', with: personal.password
-    fill_in 'Confirme sua senha', with: personal.password
-    click_on 'Cadastrar'
+    fill_in 'Confirmar senha', with: personal.password
+    click_on 'Enviar'
 
     expect(page).to have_content('Você foi banido')
   end
@@ -57,7 +58,7 @@ feature 'Banned client' do
     visit new_personal_session_path
     fill_in 'CPF', with: personal.cpf
     fill_in 'Senha', with: personal.password
-    click_on 'Login'
+    click_on 'Log in'
 
     expect(page).to have_content('Você foi banido')
   end
