@@ -23,7 +23,7 @@ feature 'visitant try enroll' do
     Enroll.create(subsidiary_id: subsidiary.id, plan_id: plan.id,
                   client_id: client.id, payment_option_id: payment_option.id)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
-    allow(Plan).to receive(:all).and_return([plan])
+    allow(subsidiary).to receive(:plans).and_return([plan])
 
     login_as client, scope: :client
     visit root_path
@@ -37,6 +37,7 @@ feature 'visitant try enroll' do
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                 address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
+    allow(subsidiary).to receive(:plans).and_return([])
 
     login_as client, scope: :client
     visit root_path
@@ -66,7 +67,7 @@ feature 'visitant try enroll' do
     Enroll.create(subsidiary_id: subsidiary.id, plan_id: plan.id,
                   client_id: client.id, payment_option_id: payment_option.id)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
-    allow(Plan).to receive(:all).and_return([plan])
+    allow(subsidiary).to receive(:plans).and_return([plan])
 
     login_as client, scope: :client
     visit new_subsidiary_enroll_path(subsidiary.id)
