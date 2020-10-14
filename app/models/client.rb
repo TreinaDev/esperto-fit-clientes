@@ -33,7 +33,7 @@ class Client < ApplicationRecord
   end
 
   def domain
-    email.split('@')[1]
+    email.split('@').last
   end
 
   def already_enrolled?
@@ -53,6 +53,6 @@ class Client < ApplicationRecord
   def cpf_validation
     return if CPF.valid?(cpf)
 
-    errors.add(:cpf, :cpf_invalid)
+    errors.add(:cpf)
   end
 end

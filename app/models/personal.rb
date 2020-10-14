@@ -7,7 +7,7 @@ class Personal < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :name, :cref, :cpf, :status, presence: true
   validates :cref, :cpf, uniqueness: true
-  validate :validate_cpf
+  validate :cpf_validation
   validates :cref, format: { with: %r{\d{6}-[G|P]/\w{2}} }
   before_validation :cpf_get_status
 
@@ -39,7 +39,9 @@ class Personal < ApplicationRecord
 
   private
 
-  def validate_cpf
-    errors.add(:cpf) if cpf.present? && !CPF.valid?(cpf, strict: true)
+  def cpf_validation
+    return if CPF.valid?(cpf)
+
+    errors.add(:cpf)
   end
 end

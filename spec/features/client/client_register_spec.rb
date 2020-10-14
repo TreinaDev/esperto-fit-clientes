@@ -40,7 +40,7 @@ feature 'Visitor creates Account' do
     fill_in 'Confirme sua senha', with: '12345678'
     click_on 'Cadastrar'
 
-    expect(page).to have_content('CPF precisa ser válido')
+    expect(page).to have_content('CPF não é válido')
   end
 
   scenario 'cpf must be uniq' do

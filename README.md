@@ -29,13 +29,25 @@ Things you may want to cover:
 
 #### POST /api/user/:cpf/ban
 
-**HTTP status:** 200 - Sucesso no banimento
+* O campo CPF deve conter apenas números.
+
+**HTTP status:** 200 - Sucesso no banimento do Personal
+
+```json
+["Personal banido com sucesso"]
+```
+
+**HTTP status:** 200 - Sucesso no banimento do Cliente
+
+```json
+["Cliente banido com sucesso"]
+```
+
+**HTTP status:** 200 - Sucesso no banimento do Personal que também é Cliente
 
 ```json
 ["Cliente banido com sucesso",
-"Personal banido com sucesso",
-"Cliente já banido anteriormente",
-"Personal já banido anteriormente"]
+"Personal banido com sucesso"]
 ```
 
 **HTTP status:** 404 - Parâmetro inválido
