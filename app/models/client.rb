@@ -10,6 +10,7 @@ class Client < ApplicationRecord
   validates :cpf, presence: true
   validates :cpf, uniqueness: true
   validate :cpf_validation
+  before_validation :clean_cpf
 
   def domain
     email.split('@')[1]
@@ -25,5 +26,9 @@ class Client < ApplicationRecord
     return if CPF.valid?(cpf)
 
     errors.add(:cpf, :cpf_invalid)
+  end
+
+  def clean_cpf
+    self[:cpf] = CPF.new(cpf).stripped
   end
 end

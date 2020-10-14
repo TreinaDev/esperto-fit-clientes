@@ -109,7 +109,7 @@ pt-BR:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      cpf_invalid: CPF precisa ser válido
+      cpf_invalid: precisa ser válido
       accepted: deve ser aceito
       blank: não pode ficar em branco
       confirmation: não é igual a %{attribute}

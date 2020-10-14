@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_10_233955) do
+ActiveRecord::Schema.define(version: 2020_10_13_194809) do
 
   create_table "appointments", force: :cascade do |t|
     t.time "appointment_time"
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 2020_10_10_233955) do
     t.index ["name"], name: "index_payment_options_on_name", unique: true
   end
 
+  create_table "personal_subsidiaries", force: :cascade do |t|
+    t.integer "personal_id", null: false
+    t.string "subsidiary_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["personal_id"], name: "index_personal_subsidiaries_on_personal_id"
+  end
+
   create_table "personals", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -76,6 +84,8 @@ ActiveRecord::Schema.define(version: 2020_10_10_233955) do
     t.string "cref"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cpf"], name: "index_personals_on_cpf", unique: true
+    t.index ["cref"], name: "index_personals_on_cref", unique: true
     t.index ["email"], name: "index_personals_on_email", unique: true
     t.index ["reset_password_token"], name: "index_personals_on_reset_password_token", unique: true
   end
@@ -85,4 +95,5 @@ ActiveRecord::Schema.define(version: 2020_10_10_233955) do
   add_foreign_key "enrolls", "payment_options"
   add_foreign_key "order_appointments", "appointments"
   add_foreign_key "order_appointments", "clients"
+  add_foreign_key "personal_subsidiaries", "personals"
 end
