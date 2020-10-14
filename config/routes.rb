@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     post 'enrolls/confirm', to: 'enrolls#confirm'
     resources :enrolls, only: :new
     get 'search', on: :collection
+    resources :personals, only: [] do
+      post 'add', on: :member
+    end
   end
 
   resources :enrolls, only: :create
