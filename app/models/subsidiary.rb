@@ -20,7 +20,14 @@ class Subsidiary
   end
 
   def plans
-    Plan.all
+    response = Faraday.get("#{id}/api/plans")
+    if response.status == 200
+      JSON.parse(response.body, symbolize_names: true).map do |item|
+        Plan.new(**{ **item, subsidiary: id })
+      end
+    else
+      []
+    end
   end
 
   def self.search(query)

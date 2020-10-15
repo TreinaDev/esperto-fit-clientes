@@ -18,6 +18,7 @@ describe 'Enroll subsidiary' do
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
+      allow(subsidiary).to receive(:plans).and_return([])
 
       login_as client, scope: :client
       post subsidiary_enrolls_confirm_path(subsidiary.id), params: { enroll: { teste: 'teste' } }
@@ -54,7 +55,7 @@ describe 'Enroll subsidiary' do
                           payment_option_id: payment_option.id)
 
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
-      allow(Plan).to receive(:all).and_return([plan])
+      allow(subsidiary).to receive(:plans).and_return([plan])
 
       login_as client, scope: :client
 
@@ -82,6 +83,7 @@ describe 'Enroll subsidiary' do
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
+      allow(subsidiary).to receive(:plans).and_return([])
 
       login_as client, scope: :client
       post enrolls_path, params: { enroll: { teste: 'teste', subsidiary_id: subsidiary.id } }
@@ -116,7 +118,7 @@ describe 'Enroll subsidiary' do
                           payment_option_id: payment_option.id, client_id: client.id)
 
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
-      allow(Plan).to receive(:all).and_return([plan])
+      allow(subsidiary).to receive(:plans).and_return([])
 
       login_as client, scope: :client
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :personals
   devise_for :clients
 
-  resources :appointments, only: [:index, :show, :new, :create, :edit, :update] do
+  resources :appointments, only: %i[index show new create edit update] do
     resources :order_appointments, only: [:create]
   end
 
@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     get 'search', on: :collection
     resources :personals, only: [] do
       post 'add', on: :member
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :clients, only: %i[index show]
     end
   end
 

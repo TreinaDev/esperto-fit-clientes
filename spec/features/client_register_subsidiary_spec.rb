@@ -12,7 +12,7 @@ feature 'client enroll a subsidiary' do
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
-    allow(Plan).to receive(:all).and_return([plan])
+    allow(subsidiary).to receive(:plans).and_return([plan])
 
     login_as client, scope: :client
     visit root_path
@@ -43,7 +43,7 @@ feature 'client enroll a subsidiary' do
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
-    allow(Plan).to receive(:all).and_return([plan])
+    allow(subsidiary).to receive(:plans).and_return([plan])
 
     login_as client, scope: :client
     visit root_path
@@ -67,7 +67,7 @@ feature 'client enroll a subsidiary' do
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
-    allow(Plan).to receive(:all).and_return([plan])
+    allow(subsidiary).to receive(:plans).and_return([plan])
 
     login_as client, scope: :client
     visit root_path
@@ -90,7 +90,7 @@ feature 'client enroll a subsidiary' do
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
-    allow(Plan).to receive(:all).and_return([plan])
+    allow(subsidiary).to receive(:plans).and_return([plan])
 
     login_as client, scope: :client
     visit root_path

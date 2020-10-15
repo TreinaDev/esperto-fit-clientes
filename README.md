@@ -1,29 +1,49 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## API 
 
-Things you may want to cover:
+### Consulta de Clientes
 
-* Ruby version
+#### GET /api/v1/clients
 
-* System dependencies
+**HTTP status:** 200
 
-* Configuration
+```json 
+[
+    {
+       "id":1,
+       "email": "teste@teste.com",
+       "cpf": "34021467033",
+    },
+    {
+       "id":2,
+       "email": "fulano@teste.com",
+       "cpf": "34021467033",
+    }
+]
+```
 
-* Database creation
+### Consulta de Cliente único
 
-* Database initialization
+#### GET /api/v1/client/:id
 
-* How to run the test suite
+**HTTP status:** 200
 
-* Services (job queues, cache servers, search engines, etc.)
+```json 
+[
+    {
+       "id":1,
+       "email": "teste@teste.com",
+       "cpf": "34021467033",
+    }
+]
+```
 
-* Deployment instructions
+**HTTP status:** 404 - Parâmetro inválido
 
-* ...
-
-## API
+```json
+"Cliente não encontrado"
+```
 
 ### Banimento de CPF
 
@@ -34,42 +54,48 @@ Things you may want to cover:
 **HTTP status:** 200 - Sucesso no banimento do Personal
 
 ```json
-{"messages":["Personal banido com sucesso"],
-  "status":200
+{   
+    "messages":["Personal banido com sucesso"],
+    "status":200
 }
 ```
 
 **HTTP status:** 200 - Sucesso no banimento do Cliente
 
 ```json
-{"messages":["Cliente banido com sucesso"],
-  "status":200
+{
+    "messages":["Cliente banido com sucesso"],
+    "status":200
 }
 ```
 
 **HTTP status:** 200 - Sucesso no banimento do Personal que também é Cliente
 
 ```json
-{"messages":[
-    "Cliente banido com sucesso",
-    "Personal banido com sucesso"
-  ],
-  "status":200
+{ 
+    "messages":
+        [
+            "Cliente banido com sucesso",
+            "Personal banido com sucesso"
+        ],
+    "status":200
 }
 ```
 
 **HTTP status:** 404 - Parâmetro inválido
 
 ```json
-{"messages":["CPF inválido"],
- "status":412
+{   
+    "messages":["CPF inválido"],
+    "status":412
 }
 ```
 
 **HTTP status:** 412 - Não encontrado cadastro com esse CPF
 
 ```json
-{"messages":["O usuário não possui cadastro ativo"],
- "status":404
+{
+    "messages":["O usuário não possui cadastro ativo"],
+    "status":404
 }
 ```
