@@ -13,6 +13,10 @@
   <dd><%= number_to_currency @enroll.plan.monthly_payment %></dd>
 </dl>
 
+<% if @enroll.coupon %>
+  Promoção: <%= @enroll.coupon_promotion_name %>
+<% end %>
+
 <%= link_to t('.confirm'), enrolls_path(enroll: @enroll.attributes), method: :post %>
 
 <%= link_to t('.back'), new_subsidiary_enroll_path(@enroll.subsidiary_id) %>

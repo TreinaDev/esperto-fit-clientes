@@ -9,5 +9,9 @@
   <%= f.collection_select(:plan_id, @subsidiary.plans, :id, :description, prompt: 'Selecione o plano') %>
   <%= f.label :payment_option_id %>
   <%= f.collection_select(:payment_option_id, @payment_options, :id, :name, prompt: 'Selecione a forma de pagamento') %>
+
+  <%= f.label :coupon, 'Código promocional' %>
+  <%= f.text_field :coupon %>
+
   <%= f.submit t('.submit') %>
 <% end %>

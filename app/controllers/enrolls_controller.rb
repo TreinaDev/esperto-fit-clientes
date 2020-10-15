@@ -31,12 +31,12 @@ class EnrollsController < ApplicationController
   private
 
   def enroll_params_confirm
-    params.require(:enroll).permit(:plan_id, :payment_option_id)
+    params.require(:enroll).permit(:plan_id, :payment_option_id, :coupon)
           .merge(subsidiary_id: params[:subsidiary_id], client_id: current_client.id)
   end
 
   def enroll_params_create
-    params.require(:enroll).permit(:plan_id, :payment_option_id, :subsidiary_id, :client_id)
+    params.require(:enroll).permit(:plan_id, :payment_option_id, :subsidiary_id, :client_id, :coupon)
   end
 
   def check_already_enrolled
