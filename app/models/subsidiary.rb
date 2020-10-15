@@ -22,10 +22,8 @@ class Subsidiary
   def plans
     response = Faraday.get("#{id}/api/plans")
     if response.status == 200
-      list = JSON.parse(response.body, symbolize_names: true)
-      list.map do |item|
-        Plan.new(id: item[:id], name: item[:name], monthly_payment: item[:monthly_payment],
-                 permanency: item[:permanency], subsidiary: id)
+      JSON.parse(response.body, symbolize_names: true).map do |item|
+        Plan.new(**{ **item, subsidiary: id })
       end
     else
       []
