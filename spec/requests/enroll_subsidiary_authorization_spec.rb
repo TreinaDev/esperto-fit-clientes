@@ -13,7 +13,10 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid params' do
-      client = create(:client)
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                     .and_return(faraday_response)
+      client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
       allow(subsidiary).to receive(:plans).and_return([])
 
@@ -24,7 +27,10 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid subsidiary_id' do
-      client = create(:client)
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                     .and_return(faraday_response)
+      client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
       login_as client, scope: :client
@@ -36,7 +42,10 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with valid params' do
-      client = create(:client)
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                     .and_return(faraday_response)
+      client = create(:client, cpf: '478.145.318-02')
       payment_option = create(:payment_option)
       subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                   address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
@@ -69,7 +78,10 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid params and valid subsidiary_id' do
-      client = create(:client)
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                     .and_return(faraday_response)
+      client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
       allow(subsidiary).to receive(:plans).and_return([])
 
@@ -80,7 +92,10 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid subsidiary_id' do
-      client = create(:client)
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                     .and_return(faraday_response)
+      client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
       login_as client, scope: :client
@@ -92,7 +107,10 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with valid params' do
-      client = create(:client)
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                     .and_return(faraday_response)
+      client = create(:client, cpf: '478.145.318-02')
       payment_option = create(:payment_option)
       plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                       subsidiary: subsidiary)

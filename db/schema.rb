@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_184340) do
     t.string "cpf"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status"
     t.index ["cpf"], name: "index_clients_on_cpf", unique: true
     t.index ["email"], name: "index_clients_on_email", unique: true
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_184340) do
     t.string "cref"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status"
     t.index ["cpf"], name: "index_personals_on_cpf", unique: true
     t.index ["cref"], name: "index_personals_on_cref", unique: true
     t.index ["email"], name: "index_personals_on_email", unique: true
