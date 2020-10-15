@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'Order Appointments' do
   scenario 'Client view available appointments' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointments = create_list(:appointment, 2)
@@ -16,6 +18,8 @@ feature 'Order Appointments' do
   end
 
   scenario 'Client view all their ordered appointments' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointments = create_list(:appointment, 2)
@@ -32,6 +36,8 @@ feature 'Order Appointments' do
   end
 
   scenario 'only available appointments' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointments = create_list(:appointment, 2)
@@ -46,6 +52,8 @@ feature 'Order Appointments' do
   end
 
   scenario 'view details' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointment = create(:appointment)
@@ -59,6 +67,8 @@ feature 'Order Appointments' do
   end
 
   scenario 'successfully order appointment' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointment = create(:appointment)

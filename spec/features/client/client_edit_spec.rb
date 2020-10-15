@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'Client edit profile' do
   scenario 'successfully' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
 
     login_as client, scope: :client
@@ -17,6 +19,8 @@ feature 'Client edit profile' do
   end
 
   scenario 'must fill password' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
 
     login_as client, scope: :client
@@ -30,6 +34,8 @@ feature 'Client edit profile' do
   end
 
   scenario 'email must be filled' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
 
     login_as client, scope: :client

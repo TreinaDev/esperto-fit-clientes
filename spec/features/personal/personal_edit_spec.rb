@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'Personal edit profile' do
   scenario 'successfully' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 
     login_as personal, scope: :personal
@@ -17,6 +19,8 @@ feature 'Personal edit profile' do
   end
 
   scenario 'must fill password' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 
     login_as personal, scope: :personal
@@ -30,6 +34,8 @@ feature 'Personal edit profile' do
   end
 
   scenario 'email and name must be filled' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 
     login_as personal, scope: :personal

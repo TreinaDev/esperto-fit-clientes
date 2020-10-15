@@ -23,7 +23,7 @@
       <%= link_to 'Registrar', new_client_registration_path %>
       <%= link_to 'Entrar', new_client_session_path %>
     <% end %>
-    
+    <%= render 'shared/breadcrumbs' %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
