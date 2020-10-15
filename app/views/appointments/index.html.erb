@@ -6,7 +6,9 @@
   </div>
 <% end %>
 
+<div>
 <% @appointments.each do | appointment | %>
-  <%=  l(appointment.appointment_date, format: :default) %>
+  <%= link_to l(appointment.appointment_date, format: :default), appointment %></br>
 <% end %>
+</div>
 

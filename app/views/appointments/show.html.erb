@@ -1,10 +1,10 @@
-<%= link_to 'Editar', edit_appointment_path(@appointment) if @appointment.owner?(current_personal) %>
+<%= link_to 'Editar', edit_appointment_path(@appointment) if @appointment.owner?(current_personal) %></br>
 
 <% if client_signed_in? %>
   <%= link_to 'Agendar este horário', appointment_order_appointments_path(@appointment), method: :post %>
 <% end %>
 
-<%= l(@appointment.appointment_date, format: :default) %>
-<%= number_to_currency(@appointment.price_per_hour) %>
+<%= l(@appointment.appointment_date, format: :default) %></br>
+<%= number_to_currency(@appointment.price_per_hour) %></br>
 
 <%= @appointment.status %>
