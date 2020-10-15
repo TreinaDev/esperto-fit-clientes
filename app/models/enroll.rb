@@ -4,6 +4,6 @@ class Enroll < ApplicationRecord
   validates :plan_id, :subsidiary_id, presence: true
 
   def plan
-    Plan.find(plan_id)
+    Plan.find(plan_id, subsidiary_id)
   end
 end
