@@ -57,7 +57,7 @@ RSpec.describe Client, type: :model do
     end
   end
 
-  context '#cpf_get_status' do
+  context '#cpf_banned?' do
     it 'response is true from API' do
       client = build(:client, status: nil)
 
@@ -66,9 +66,10 @@ RSpec.describe Client, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(client.cpf).stripped}")
                                      .and_return(faraday_response)
 
-      client.cpf_get_status
+      response = client.cpf_banned?
 
-      expect(client.status).to eq 'banned'
+      expect(response).to eq true
+      expect(client.valid?).to eq true
     end
 
     it 'response is false from API' do
@@ -78,9 +79,10 @@ RSpec.describe Client, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(client.cpf).stripped}")
                                      .and_return(faraday_response)
 
-      client.cpf_get_status
+      response = client.cpf_banned?
 
-      expect(client.status).to eq 'active'
+      expect(response).to eq false
+      expect(client.valid?).to eq true
     end
 
     it 'error on API' do
@@ -91,9 +93,9 @@ RSpec.describe Client, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(client.cpf).stripped}")
                                      .and_return(faraday_response)
 
-      client.cpf_get_status
+      response = client.cpf_banned?
 
-      expect(client.status).to eq nil
+      expect(response).to eq nil
       expect(client.valid?).to eq false
     end
   end

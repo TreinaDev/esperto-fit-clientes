@@ -13,6 +13,7 @@ describe 'Ban user' do
 
         expect(response).to be_ok
         expect(response.body).to include('Cliente banido com sucesso')
+        expect(response.body).to_not include('Personal Trainer banido com sucesso')
       end
 
       it 'return 200 status if user have personal account' do
@@ -25,6 +26,7 @@ describe 'Ban user' do
 
         expect(response).to be_ok
         expect(response.body).to include('Personal Trainer banido com sucesso')
+        expect(response.body).to_not include('Cliente banido com sucesso')
       end
 
       it 'return 200 if client already banned' do
@@ -37,6 +39,7 @@ describe 'Ban user' do
 
         expect(response).to be_ok
         expect(response.body).to include('Cliente já banido anteriormente')
+        expect(response.body).to_not include('Personal Trainer já banido anteriormente')
       end
 
       it 'return 200 if personal already banned' do
@@ -48,6 +51,35 @@ describe 'Ban user' do
         post '/api/user/47814531802/ban'
 
         expect(response).to be_ok
+        expect(response.body).to include('Personal Trainer já banido anteriormente')
+        expect(response.body).to_not include('Cliente já banido anteriormente')
+      end
+
+      it 'return 200 status if user have client and personal account banned' do
+        faraday_response = double('cpf_check', status: 200, body: 'false')
+        allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                       .and_return(faraday_response)
+        create(:client, cpf: '478.145.318-02')
+        create(:personal, cpf: '478.145.318-02')
+
+        post '/api/user/47814531802/ban'
+
+        expect(response).to be_ok
+        expect(response.body).to include('Cliente banido com sucesso')
+        expect(response.body).to include('Personal Trainer banido com sucesso')
+      end
+
+      it 'return 200 status if user have client and personal account already banned' do
+        faraday_response = double('cpf_check', status: 200, body: 'true')
+        allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+                                       .and_return(faraday_response)
+        create(:client, cpf: '478.145.318-02')
+        create(:personal, cpf: '478.145.318-02')
+
+        post '/api/user/47814531802/ban'
+
+        expect(response).to be_ok
+        expect(response.body).to include('Cliente já banido anteriormente')
         expect(response.body).to include('Personal Trainer já banido anteriormente')
       end
 

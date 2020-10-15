@@ -10,29 +10,35 @@ class Personal < ApplicationRecord
   validates :cref, :cpf, uniqueness: true
   validate :cpf_validation
   validates :cref, format: { with: %r{\d{6}-[G|P]/\w{2}} }
-  before_validation :cpf_get_status
+  before_validation :set_status, on: :create
   before_validation :clean_cpf
 
   enum status: { active: 0, banned: 900 }
 
-  def cpf_get_status
-    return unless CPF.valid?(cpf)
+  def auth_allowed?
+    return false if cpf_banned?.nil?
 
-    response = Faraday.get "http://subsidiaries/api/v1/banned_user/#{CPF.new(cpf).stripped}"
-
-    return unless response.status == 200
-
-    case response.body
-    when 'true'
-      self.status = 'banned'
+    case cpf_banned?
+    when true
+      banned!
       false
-    when 'false'
-      self.status = 'active'
+    when false
+      active!
     end
   end
 
+  def cpf_banned?
+    response = Faraday.get "http://subsidiaries/api/v1/banned_user/#{CPF.new(cpf).stripped}"
+
+    return nil if response.status != 200
+
+    return false if response.body == 'false'
+
+    return true if response.body == 'true'
+  end
+
   def active_for_authentication?
-    super && cpf_get_status
+    super && auth_allowed?
   end
 
   def inactive_message
@@ -49,5 +55,16 @@ class Personal < ApplicationRecord
 
   def clean_cpf
     self[:cpf] = CPF.new(cpf).stripped
+  end
+
+  def set_status
+    return unless CPF.valid?(cpf)
+
+    case cpf_banned?
+    when true
+      self.status = 'banned'
+    when false
+      self.status = 'active'
+    end
   end
 end

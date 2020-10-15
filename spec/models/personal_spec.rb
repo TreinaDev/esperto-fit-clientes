@@ -35,7 +35,7 @@ RSpec.describe Personal, type: :model do
     expect(personal2.errors[:cref]).to include('já está em uso')
   end
 
-  context '#cpf_get_status' do
+  context '#cpf_banned?' do
     it 'response is true from API' do
       personal = build(:personal, status: nil)
 
@@ -44,9 +44,10 @@ RSpec.describe Personal, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
                                      .and_return(faraday_response)
 
-      personal.cpf_get_status
+      response = personal.cpf_banned?
 
-      expect(personal.status).to eq 'banned'
+      expect(response).to eq true
+      expect(personal.valid?).to eq true
     end
 
     it 'response is false from API' do
@@ -56,9 +57,10 @@ RSpec.describe Personal, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
                                      .and_return(faraday_response)
 
-      personal.cpf_get_status
+      response = personal.cpf_banned?
 
-      expect(personal.status).to eq 'active'
+      expect(response).to eq false
+      expect(personal.valid?).to eq true
     end
 
     it 'error on API' do
@@ -69,9 +71,9 @@ RSpec.describe Personal, type: :model do
       allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
                                      .and_return(faraday_response)
 
-      personal.cpf_get_status
+      response = personal.cpf_banned?
 
-      expect(personal.status).to eq nil
+      expect(response).to eq nil
       expect(personal.valid?).to eq false
     end
   end

@@ -34,30 +34,42 @@ Things you may want to cover:
 **HTTP status:** 200 - Sucesso no banimento do Personal
 
 ```json
-["Personal banido com sucesso"]
+{"messages":["Personal banido com sucesso"],
+  "status":200
+}
 ```
 
 **HTTP status:** 200 - Sucesso no banimento do Cliente
 
 ```json
-["Cliente banido com sucesso"]
+{"messages":["Cliente banido com sucesso"],
+  "status":200
+}
 ```
 
 **HTTP status:** 200 - Sucesso no banimento do Personal que também é Cliente
 
 ```json
-["Cliente banido com sucesso",
-"Personal banido com sucesso"]
+{"messages":[
+    "Cliente banido com sucesso",
+    "Personal banido com sucesso"
+  ],
+  "status":200
+}
 ```
 
 **HTTP status:** 404 - Parâmetro inválido
 
 ```json
-"CPF inválido"
+{"messages":["CPF inválido"],
+ "status":412
+}
 ```
 
 **HTTP status:** 412 - Não encontrado cadastro com esse CPF
 
 ```json
-"O usuário não possui cadastro ativo"
+{"messages":["O usuário não possui cadastro ativo"],
+ "status":404
+}
 ```
