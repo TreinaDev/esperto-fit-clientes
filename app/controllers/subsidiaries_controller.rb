@@ -1,7 +1,7 @@
 class SubsidiariesController < ApplicationController
   def show
     @subsidiary = Subsidiary.find(params[:id])
-    add_breadcrumb(@subsidiary.name, subsidiary_path)
+    add_breadcrumb(@subsidiary.name)
   end
 
   def search
