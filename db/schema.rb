@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_194809) do
+ActiveRecord::Schema.define(version: 2020_10_14_184340) do
 
   create_table "appointments", force: :cascade do |t|
     t.time "appointment_time"
@@ -90,10 +90,21 @@ ActiveRecord::Schema.define(version: 2020_10_13_194809) do
     t.index ["reset_password_token"], name: "index_personals_on_reset_password_token", unique: true
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "enroll_id", null: false
+    t.string "telephone"
+    t.index ["enroll_id"], name: "index_profiles_on_enroll_id"
+  end
+
   add_foreign_key "appointments", "personals"
   add_foreign_key "enrolls", "clients"
   add_foreign_key "enrolls", "payment_options"
   add_foreign_key "order_appointments", "appointments"
   add_foreign_key "order_appointments", "clients"
   add_foreign_key "personal_subsidiaries", "personals"
+  add_foreign_key "profiles", "enrolls"
 end
