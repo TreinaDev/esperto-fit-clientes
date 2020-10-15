@@ -21,11 +21,19 @@ feature 'Breadcrumbs' do
     end
 
     scenario 'enroll' do
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).and_return(faraday_response)
+      subsidiary = Subsidiary.new(id: 1, address: 'Avenida Osvaldo Reis, 801',
+                                  name: 'Vila Maria', cep: '88306-773')
+      plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
+                      subsidiary: subsidiary)
+      allow(Subsidiary).to receive(:all).and_return([subsidiary])
+      allow(subsidiary).to receive(:plans).and_return([plan])
       client = create(:client)
 
       login_as(client, scope: :client)
       visit root_path
-      click_on 'Vila Maria'
+      click_on subsidiary.name
       click_on 'Matricule-se'
 
       expect(page).to have_link('Home', href: root_path)
@@ -35,17 +43,22 @@ feature 'Breadcrumbs' do
     end
 
     scenario 'confirm enroll' do
+      faraday_response = double('cpf_check', status: 200, body: 'false')
+      allow(Faraday).to receive(:get).and_return(faraday_response)
       client = create(:client)
       create(:payment_option)
       subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
                                   address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+      plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
+                      subsidiary: subsidiary)
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
+      allow(subsidiary).to receive(:plans).and_return([plan])
 
       login_as(client, scope: :client)
       visit root_path
-      click_on 'Vila Maria'
+      click_on subsidiary.name
       click_on 'Matricule-se'
-      select 'Esperto', from: 'Plano'
+      select plan.name, from: 'Plano'
       select 'Boleto', from: 'Forma de pagamento'
       click_on 'Próximo'
 

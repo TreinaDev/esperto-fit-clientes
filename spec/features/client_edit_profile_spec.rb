@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'client edit profile' do
   scenario 'sucessfully' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
@@ -12,6 +14,8 @@ feature 'client edit profile' do
                             payment_option: payment_option,
                             subsidiary_id: subsidiary.id)
     profile = create(:profile, enroll: enroll)
+    allow(Subsidiary).to receive(:all).and_return([subsidiary])
+    allow(subsidiary).to receive(:plans).and_return([plan])
 
     login_as client, scope: :client
     visit root_path
@@ -27,6 +31,8 @@ feature 'client edit profile' do
   end
 
   scenario 'and attributes cannot be blank' do
+    faraday_response = double('cpf_check', status: 200, body: 'false')
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
@@ -37,6 +43,8 @@ feature 'client edit profile' do
                             payment_option: payment_option,
                             subsidiary_id: subsidiary.id)
     profile = create(:profile, enroll: enroll)
+    allow(Subsidiary).to receive(:all).and_return([subsidiary])
+    allow(subsidiary).to receive(:plans).and_return([plan])
 
     login_as client, scope: :client
     visit root_path
