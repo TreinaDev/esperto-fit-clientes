@@ -3,9 +3,10 @@ require 'rails_helper'
 describe 'Enroll subsidiary' do
   context 'confirm' do
     let(:subsidiary) do
-      Subsidiary.new(id: 1, name: 'Vila Maria',
-                     address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+      Subsidiary.new(id: 1, address: 'Avenida Osvaldo Reis, 801',
+                     name: 'Vila Maria', cep: '88306-773')
     end
+
     it 'must be logged in to post confirm' do
       post subsidiary_enrolls_confirm_path(subsidiary.id)
 
@@ -47,8 +48,6 @@ describe 'Enroll subsidiary' do
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       payment_option = create(:payment_option)
-      subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                  address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
       plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                       subsidiary: subsidiary)
       enroll = Enroll.new(subsidiary_id: subsidiary.id, plan_id: plan.id,
