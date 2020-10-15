@@ -13,8 +13,11 @@
   <dd><%= number_to_currency @enroll.plan.monthly_payment %></dd>
 </dl>
 
-<% if @enroll.coupon %>
-  Promoção: <%= @enroll.coupon_promotion_name %>
+<% if @enroll.coupon.present? %>
+  Promoção: <%= @enroll.coupon_promotion_name%>
+  Você recebeu um desconto de: <%= @enroll.coupon_discount_rate %>
+  Valor a pagar: <%= @enroll.total_value_with_coupon %>
+  até: <%= @enroll.coupon_expiration_date %>
 <% end %>
 
 <%= link_to t('.confirm'), enrolls_path(enroll: @enroll.attributes), method: :post %>
