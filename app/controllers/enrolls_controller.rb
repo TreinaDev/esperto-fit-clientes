@@ -22,7 +22,8 @@ class EnrollsController < ApplicationController
   end
 
   def confirm
-    add_breadcrumb('Matrícula')
+    add_breadcrumb('Matrícula', new_subsidiary_enroll_path(params[:subsidiary_id]))
+    add_breadcrumb('Confirmar')
     @enroll = Enroll.new(enroll_params_confirm)
     return if @enroll.valid?
 
@@ -56,6 +57,10 @@ class EnrollsController < ApplicationController
 
   def add_subsidiary_breadcrumb
     @subsidiary = Subsidiary.find(params[:subsidiary_id])
-    add_breadcrumb(@subsidiary.name, subsidiary_path(@subsidiary.id))
+    if @subsidiary
+      add_breadcrumb(@subsidiary.name, subsidiary_path(@subsidiary.id))
+    else
+      add_breadcrumb('Filial')
+    end
   end
 end
