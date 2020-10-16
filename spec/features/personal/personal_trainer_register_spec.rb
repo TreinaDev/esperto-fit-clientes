@@ -2,9 +2,6 @@ require 'rails_helper'
 
 feature 'Personal Trainer register' do
   scenario 'successfully' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
-
     visit root_path
     click_on 'Registrar'
     click_on 'aqui'
@@ -59,8 +56,6 @@ feature 'Personal Trainer register' do
 
   context 'CPF does not need to be formatted' do
     scenario 'can create and log in' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).and_return(faraday_response)
       visit root_path
       click_on 'Registrar'
       click_on 'aqui'
@@ -84,8 +79,6 @@ feature 'Personal Trainer register' do
     end
 
     scenario 'CPF will not be unique' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).and_return(faraday_response)
       create(:personal, cpf: '088---587-549-4.8')
 
       visit root_path

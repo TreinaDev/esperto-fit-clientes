@@ -2,9 +2,6 @@ require 'rails_helper'
 
 feature 'Visitor creates Account' do
   scenario 'successfully' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
-
     visit root_path
     click_on 'Registrar'
     fill_in 'CPF', with: '082.923.869-71'
@@ -44,8 +41,6 @@ feature 'Visitor creates Account' do
   end
 
   scenario 'cpf must be uniq' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     create(:client, cpf: '082.923.869-71')
     visit new_client_registration_path
     fill_in 'CPF', with: '082.923.869-71'
@@ -59,8 +54,6 @@ feature 'Visitor creates Account' do
 
   context 'CPF does not need to be formatted' do
     scenario 'can create and log in' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).and_return(faraday_response)
       visit root_path
       click_on 'Registrar'
       fill_in 'CPF', with: '088---587-549-4.8'
@@ -82,8 +75,6 @@ feature 'Visitor creates Account' do
     end
 
     scenario 'CPF will not be unique' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).and_return(faraday_response)
       create(:client, cpf: '088---587-549-4.8')
 
       visit root_path

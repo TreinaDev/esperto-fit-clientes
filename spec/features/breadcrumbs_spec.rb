@@ -21,8 +21,6 @@ feature 'Breadcrumbs' do
     end
 
     scenario 'enroll' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).and_return(faraday_response)
       subsidiary = Subsidiary.new(id: 1, address: 'Avenida Osvaldo Reis, 801',
                                   name: 'Vila Maria', cep: '88306-773')
       plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
@@ -43,8 +41,6 @@ feature 'Breadcrumbs' do
     end
 
     scenario 'confirm enroll' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).and_return(faraday_response)
       client = create(:client)
       create(:payment_option)
       subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',

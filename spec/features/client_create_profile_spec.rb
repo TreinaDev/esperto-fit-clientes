@@ -2,8 +2,6 @@ require 'rails_helper'
 
 feature 'cliente create profile' do
   scenario 'and must has enroll' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as client, scope: :client
     visit root_path
@@ -13,8 +11,6 @@ feature 'cliente create profile' do
   end
 
   scenario 'from new_profile_path' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as client, scope: :client
     visit new_profile_path
@@ -23,8 +19,6 @@ feature 'cliente create profile' do
   end
 
   scenario 'sucessfully' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
@@ -54,8 +48,6 @@ feature 'cliente create profile' do
   end
 
   scenario 'and attributes cannot be blank' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',

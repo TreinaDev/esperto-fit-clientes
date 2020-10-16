@@ -2,8 +2,6 @@ require 'rails_helper'
 
 feature 'Client login on system' do
   scenario 'successfully' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
 
     visit root_path
@@ -20,8 +18,6 @@ feature 'Client login on system' do
   end
 
   scenario 'client failed to login' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
 
     visit root_path
@@ -34,8 +30,6 @@ feature 'Client login on system' do
   end
 
   scenario 'and log out' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as client, scope: :client
 
