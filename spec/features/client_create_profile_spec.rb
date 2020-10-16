@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 feature 'cliente create profile' do
+  before do
+    allow(Subsidiary).to receive(:all)
+      .and_return([Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
+  end
+
   scenario 'and must has enroll' do
     faraday_response = double('cpf_check', status: 200, body: 'false')
     allow(Faraday).to receive(:get).and_return(faraday_response)
@@ -27,8 +35,8 @@ feature 'cliente create profile' do
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     Enroll.create!(client: client, plan_id: plan.id,
@@ -58,8 +66,8 @@ feature 'cliente create profile' do
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     Enroll.create!(client_id: client.id, plan_id: plan.id,

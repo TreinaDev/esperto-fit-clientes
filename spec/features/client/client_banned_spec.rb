@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 feature 'Banned client' do
+  before do
+    allow(Subsidiary).to receive(:all)
+      .and_return([Subsidiary.new(id: 1, name: 'EspertoII', address: 'Avenida Paulista, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
+  end
+
   scenario 'try register client banned' do
     client = build(:client)
     faraday_response = double('cpf_check', status: 200, body: 'true')
