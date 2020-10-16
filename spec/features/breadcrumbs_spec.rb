@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 feature 'Breadcrumbs' do
-  before do 
+  before do
     allow(Subsidiary).to receive(:all)
-    .and_return([Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
-                 cnpj: '11189348000195', token: 'CK4XEB'),
-                 Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
-                                cnpj: '11189348000195', token: 'CK4XEB')])
+      .and_return([Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
   end
   context 'subsidiaries and enroll' do
     scenario 'show' do

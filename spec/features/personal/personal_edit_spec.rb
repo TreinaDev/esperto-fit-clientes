@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 feature 'Personal edit profile' do
-  before do 
+  before do
     allow(Subsidiary).to receive(:all)
-    .and_return([Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
-                 cnpj: '11189348000195', token: 'CK4XEB'),
-                 Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
-                                cnpj: '11189348000195', token: 'CK4XEB')])
+      .and_return([Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
   end
-  
+
   scenario 'successfully' do
     faraday_response = double('cpf_check', status: 200, body: 'false')
     allow(Faraday).to receive(:get).and_return(faraday_response)

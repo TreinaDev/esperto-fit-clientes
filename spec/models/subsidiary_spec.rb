@@ -43,7 +43,7 @@ RSpec.describe Subsidiary, type: :model do
 
   describe 'get all subsidiaries' do
     it 'fetch all subsidiaries from API' do
-      json_content = File.read(Rails.root.join("spec/support/apis/get_subsidiaries.json"))
+      json_content = File.read(Rails.root.join('spec/support/apis/get_subsidiaries.json'))
       faraday_response = double('subs', status: 200, body: json_content)
       allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}/subsidiaries")
                                      .and_return(faraday_response)
@@ -56,7 +56,7 @@ RSpec.describe Subsidiary, type: :model do
     end
 
     it 'fetch no subsidiaries from API' do
-      faraday_response = double("subs", status: 200, body: "[]")
+      faraday_response = double('subs', status: 200, body: '[]')
 
       allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}/subsidiaries")
                                      .and_return(faraday_response)
@@ -67,7 +67,7 @@ RSpec.describe Subsidiary, type: :model do
     end
 
     it 'error on API' do
-      faraday_response = double("subs", status: 500)
+      faraday_response = double('subs', status: 500)
 
       allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}/subsidiaries")
                                      .and_return(faraday_response)
