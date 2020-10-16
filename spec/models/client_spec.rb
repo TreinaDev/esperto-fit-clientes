@@ -34,7 +34,6 @@ RSpec.describe Client, type: :model do
       end
     end
 
-
     it '#is_partner? => false' do
       allow(client).to receive(:partner?).and_return(false)
 
