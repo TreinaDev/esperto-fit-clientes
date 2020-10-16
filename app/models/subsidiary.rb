@@ -15,8 +15,7 @@ class Subsidiary
     if response.status == 200
       list = JSON.parse(response.body, symbolize_names: true)
       list.map do |item|
-        new(id: item[:id], name: item[:name],
-            address: item[:address], cnpj: item[:cnpj], token: item[:token])
+        new(item)
       end
     else
       []
