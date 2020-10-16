@@ -1,7 +1,6 @@
 class Client < ApplicationRecord
   has_one :enroll, -> { order(created_at: :desc) }, inverse_of: :client
   has_many :order_appointments, dependent: :destroy
-  include PartnerClient
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -11,6 +10,10 @@ class Client < ApplicationRecord
   validates :cpf, uniqueness: true
   validate :cpf_validation
   before_validation :clean_cpf
+
+  def partner?
+    PartnerClient.new(self).partner_client?
+  end
 
   def domain
     email.split('@')[1]

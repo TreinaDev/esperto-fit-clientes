@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_194809) do
+ActiveRecord::Schema.define(version: 2020_10_15_020118) do
 
   create_table "appointments", force: :cascade do |t|
     t.time "appointment_time"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2020_10_13_194809) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "payment_option_id", null: false
+    t.string "coupon"
     t.index ["client_id"], name: "index_enrolls_on_client_id"
     t.index ["payment_option_id"], name: "index_enrolls_on_payment_option_id"
   end
