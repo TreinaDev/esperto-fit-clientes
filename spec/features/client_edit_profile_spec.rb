@@ -6,8 +6,8 @@ feature 'client edit profile' do
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     enroll = Enroll.create!(client: client, plan_id: plan.id,
@@ -35,8 +35,8 @@ feature 'client edit profile' do
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     enroll = Enroll.create!(client: client, plan_id: plan.id,

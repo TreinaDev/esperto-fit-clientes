@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 feature 'Breadcrumbs' do
+  before do 
+    allow(Subsidiary).to receive(:all)
+    .and_return([Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                 cnpj: '11189348000195', token: 'CK4XEB'),
+                 Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                cnpj: '11189348000195', token: 'CK4XEB')])
+  end
   context 'subsidiaries and enroll' do
     scenario 'show' do
       visit root_path
@@ -23,8 +30,8 @@ feature 'Breadcrumbs' do
     scenario 'enroll' do
       faraday_response = double('cpf_check', status: 200, body: 'false')
       allow(Faraday).to receive(:get).and_return(faraday_response)
-      subsidiary = Subsidiary.new(id: 1, address: 'Avenida Osvaldo Reis, 801',
-                                  name: 'Vila Maria', cep: '88306-773')
+      subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                  cnpj: '11189348000195', token: 'CK4XEB')
       plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                       subsidiary: subsidiary)
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -47,8 +54,8 @@ feature 'Breadcrumbs' do
       allow(Faraday).to receive(:get).and_return(faraday_response)
       client = create(:client)
       create(:payment_option)
-      subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                  address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+      subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                  cnpj: '11189348000195', token: 'CK4XEB')
       plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                       subsidiary: subsidiary)
       allow(Subsidiary).to receive(:all).and_return([subsidiary])

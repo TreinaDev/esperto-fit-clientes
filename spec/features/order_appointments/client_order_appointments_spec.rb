@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 feature 'Order Appointments' do
+  before do 
+    allow(Subsidiary).to receive(:all)
+    .and_return([Subsidiary.new(id: 1, name: 'EspertoII', address: 'Avenida Paulista, 150',
+                 cnpj: '11189348000195', token: 'CK4XEB'),
+                 Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                cnpj: '11189348000195', token: 'CK4XEB')])
+  end
+  
   scenario 'Client view available appointments' do
     faraday_response = double('cpf_check', status: 200, body: 'false')
     allow(Faraday).to receive(:get).and_return(faraday_response)

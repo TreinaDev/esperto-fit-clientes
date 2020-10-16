@@ -1,17 +1,26 @@
 class Subsidiary
-  attr_reader :id, :name, :address, :cep
+  attr_reader :id, :name, :address, :cnpj, :token
 
-  def initialize(id:, name:, address:, cep:)
+  def initialize(id:, name:, address:, cnpj:, token:)
     @id = id
     @name = name
     @address = address
-    @cep = cep
+    @cnpj = cnpj
+    @token = token
   end
 
   def self.all
-    [new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801', cep: '88306-773'),
-     new(id: 2, name: 'Ipiranga', address: 'Rua da Concórdia, 201', cep: '57071-812'),
-     new(id: 3, name: 'Santos', address: 'Rua das Hortências, 302', cep: '78150-384')]
+    response = Faraday.get "#{Rails.configuration.apis['subsidiaries']}/subsidiaries"
+
+    if response.status == 200
+      list = JSON.parse(response.body, symbolize_names: true)
+      list.map do |item|
+        new(id: item[:id], name: item[:name],
+            address: item[:address], cnpj: item[:cnpj], token: item[:token])
+      end
+    else
+      []
+    end
   end
 
   def self.find(id)
@@ -33,8 +42,7 @@ class Subsidiary
   def self.search(query)
     all.filter do |subsidiary|
       subsidiary.name.downcase.include?(query.downcase) or
-        subsidiary.address.downcase.include?(query.downcase) or
-        subsidiary.cep.split('-').join == query.split('-').join
+        subsidiary.address.downcase.include?(query.downcase)
     end
   end
 end
