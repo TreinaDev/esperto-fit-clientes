@@ -1,0 +1,53 @@
+@import '../shared';
+
+.home {
+  height: 100%;
+}
+
+.home_banner {
+  height: 70%;
+  background-image: radial-gradient(rgba(51,51,51,0.5), rgba(51,51,51,0.5)), url('banner.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    color: #fff;
+    font-weight: bolder;
+  }
+
+  h3 {
+    color: #fff;
+    font-weight: bolder;
+  }
+}
+
+.home_discover_button {
+  color: #fff;
+  background-color: $custom-pink;
+  padding: 15px 30px 15px 30px;
+  border-radius: 10px;
+
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: $custom-pink-hover;
+  }
+}
+
+.home_subsidiaries {
+  margin: 30px 10% 10% 10%;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.home_subsidiaries_text {
+  grid-column: 1 / 4;
+  color: $custom-pink;
+  text-align: center;
+  padding: 10px;
+}

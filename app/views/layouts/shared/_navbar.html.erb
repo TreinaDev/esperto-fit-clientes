@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <a href="/" class="navbar-brand"><%= image_tag('logo.png', class: 'logo') %></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <%= render partial: 'subsidiaries/search' %>
+    <ul class="navbar-nav ml-auto">
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        
+          <% if client_signed_in? %>
+            <%= link_to 'Editar Cadastro', edit_client_registration_path, class: "dropdown-item" %>
+            <%= link_to 'Sair', destroy_client_session_path, method: :delete, class: "dropdown-item" %>
+            <%= link_to 'Personais disponíveis', order_appointments_path, class: "dropdown-item" %>
+            <%= link_to 'Treinos agendados', client_ordered_appointments_path(current_client), class: "dropdown-item" %>
+          <% elsif personal_signed_in? %>
+            <%= link_to 'Editar Cadastro', edit_personal_registration_path, class: "dropdown-item" %>
+            <%= link_to 'Sair', destroy_personal_session_path, method: :delete, class: "dropdown-item" %>
+            <%= link_to 'Minha Agenda', appointments_path, class: "dropdown-item" if personal_signed_in? %>
+          <%  else %>
+            <%= link_to 'Registrar', new_client_registration_path, class: "dropdown-item" %>
+            <%= link_to 'Entrar', new_client_session_path, class: "dropdown-item" %>
+          <% end %>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
