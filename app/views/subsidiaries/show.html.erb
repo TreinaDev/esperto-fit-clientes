@@ -1,14 +1,19 @@
-<h1> Unidade <%= @subsidiary.name %> </h1>
+<section class="subsidiary_details">
+  <div class="card bg-dark text-white">
+    <%= image_tag('subsidiaries.jpg', class: 'card-img') %>
+    <div class="card-img-overlay subsidiary_details_card">
+      <h5 class="card-title">Unidade <%= @subsidiary.name %></h5>
+      <p class="card-text">Lorem ipsum</p>
+      <p class="card-text"><%= @subsidiary.address %></p>
+      <% if personal_signed_in? %>
+        <%= button_to 'Adicionar Filial', add_subsidiary_personal_path(@subsidiary.id, current_personal), class: 'custom-button' %>
+      <% end %>
 
-<dl>
-  <dt>Endereço:  </dt>
-  <dd><%= @subsidiary.address %></dd>
-</dl>
+      <% if !client_signed_in? || !current_client.already_enrolled? %>
+        <%= link_to t('.enroll_now'), new_subsidiary_enroll_path(@subsidiary.id), class: 'custom-button' %>
+      <% end %>
+    </div>
+  </div>
 
-<% if personal_signed_in? %>
-  <%= button_to 'Adicionar Filial', add_subsidiary_personal_path(@subsidiary.id, current_personal) %>
-<% end %>
 
-<% if !client_signed_in? || !current_client.already_enrolled? %>
-  <%= link_to t('.enroll_now'), new_subsidiary_enroll_path(@subsidiary.id) %>
-<% end %>
+</section>
