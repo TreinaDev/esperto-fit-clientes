@@ -39,7 +39,7 @@ RSpec.describe Personal, type: :model do
     it 'response is true from API' do
       personal = build(:personal, status: nil)
 
-      faraday_response = double('cpf_ban', status: 200, body: 'true')
+      faraday_response = double('cpf_ban', status: 200)
 
       allow(Faraday).to receive(:get)
         .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(personal.cpf).stripped}")

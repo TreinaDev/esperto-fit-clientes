@@ -30,7 +30,7 @@ describe 'Ban user' do
       end
 
       it 'return 200 if client already banned' do
-        faraday_response = double('cpf_check', status: 200, body: 'true')
+        faraday_response = double('cpf_check', status: 200)
         allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                        .and_return(faraday_response)
         create(:client, cpf: '478.145.318-02')
@@ -43,7 +43,7 @@ describe 'Ban user' do
       end
 
       it 'return 200 if personal already banned' do
-        faraday_response = double('cpf_check', status: 200, body: 'true')
+        faraday_response = double('cpf_check', status: 200)
         allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                        .and_return(faraday_response)
         create(:personal, cpf: '478.145.318-02')
@@ -56,7 +56,7 @@ describe 'Ban user' do
       end
 
       it 'return 200 status if user have client and personal account banned' do
-        faraday_response = double('cpf_check', status: 404, body: 'false')
+        faraday_response = double('cpf_check', status: 404)
         allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                        .and_return(faraday_response)
         create(:client, cpf: '478.145.318-02')
@@ -70,7 +70,7 @@ describe 'Ban user' do
       end
 
       it 'return 200 status if user have client and personal account already banned' do
-        faraday_response = double('cpf_check', status: 200, body: 'true')
+        faraday_response = double('cpf_check', status: 200)
         allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                        .and_return(faraday_response)
         create(:client, cpf: '478.145.318-02')

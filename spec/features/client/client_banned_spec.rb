@@ -11,7 +11,7 @@ feature 'Banned client' do
 
   scenario 'try register client banned' do
     client = build(:client)
-    faraday_response = double('cpf_check', status: 200, body: 'true')
+    faraday_response = double('cpf_check', status: 200)
     allow(Faraday).to receive(:get)
       .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(client.cpf).stripped}")
       .and_return(faraday_response)
@@ -27,7 +27,7 @@ feature 'Banned client' do
   end
 
   scenario 'try login client banned' do
-    faraday_response = double('cpf_check', status: 200, body: 'true')
+    faraday_response = double('cpf_check', status: 200)
     allow(Faraday).to receive(:get)
       .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
       .and_return(faraday_response)
@@ -43,7 +43,7 @@ feature 'Banned client' do
 
   scenario 'try register personal trainer banned' do
     personal = build(:personal)
-    faraday_response = double('cpf_check', status: 200, body: 'true')
+    faraday_response = double('cpf_check', status: 200)
     allow(Faraday).to receive(:get)
       .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(personal.cpf).stripped}")
       .and_return(faraday_response)
@@ -61,7 +61,7 @@ feature 'Banned client' do
   end
 
   scenario 'try login personal trainer banned' do
-    faraday_response = double('cpf_check', status: 200, body: 'true')
+    faraday_response = double('cpf_check', status: 200)
     allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                    .and_return(faraday_response)
     personal = create(:personal, cpf: '478.145.318-02')
