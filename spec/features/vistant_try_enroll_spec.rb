@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'visitant try enroll' do
   scenario 'and must be signed up' do
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
     visit root_path
@@ -16,8 +16,8 @@ feature 'visitant try enroll' do
   scenario 'and has a enroll' do
     client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     Enroll.create(subsidiary_id: subsidiary.id, plan_id: plan.id,
@@ -34,8 +34,8 @@ feature 'visitant try enroll' do
 
   scenario 'sucessfully' do
     client = create(:client, cpf: '478.145.318-02')
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
     allow(subsidiary).to receive(:plans).and_return([])
 
@@ -48,8 +48,8 @@ feature 'visitant try enroll' do
   end
 
   scenario 'and must be signed to access new path' do
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
     visit new_subsidiary_enroll_path(subsidiary.id)
@@ -60,8 +60,8 @@ feature 'visitant try enroll' do
   scenario 'and already enrolled to access new path' do
     client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     Enroll.create(subsidiary_id: subsidiary.id, plan_id: plan.id,

@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Enroll subsidiary' do
   context 'confirm' do
     let(:subsidiary) do
-      Subsidiary.new(id: 1, address: 'Avenida Osvaldo Reis, 801',
-                     name: 'Vila Maria', cep: '88306-773')
+      Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                     cnpj: '11189348000195', token: 'CK4XEB')
     end
 
     it 'must be logged in to post confirm' do
@@ -58,8 +58,8 @@ describe 'Enroll subsidiary' do
 
   context 'create' do
     let(:subsidiary) do
-      Subsidiary.new(id: 1, name: 'Vila Maria',
-                     address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+      Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                     cnpj: '11189348000195', token: 'CK4XEB')
     end
     it 'must be logged in to post create' do
       post enrolls_path, params: { enroll: { teste: 'teste' } }

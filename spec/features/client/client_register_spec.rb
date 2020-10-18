@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 feature 'Visitor creates Account' do
+  before do
+    allow(Subsidiary).to receive(:all)
+      .and_return([Subsidiary.new(id: 1, name: 'EspertoII', address: 'Avenida Paulista, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
+  end
+
   scenario 'successfully' do
     visit root_path
     click_on 'Registrar'

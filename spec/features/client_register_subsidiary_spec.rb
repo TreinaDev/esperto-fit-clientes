@@ -4,8 +4,8 @@ feature 'client enroll a subsidiary' do
   scenario 'and view details summary' do
     client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -32,8 +32,8 @@ feature 'client enroll a subsidiary' do
   scenario 'sucessfully' do
     client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -53,8 +53,8 @@ feature 'client enroll a subsidiary' do
 
   scenario 'not must fill in blank' do
     client = create(:client, cpf: '478.145.318-02')
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -73,8 +73,8 @@ feature 'client enroll a subsidiary' do
   scenario 'and return to enroll form' do
     client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
-    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria',
-                                address: 'Avenida Osvaldo Reis, 801', cep: '88306-773')
+    subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                cnpj: '11189348000195', token: 'CK4XEB')
     plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
                     subsidiary: subsidiary)
     allow(Subsidiary).to receive(:all).and_return([subsidiary])
