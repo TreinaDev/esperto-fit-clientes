@@ -14,8 +14,8 @@ feature 'visitant try enroll' do
   end
 
   scenario 'and has a enroll' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+    faraday_response = double('cpf_check', status: 404)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                    .and_return(faraday_response)
     client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)
@@ -36,8 +36,8 @@ feature 'visitant try enroll' do
   end
 
   scenario 'sucessfully' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+    faraday_response = double('cpf_check', status: 404)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                    .and_return(faraday_response)
     client = create(:client, cpf: '478.145.318-02')
     subsidiary = Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
@@ -64,8 +64,8 @@ feature 'visitant try enroll' do
   end
 
   scenario 'and already enrolled to access new path' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+    faraday_response = double('cpf_check', status: 404)
+    allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                    .and_return(faraday_response)
     client = create(:client, cpf: '478.145.318-02')
     payment_option = create(:payment_option)

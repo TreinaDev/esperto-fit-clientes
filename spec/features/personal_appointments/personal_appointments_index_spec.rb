@@ -16,7 +16,7 @@ feature 'Personal view index appointments' do
   end
 
   scenario 'logged in personal see link to appointment' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     login_as(personal)
@@ -26,7 +26,7 @@ feature 'Personal view index appointments' do
   end
 
   scenario 'personal appointments empty' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     login_as(personal)
@@ -39,7 +39,7 @@ feature 'Personal view index appointments' do
   end
 
   scenario 'personal appointments not empty' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     login_as(personal)
@@ -51,7 +51,7 @@ feature 'Personal view index appointments' do
   end
 
   scenario 'personal see list of appointment' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal, cpf: '478.145.318-02')
     login_as(personal)
@@ -63,7 +63,7 @@ feature 'Personal view index appointments' do
   end
 
   scenario 'personal see list of only their appointments' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     login_as(personal)

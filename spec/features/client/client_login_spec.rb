@@ -10,7 +10,7 @@ feature 'Client login on system' do
   end
 
   scenario 'successfully' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
 
@@ -28,7 +28,7 @@ feature 'Client login on system' do
   end
 
   scenario 'client failed to login' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
 
@@ -42,7 +42,7 @@ feature 'Client login on system' do
   end
 
   scenario 'and log out' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as client, scope: :client

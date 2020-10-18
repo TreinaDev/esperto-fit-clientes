@@ -10,7 +10,7 @@ feature 'Personal edit profile' do
   end
 
   scenario 'successfully' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 
@@ -27,7 +27,7 @@ feature 'Personal edit profile' do
   end
 
   scenario 'must fill password' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 
@@ -42,7 +42,7 @@ feature 'Personal edit profile' do
   end
 
   scenario 'email and name must be filled' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 

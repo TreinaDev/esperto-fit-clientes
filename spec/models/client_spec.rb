@@ -11,7 +11,7 @@ RSpec.describe Client, type: :model do
     it { is_expected.to validate_presence_of(:cpf) }
     it { is_expected.to validate_presence_of(:email) }
     it 'Uniqueness CPF' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
+      faraday_response = double('cpf_check', status: 404)
       allow(Faraday).to receive(:get).and_return(faraday_response)
       create(:client, cpf: '08858754948')
       client = build(:client, cpf: '0885875-4948')
@@ -28,9 +28,10 @@ RSpec.describe Client, type: :model do
 
   context 'verify partnership' do
     it '#partner? => true' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
-                                     .and_return(faraday_response)
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
+        .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(client).to receive(:partner?).and_return(true)
 
@@ -38,18 +39,20 @@ RSpec.describe Client, type: :model do
     end
 
     it '#is_partner? => true' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
-                                     .and_return(faraday_response)
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
+        .and_return(faraday_response)
       client = create(:client, email: 'client@partner_company.com', cpf: '478.145.318-02')
 
       expect(client.partner?).to be_truthy
     end
 
     it '#is_partner? => false' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
-                                     .and_return(faraday_response)
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
+        .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(client).to receive(:partner?).and_return(false)
 
@@ -58,13 +61,14 @@ RSpec.describe Client, type: :model do
   end
 
   context '#cpf_banned?' do
-    it 'response is true from API' do
+    it 'status 200 from API' do
       client = build(:client, status: nil)
 
-      faraday_response = double('cpf_ban', status: 200, body: 'true')
+      faraday_response = double('cpf_ban', status: 200)
 
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(client.cpf).stripped}")
-                                     .and_return(faraday_response)
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(client.cpf).stripped}")
+        .and_return(faraday_response)
 
       response = client.cpf_banned?
 
@@ -72,12 +76,13 @@ RSpec.describe Client, type: :model do
       expect(client.valid?).to eq true
     end
 
-    it 'response is false from API' do
+    it 'status 404 from API' do
       client = build(:client, status: nil)
-      faraday_response = double('cpf_ban', status: 200, body: 'false')
+      faraday_response = double('cpf_ban', status: 404)
 
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(client.cpf).stripped}")
-                                     .and_return(faraday_response)
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(client.cpf).stripped}")
+        .and_return(faraday_response)
 
       response = client.cpf_banned?
 
@@ -85,13 +90,28 @@ RSpec.describe Client, type: :model do
       expect(client.valid?).to eq true
     end
 
+    it 'status 422 from API' do
+      client = build(:client, status: nil, cpf: '123456')
+      faraday_response = double('cpf_ban', status: 422)
+
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{client.cpf}")
+        .and_return(faraday_response)
+
+      response = client.cpf_banned?
+
+      expect(response).to eq nil
+      expect(client.valid?).to eq false
+    end
+
     it 'error on API' do
       client = build(:client, status: nil)
 
       faraday_response = double('cpf_ban', status: 500)
 
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(client.cpf).stripped}")
-                                     .and_return(faraday_response)
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(client.cpf).stripped}")
+        .and_return(faraday_response)
 
       response = client.cpf_banned?
 

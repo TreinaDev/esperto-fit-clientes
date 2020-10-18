@@ -10,7 +10,7 @@ feature 'Order Appointments' do
   end
 
   scenario 'Client view available appointments' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
@@ -26,7 +26,7 @@ feature 'Order Appointments' do
   end
 
   scenario 'Client view all their ordered appointments' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
@@ -44,7 +44,7 @@ feature 'Order Appointments' do
   end
 
   scenario 'only available appointments' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
@@ -60,7 +60,7 @@ feature 'Order Appointments' do
   end
 
   scenario 'view details' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
@@ -75,7 +75,7 @@ feature 'Order Appointments' do
   end
 
   scenario 'successfully order appointment' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)

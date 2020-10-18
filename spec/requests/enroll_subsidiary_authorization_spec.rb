@@ -14,8 +14,8 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid params' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -28,8 +28,8 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid subsidiary_id' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -43,8 +43,8 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with valid params' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       payment_option = create(:payment_option)
@@ -77,8 +77,8 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid params and valid subsidiary_id' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -91,8 +91,8 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid subsidiary_id' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
@@ -106,8 +106,8 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with valid params' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
-      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
+      faraday_response = double('cpf_check', status: 404)
+      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
                                      .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       payment_option = create(:payment_option)

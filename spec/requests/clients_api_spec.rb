@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Clients API' do
   context 'index' do
     it 'return clients' do
-      faraday_response = double('cpf_check', status: 200, body: 'false')
+      faraday_response = double('cpf_check', status: 404)
       allow(Faraday).to receive(:get).and_return(faraday_response)
       clients = create_list(:client, 2)
 
@@ -30,7 +30,7 @@ describe 'Clients API' do
   context 'GET /api/v1/client/:id' do
     context 'Record exists' do
       let(:client) do
-        faraday_response = double('cpf_check', status: 200, body: 'false')
+        faraday_response = double('cpf_check', status: 404)
         allow(Faraday).to receive(:get).and_return(faraday_response)
         create(:client)
       end

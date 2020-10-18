@@ -10,7 +10,7 @@ feature 'cliente create profile' do
   end
 
   scenario 'and must has enroll' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as client, scope: :client
@@ -21,7 +21,7 @@ feature 'cliente create profile' do
   end
 
   scenario 'from new_profile_path' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as client, scope: :client
@@ -31,7 +31,7 @@ feature 'cliente create profile' do
   end
 
   scenario 'sucessfully' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
@@ -62,7 +62,7 @@ feature 'cliente create profile' do
   end
 
   scenario 'and attributes cannot be blank' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
+    faraday_response = double('cpf_check', status: 404)
     allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     payment_option = create(:payment_option)
