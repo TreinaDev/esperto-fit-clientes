@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :authenticate_personal!, only: %i[index new create edit update]
+  before_action :authenticate_personal!, only: %i[index show new create edit update]
 
   def index
     @appointments = current_personal.appointments
@@ -38,7 +38,7 @@ class AppointmentsController < ApplicationController
   end
 
   def cancel
-    @appointment = Appointment.find(params[:id])
+    @appointment = current_personal.appointments.find(params[:id])
     @appointment.update(status: :canceled)
     redirect_to @appointment, notice: 'Agendamento cancelado'
   end

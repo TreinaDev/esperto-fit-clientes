@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'Personal cancel order appointment' do
   scenario 'need to be owner' do
-    create(:personal)
+    personal = create(:personal)
+    login_as(personal, scope: :personal)
     appointment = create(:appointment)
     create(:order_appointment, appointment: appointment)
 

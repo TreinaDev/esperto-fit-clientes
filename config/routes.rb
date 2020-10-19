@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :order_appointments, only: [:index]
+  resources :order_appointments, only: [:index, :show]
 
   resources :clients, only: [] do
     resources :ordered_appointments, only: :index, module: :clients
