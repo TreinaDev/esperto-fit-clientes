@@ -10,8 +10,6 @@ feature 'Personal Trainer bind subsidiaries' do
   end
 
   scenario 'sucessly' do
-    faraday_response = double('cpf_check', status: 200, body: 'false')
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
     login_as(personal, scope: :personal)
 

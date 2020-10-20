@@ -10,10 +10,8 @@ feature 'Banned client' do
   end
 
   scenario 'try register client banned' do
+    allow_any_instance_of(Client).to receive(:cpf_banned?).and_return(true)
     client = build(:client)
-    faraday_response = double('cpf_check', status: 200, body: 'true')
-    allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(client.cpf).stripped}")
-                                   .and_return(faraday_response)
 
     visit new_client_registration_path
     fill_in 'CPF', with: client.cpf
@@ -26,9 +24,7 @@ feature 'Banned client' do
   end
 
   scenario 'try login client banned' do
-    faraday_response = double('cpf_check', status: 200, body: 'true')
-    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
-                                   .and_return(faraday_response)
+    allow_any_instance_of(Client).to receive(:cpf_banned?).and_return(true)
     client = create(:client, cpf: '478.145.318-02')
 
     visit new_client_session_path
@@ -40,10 +36,8 @@ feature 'Banned client' do
   end
 
   scenario 'try register personal trainer banned' do
+    allow_any_instance_of(Personal).to receive(:cpf_banned?).and_return(true)
     personal = build(:personal)
-    faraday_response = double('cpf_check', status: 200, body: 'true')
-    allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
-                                   .and_return(faraday_response)
 
     visit new_personal_registration_path
     fill_in 'Nome', with: personal.name
@@ -58,9 +52,7 @@ feature 'Banned client' do
   end
 
   scenario 'try login personal trainer banned' do
-    faraday_response = double('cpf_check', status: 200, body: 'true')
-    allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/banned_user/47814531802')
-                                   .and_return(faraday_response)
+    allow_any_instance_of(Personal).to receive(:cpf_banned?).and_return(true)
     personal = create(:personal, cpf: '478.145.318-02')
 
     visit new_personal_session_path
