@@ -25,21 +25,15 @@ RSpec.describe Client, type: :model do
   end
 
   context 'verify partnership' do
+    let(:client) { create(:client, cpf: '816.125.298-01') }
+
     it '#partner? => true' do
-      client = create(:client, cpf: '478.145.318-02')
-      allow(client).to receive(:partner?).and_return(true)
-
-      expect(client.partner?).to be_truthy
-    end
-
-    it '#is_partner? => true' do
-      client = create(:client, email: 'client@partner_company.com', cpf: '478.145.318-02')
-
-      expect(client.partner?).to be_truthy
+      VCR.use_cassette('client/method_partner?') do
+        expect(client.partner?).to be_truthy
+      end
     end
 
     it '#is_partner? => false' do
-      client = create(:client, cpf: '478.145.318-02')
       allow(client).to receive(:partner?).and_return(false)
 
       expect(client.partner?).to be_falsey

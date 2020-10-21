@@ -38,7 +38,7 @@ class Client < ApplicationRecord
   end
 
   def partner?
-    VerifyPartnershipService.new(self).call
+    PartnerClient.new(self).partner_client?
   end
 
   def domain
