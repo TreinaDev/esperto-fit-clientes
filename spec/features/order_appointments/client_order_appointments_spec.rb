@@ -10,8 +10,6 @@ feature 'Order Appointments' do
   end
 
   scenario 'Client view available appointments' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointments = create_list(:appointment, 2)
@@ -26,8 +24,6 @@ feature 'Order Appointments' do
   end
 
   scenario 'Client view all their ordered appointments' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointments = create_list(:appointment, 2)
@@ -44,8 +40,6 @@ feature 'Order Appointments' do
   end
 
   scenario 'only available appointments' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointments = create_list(:appointment, 2)
@@ -60,8 +54,6 @@ feature 'Order Appointments' do
   end
 
   scenario 'view details' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointment = create(:appointment)
@@ -70,20 +62,18 @@ feature 'Order Appointments' do
     click_link 'Personais disponíveis'
     click_on 'Mais informações'
 
-    expect(current_path).to eq(appointment_path(appointment))
-    expect(page).to have_link('Agendar este horário')
+    expect(current_path).to eq(order_appointment_path(appointment))
+    expect(page).to have_content('Seu agendamento')
+    expect(page).to have_content(appointment.appointment_date.strftime('%d/%m/%Y'))
   end
 
   scenario 'successfully order appointment' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     client = create(:client)
     login_as(client, scope: :client)
     appointment = create(:appointment)
 
     visit root_path
     click_link 'Personais disponíveis'
-    click_on 'Mais informações'
     click_link 'Agendar este horário'
 
     appointment.reload

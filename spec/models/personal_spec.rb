@@ -24,9 +24,6 @@ RSpec.describe Personal, type: :model do
   end
 
   it 'CPF and CREF must be unique' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
-                                   .and_return(faraday_response)
     personal = create(:personal, cpf: '478.145.318-02')
     personal2 = build(:personal, cpf: personal.cpf, cref: personal.cref)
     personal2.valid?
@@ -37,13 +34,12 @@ RSpec.describe Personal, type: :model do
 
   context '#cpf_banned?' do
     it 'response is true from API' do
+      allow_any_instance_of(Personal).to receive(:cpf_banned?).and_call_original
       personal = build(:personal, status: nil)
-
-      faraday_response = double('cpf_ban', status: 200)
-
-      allow(Faraday).to receive(:get)
-        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(personal.cpf).stripped}")
-        .and_return(faraday_response)
+      faraday_response = double('cpf_ban', status: 200, body: 'true')
+      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/'\
+                                           "banned_customer/#{CPF.new(personal.cpf).stripped}")
+                                     .and_return(faraday_response)
 
       response = personal.cpf_banned?
 
@@ -52,6 +48,7 @@ RSpec.describe Personal, type: :model do
     end
 
     it 'response is false from API' do
+      allow_any_instance_of(Personal).to receive(:cpf_banned?).and_call_original
       personal = build(:personal, status: nil)
       faraday_response = double('cpf_ban', status: 404)
 
@@ -66,10 +63,9 @@ RSpec.describe Personal, type: :model do
     end
 
     it 'error on API' do
+      allow_any_instance_of(Personal).to receive(:cpf_banned?).and_call_original
       personal = build(:personal, status: nil)
-
       faraday_response = double('cpf_ban', status: 500)
-
       allow(Faraday).to receive(:get)
         .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(personal.cpf).stripped}")
         .and_return(faraday_response)

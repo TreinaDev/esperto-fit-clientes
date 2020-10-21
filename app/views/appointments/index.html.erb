@@ -6,7 +6,10 @@
   </div>
 <% end %>
 
+<div>
 <% @appointments.each do | appointment | %>
   <%=  l(appointment.appointment_date, format: :default) %>
+  <%= link_to 'Detalhes', appointment %>
 <% end %>
+</div>
 

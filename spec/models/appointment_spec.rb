@@ -13,6 +13,20 @@ RSpec.describe Appointment, type: :model do
     it { is_expected.to validate_presence_of(:personal) }
     it { is_expected.to validate_presence_of(:appointment_date) }
     it { is_expected.to validate_presence_of(:price_per_hour) }
+    it 'Appointment date cant be before today' do
+      appointment = build(:appointment, appointment_date: -1.day.from_now)
+      appointment.valid?
+
+      expect(appointment).to_not be_valid
+      expect(appointment.errors[:appointment_date]).to include('não é válido')
+    end
+
+    it 'Appointment date can be today' do
+      appointment = build(:appointment, appointment_date: Time.zone.today)
+      appointment.valid?
+
+      expect(appointment).to be_valid
+    end
   end
 
   context 'associations' do

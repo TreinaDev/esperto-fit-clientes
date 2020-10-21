@@ -8,7 +8,7 @@
   </div>
 
   <%= form.label :appointment_date %>
-  <%= form.date_field :appointment_date %>
+  <%= form.date_field :appointment_date, min: Date.current %>
 
   <%= form.label :price_per_hour %>
   <%= form.number_field :price_per_hour, min: 0%>

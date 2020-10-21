@@ -10,8 +10,6 @@ feature 'Personal login on system' do
   end
 
   scenario 'successfully' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 
     visit root_path
@@ -28,8 +26,6 @@ feature 'Personal login on system' do
   end
 
   scenario 'personal failed to login' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 
     visit root_path
@@ -43,8 +39,6 @@ feature 'Personal login on system' do
   end
 
   scenario 'and log out' do
-    faraday_response = double('cpf_check', status: 404)
-    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal)
 
     login_as personal, scope: :personal

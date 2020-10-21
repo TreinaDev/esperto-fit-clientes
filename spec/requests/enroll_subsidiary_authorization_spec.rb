@@ -14,9 +14,6 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid params' do
-      faraday_response = double('cpf_check', status: 404)
-      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
-                                     .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
       allow(subsidiary).to receive(:plans).and_return([])
@@ -28,9 +25,6 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid subsidiary_id' do
-      faraday_response = double('cpf_check', status: 404)
-      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
-                                     .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
@@ -43,9 +37,6 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with valid params' do
-      faraday_response = double('cpf_check', status: 404)
-      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
-                                     .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       payment_option = create(:payment_option)
       plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
@@ -77,9 +68,6 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid params and valid subsidiary_id' do
-      faraday_response = double('cpf_check', status: 404)
-      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
-                                     .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
       allow(subsidiary).to receive(:plans).and_return([])
@@ -91,9 +79,6 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with invalid subsidiary_id' do
-      faraday_response = double('cpf_check', status: 404)
-      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
-                                     .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       allow(Subsidiary).to receive(:all).and_return([subsidiary])
 
@@ -106,9 +91,6 @@ describe 'Enroll subsidiary' do
     end
 
     it 'with valid params' do
-      faraday_response = double('cpf_check', status: 404)
-      allow(Faraday).to receive(:get).with("#{Rails.configuration.apis['subsidiaries']}banned_customer/47814531802")
-                                     .and_return(faraday_response)
       client = create(:client, cpf: '478.145.318-02')
       payment_option = create(:payment_option)
       plan = Plan.new(id: 1, name: 'Black', monthly_payment: 120.00, permanency: 12,
