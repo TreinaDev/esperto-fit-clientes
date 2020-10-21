@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :profile do
-    name { 'Aluno' }
-    address { 'Av. Paulista' }
+    name { Faker::Name.unique.name }
+    address { Faker::Address.full_address }
     enroll
   end
 end

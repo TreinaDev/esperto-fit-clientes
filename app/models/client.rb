@@ -28,13 +28,10 @@ class Client < ApplicationRecord
   end
 
   def cpf_banned?
-    response = Faraday.get "http://subsidiaries/api/v1/banned_user/#{CPF.new(cpf).stripped}"
+    response = Faraday.get "#{Rails.configuration.apis[:subsidiaries]}/banned_customer/#{CPF.new(cpf).stripped}"
 
-    return nil if response.status != 200
-
-    return false if response.body == 'false'
-
-    return true if response.body == 'true'
+    return true if response.status == 200
+    false
   end
 
   def partner?
