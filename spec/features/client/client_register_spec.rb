@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 feature 'Visitor creates Account' do
+  before do
+    allow(Subsidiary).to receive(:all)
+      .and_return([Subsidiary.new(id: 1, name: 'EspertoII', address: 'Avenida Paulista, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
+  end
+
   scenario 'successfully' do
     visit root_path
     click_on 'Registrar'
@@ -24,7 +32,6 @@ feature 'Visitor creates Account' do
     fill_in 'Senha', with: ''
     click_on 'Cadastrar'
 
-    expect(page).to have_content('não pode ficar em branco', count: 3)
     expect(page).to have_content('Email não pode ficar em branco')
     expect(page).to have_content('CPF não pode ficar em branco')
     expect(page).to have_content('Senha não pode ficar em branco')
@@ -38,7 +45,7 @@ feature 'Visitor creates Account' do
     fill_in 'Confirme sua senha', with: '12345678'
     click_on 'Cadastrar'
 
-    expect(page).to have_content('CPF precisa ser válido')
+    expect(page).to have_content('CPF não é válido')
   end
 
   scenario 'cpf must be uniq' do

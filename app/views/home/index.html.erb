@@ -1,15 +1,40 @@
-<% if personal_signed_in? %>
-  <p>Bem vindo, <%= current_personal.name %>!</p>
-<% end %>
+<section class="home">
+  <section class="home_banner">
+    <h1>ESPERTO FIT</h1>
+    <h3>Transforme sua vida com conhecimento</h3>
+    <a class= "home_discover_button" href="#subsidiaries">Comece-já</a>
+  </section>
 
-<%= render partial: 'subsidiaries/search' %>
+  <section class="home_subsidiaries">
 
-<% if @subsidiaries.empty? %>
-  <h1>Nenhuma filial encontrada</h1>
-<% else %>
-  <% @subsidiaries.each do |subsidiary| %>
-    <h1><%= link_to subsidiary.name, subsidiary_path(subsidiary.id) %></h1>
-    <%= subsidiary.address %><br>
-    <%= subsidiary.cep %>
-  <% end %>
-<% end %>
+    <h2 id="subsidiaries" class="home_subsidiaries_text">Conheça nossas Unidades</h2>
+
+    <% if personal_signed_in? %>
+      <p>Bem vindo, <%= current_personal.name %>!</p>
+    <% end %>
+
+
+    <% if client_signed_in? && current_client.enroll.present? %>
+      <% if current_client.profile.nil?%>
+        <%= link_to 'Complete seu perfil', new_profile_path %>
+      <% else %>
+        <%= link_to 'Meu perfil', profile_path(current_client.profile) %>
+      <% end %>
+    <% end %>
+
+    <% if @subsidiaries.empty? %>
+      <h1>Nenhuma filial encontrada</h1>
+    <% else %>
+      <% @subsidiaries.each do |subsidiary| %>
+       <div class="card" style="width: 18rem;">
+         <%= image_tag('subsidiaries.jpg', class: "card-img-top") %>
+         <div class="card-body">
+           <h5 class="card-title"><%= link_to subsidiary.name, subsidiary_path(subsidiary.id)%></h5>
+           <p class="card-text"><%= subsidiary.address %></p>
+           <%= link_to 'Veja mais', subsidiary_path(subsidiary.id), class: 'btn btn-custom' %>
+         </div>
+       </div> 
+      <% end %>
+    <% end %>
+  </section>
+</section>

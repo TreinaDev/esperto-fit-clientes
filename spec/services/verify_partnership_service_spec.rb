@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe VerifyPartnershipService do
   context '#call' do
-    let(:client) { create(:client, cpf: '816.125.298-01') }
-
+    let(:client) do
+      create(:client, email: 'client@partner_company.com')
+    end
     subject { VerifyPartnershipService.new(client) }
 
     it 'returns Faraday::Response' do

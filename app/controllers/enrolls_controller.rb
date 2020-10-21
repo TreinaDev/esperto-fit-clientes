@@ -1,8 +1,10 @@
 class EnrollsController < ApplicationController
   before_action :authenticate_client!
   before_action :check_already_enrolled
+  before_action :add_subsidiary_breadcrumb, only: %i[new confirm]
 
   def new
+    add_breadcrumb('Matrícula')
     @enroll = Enroll.new
     @subsidiary = Subsidiary.find(params[:subsidiary_id])
     @payment_options = PaymentOption.all
@@ -20,6 +22,8 @@ class EnrollsController < ApplicationController
   end
 
   def confirm
+    add_breadcrumb('Matrícula', new_subsidiary_enroll_path(params[:subsidiary_id]))
+    add_breadcrumb('Confirmar')
     @enroll = Enroll.new(enroll_params_confirm)
     return if @enroll.valid?
 
@@ -48,6 +52,15 @@ class EnrollsController < ApplicationController
       render :new
     else
       redirect_to root_path, notice: t('.subsidiary_not_found')
+    end
+  end
+
+  def add_subsidiary_breadcrumb
+    @subsidiary = Subsidiary.find(params[:subsidiary_id])
+    if @subsidiary
+      add_breadcrumb(@subsidiary.name, subsidiary_path(@subsidiary.id))
+    else
+      add_breadcrumb('Filial')
     end
   end
 end

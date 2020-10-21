@@ -31,5 +31,7 @@ module EspertoFitClientes
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.apis = config_for(:apis)
   end
 end

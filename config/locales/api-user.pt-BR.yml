@@ -1,0 +1,7 @@
+---
+pt-BR:
+  users:
+    invalid_cpf: CPF inválido
+    no_account: O usuário não possui cadastro ativo
+    successfully_banned: ' banido com sucesso'
+    already_banned: ' já banido anteriormente'

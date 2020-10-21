@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 feature 'Order Appointments' do
+  before do
+    allow(Subsidiary).to receive(:all)
+      .and_return([Subsidiary.new(id: 1, name: 'EspertoII', address: 'Avenida Paulista, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
+  end
+
   scenario 'Client view available appointments' do
     client = create(:client)
     login_as(client, scope: :client)
@@ -54,8 +62,9 @@ feature 'Order Appointments' do
     click_link 'Personais disponíveis'
     click_on 'Mais informações'
 
-    expect(current_path).to eq(appointment_path(appointment))
-    expect(page).to have_link('Agendar este horário')
+    expect(current_path).to eq(order_appointment_path(appointment))
+    expect(page).to have_content('Seu agendamento')
+    expect(page).to have_content(appointment.appointment_date.strftime('%d/%m/%Y'))
   end
 
   scenario 'successfully order appointment' do
@@ -65,7 +74,6 @@ feature 'Order Appointments' do
 
     visit root_path
     click_link 'Personais disponíveis'
-    click_on 'Mais informações'
     click_link 'Agendar este horário'
 
     appointment.reload

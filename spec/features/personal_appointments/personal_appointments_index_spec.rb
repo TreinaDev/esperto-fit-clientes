@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 feature 'Personal view index appointments' do
+  before do
+    allow(Subsidiary).to receive(:all)
+      .and_return([Subsidiary.new(id: 1, name: 'Vila Maria', address: 'Avenida Osvaldo Reis, 801',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
+  end
+
   scenario 'not logged in personal do not see link to appointment' do
     visit root_path
 
@@ -37,7 +45,7 @@ feature 'Personal view index appointments' do
   end
 
   scenario 'personal see list of appointment' do
-    personal = create(:personal)
+    personal = create(:personal, cpf: '478.145.318-02')
     login_as(personal)
     appointment = create(:appointment, personal: personal)
     visit root_path
