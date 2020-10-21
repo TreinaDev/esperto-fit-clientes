@@ -5,9 +5,12 @@ Rails.application.routes.draw do
 
   resources :appointments, only: %i[index show new create edit update] do
     resources :order_appointments, only: [:create]
+    member do
+      put 'appointments/:id', to: 'appointments#cancel', as: :cancel
+    end
   end
 
-  resources :order_appointments, only: [:index]
+  resources :order_appointments, only: [:index, :show]
 
   resources :clients, only: [] do
     resources :ordered_appointments, only: :index, module: :clients
