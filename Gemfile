@@ -13,14 +13,16 @@ gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
+gem 'vcr'
+gem 'webmock'
 gem 'webpacker', '~> 4.0'
 
 group :development, :test do
   gem 'factory_bot_rails'
+  gem 'faker', github: 'faker-ruby/faker', branch: 'master'
   gem 'pry-byebug'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 4.0.1'
-  gem 'faker', github: 'faker-ruby/faker', branch: 'master'
 end
 
 group :development do

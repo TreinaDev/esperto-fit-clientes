@@ -37,7 +37,8 @@ RSpec.describe Personal, type: :model do
       allow_any_instance_of(Personal).to receive(:cpf_banned?).and_call_original
       personal = build(:personal, status: nil)
       faraday_response = double('cpf_ban', status: 200, body: 'true')
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
+      allow(Faraday).to receive(:get).with('http://subsidiaries/api/v1/'\
+                                           "banned_customer/#{CPF.new(personal.cpf).stripped}")
                                      .and_return(faraday_response)
 
       response = personal.cpf_banned?
@@ -49,10 +50,11 @@ RSpec.describe Personal, type: :model do
     it 'response is false from API' do
       allow_any_instance_of(Personal).to receive(:cpf_banned?).and_call_original
       personal = build(:personal, status: nil)
-      faraday_response = double('cpf_ban', status: 200, body: 'false')
+      faraday_response = double('cpf_ban', status: 404)
 
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
-                                     .and_return(faraday_response)
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(personal.cpf).stripped}")
+        .and_return(faraday_response)
 
       response = personal.cpf_banned?
 
@@ -64,8 +66,9 @@ RSpec.describe Personal, type: :model do
       allow_any_instance_of(Personal).to receive(:cpf_banned?).and_call_original
       personal = build(:personal, status: nil)
       faraday_response = double('cpf_ban', status: 500)
-      allow(Faraday).to receive(:get).with("http://subsidiaries/api/v1/banned_user/#{CPF.new(personal.cpf).stripped}")
-                                     .and_return(faraday_response)
+      allow(Faraday).to receive(:get)
+        .with("#{Rails.configuration.apis['subsidiaries']}banned_customer/#{CPF.new(personal.cpf).stripped}")
+        .and_return(faraday_response)
 
       response = personal.cpf_banned?
 
@@ -75,6 +78,8 @@ RSpec.describe Personal, type: :model do
   end
 
   it 'CPF does not need to be formatted' do
+    faraday_response = double('cpf_check', status: 404)
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     personal = create(:personal, cpf: '088--587549.4-8')
 
     expect(personal).to be_valid
@@ -82,6 +87,8 @@ RSpec.describe Personal, type: :model do
   end
 
   it 'Not formatted CPF and uniqueness test' do
+    faraday_response = double('cpf_check', status: 404)
+    allow(Faraday).to receive(:get).and_return(faraday_response)
     create(:personal, cpf: '088--587549.4-8')
     personal = build(:personal, cpf: '08858754948')
 

@@ -8,7 +8,8 @@
 
 <div>
 <% @appointments.each do | appointment | %>
-  <%= link_to l(appointment.appointment_date, format: :default), appointment %></br>
+  <%=  l(appointment.appointment_date, format: :default) %>
+  <%= link_to 'Detalhes', appointment %>
 <% end %>
 </div>
 

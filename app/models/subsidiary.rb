@@ -29,6 +29,27 @@ class Subsidiary
   end
 
   def plans
+    return mocked_plans if Rails.env.development?
+
+    api_plans if Rails.env.test?
+  end
+
+  def self.search(query)
+    all.filter do |subsidiary|
+      subsidiary.name.downcase.include?(query.downcase) or
+        subsidiary.address.downcase.include?(query.downcase)
+    end
+  end
+
+  private
+
+  def mocked_plans
+    plans = []
+    plans << Plan.new(id: 1, name: 'Default', monthly_payment: 120, permanency: 12, subsidiary: self)
+    plans
+  end
+
+  def api_plans
     response = Faraday.get("#{id}/api/plans")
     if response.status == 200
       JSON.parse(response.body, symbolize_names: true).map do |item|
@@ -36,13 +57,6 @@ class Subsidiary
       end
     else
       []
-    end
-  end
-
-  def self.search(query)
-    all.filter do |subsidiary|
-      subsidiary.name.downcase.include?(query.downcase) or
-        subsidiary.address.downcase.include?(query.downcase)
     end
   end
 end
