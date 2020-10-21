@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :personal do
-    sequence(:email) { |i| "personal#{i}@email.com" }
+    sequence(:name) { |i| "Nome#{i}" }
+    sequence(:email) { |i| "test#{i}@email.com" }
     password { 'password' }
-    cpf { '08858754948' }
-    cref { '001582-G/ES' }
-    name { 'Personal Test' }
+    cpf { CPF.generate(formatted: true) }
+    sequence(:cref) { |i| "#{1_000_000 - i}-G/SP" }
+    status { 'active' }
   end
 end

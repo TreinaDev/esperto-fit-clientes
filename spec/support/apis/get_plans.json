@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Esperto",
+    "monthly_payment": 10,
+    "permanency": 12
+  },
+  {
+    "id": 2,
+    "name": "Espertão",
+    "monthly_payment": 15,
+    "permanency": 12
+  }
+]

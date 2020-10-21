@@ -3,12 +3,17 @@ pt-BR:
    registrations:
     new:
        submit: Cadastrar
+    edit:
+      submit: Atualizar Cadastro
+      back: Voltar
   activerecord:
     models:
       client: Cliente
     attributes:
       client:
+        name: Nome
         cpf: CPF
         email: Email
         password: Senha
         password_confirmation: Confirme sua senha
+        current_password: Senha Atual

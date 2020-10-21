@@ -13,12 +13,14 @@ feature 'Personal cancel order appointment' do
   end
 
   scenario 'have link' do
+    allow(Subsidiary).to receive(:all).and_return([])
     personal = create(:personal)
     login_as(personal, scope: :personal)
     appointment = create(:appointment, personal: personal, status: 'ordered')
     create(:order_appointment, appointment: appointment)
 
     visit root_path
+    visit appointment_path(appointment)
     click_link 'Minha Agenda'
     click_link 'Detalhes'
 
@@ -26,6 +28,7 @@ feature 'Personal cancel order appointment' do
   end
 
   scenario 'successfully' do
+    allow(Subsidiary).to receive(:all).and_return([])
     personal = create(:personal)
     login_as(personal, scope: :personal)
     appointment = create(:appointment, personal: personal, status: 'ordered')

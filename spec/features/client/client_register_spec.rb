@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 feature 'Visitor creates Account' do
+  before do
+    allow(Subsidiary).to receive(:all)
+      .and_return([Subsidiary.new(id: 1, name: 'EspertoII', address: 'Avenida Paulista, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB'),
+                   Subsidiary.new(id: 1, name: 'Super Esperto', address: 'Avenida Ipiranga, 150',
+                                  cnpj: '11189348000195', token: 'CK4XEB')])
+  end
+
   scenario 'successfully' do
     visit root_path
     click_on 'Registrar'
@@ -24,7 +32,6 @@ feature 'Visitor creates Account' do
     fill_in 'Senha', with: ''
     click_on 'Cadastrar'
 
-    expect(page).to have_content('não pode ficar em branco', count: 3)
     expect(page).to have_content('Email não pode ficar em branco')
     expect(page).to have_content('CPF não pode ficar em branco')
     expect(page).to have_content('Senha não pode ficar em branco')
@@ -38,7 +45,7 @@ feature 'Visitor creates Account' do
     fill_in 'Confirme sua senha', with: '12345678'
     click_on 'Cadastrar'
 
-    expect(page).to have_content('CPF precisa ser válido')
+    expect(page).to have_content('CPF não é válido')
   end
 
   scenario 'cpf must be uniq' do
@@ -51,5 +58,42 @@ feature 'Visitor creates Account' do
     click_on 'Cadastrar'
 
     expect(page).to have_content('CPF já está em uso')
+  end
+
+  context 'CPF does not need to be formatted' do
+    scenario 'can create and log in' do
+      visit root_path
+      click_on 'Registrar'
+      fill_in 'CPF', with: '088---587-549-4.8'
+      fill_in 'Email', with: 'test@email.com'
+      fill_in 'Senha', with: '123456'
+      fill_in 'Confirme sua senha', with: '123456'
+      click_on 'Cadastrar'
+      click_on 'Sair'
+      click_on 'Entrar'
+      fill_in 'CPF', with: '08858754948'
+      fill_in 'Senha', with: '123456'
+      click_on 'Log in'
+
+      expect(page).to have_content('Login efetuado com sucesso')
+      expect(page).to_not have_link('Entrar')
+      expect(page).to_not have_link('Registrar',
+                                    href: new_client_registration_path)
+      expect(page).to have_link('Sair')
+    end
+
+    scenario 'CPF will not be unique' do
+      create(:client, cpf: '088---587-549-4.8')
+
+      visit root_path
+      click_on 'Registrar'
+      fill_in 'CPF', with: '08858754948'
+      fill_in 'Email', with: 'outro@email.com'
+      fill_in 'Senha', with: '123456'
+      fill_in 'Confirme sua senha', with: '123456'
+      click_on 'Cadastrar'
+
+      expect(page).to have_content('CPF já está em uso')
+    end
   end
 end

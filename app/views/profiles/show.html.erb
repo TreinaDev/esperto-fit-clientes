@@ -1,0 +1,19 @@
+<dl>
+  <dt><%= Profile.human_attribute_name(:name) %> </dt>
+  <dd><%= @profile.name %></dd>
+  <dt><%= Profile.human_attribute_name(:address) %> </dt>
+  <dd> <%=  @profile.address %> </dd>
+  <dt> <%= Client.human_attribute_name(:email) %> </dt>
+  <dd><%= current_client.email %></dd>
+  <dt> <%= Client.human_attribute_name(:cpf) %> </dt>
+  <dd><%= current_client.cpf %></dd>
+  <dt>Plano</dt>
+  <dd><%= @profile.enroll.plan.name %></dd>
+  <dt>Preço</dt>
+  <dd><%= @profile.enroll.plan.monthly_payment %></dd>
+  <dt>Permanencia minima</dt>
+  <dd><%= @profile.enroll.plan.permanency %></dd>
+</dl>
+
+<%= link_to 'Editar perfil', edit_profile_path(@profile) %>
+<%= link_to 'Voltar', root_path %>

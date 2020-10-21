@@ -9,14 +9,10 @@ class Plan
     @subsidiary = subsidiary
   end
 
-  def self.all
-    [new(id: 1, name: 'Esperto', monthly_payment: 90.00, permanency: 1, subsidiary: Subsidiary.find(1)),
-     new(id: 2, name: 'Black', monthly_payment: 120.00, permanency: 12, subsidiary: Subsidiary.find(1))]
-  end
-
-  def self.find(id)
+  def self.find(id, subsidiary_id)
     id = id.to_i
-    all.find { |hash| hash.id == id }
+    sub = Subsidiary.find(subsidiary_id)
+    sub.plans.find { |hash| hash.id == id }
   end
 
   def description

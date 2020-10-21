@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe VerifyPartnershipService do
   context '#call' do
-    let(:client) { create(:client, email: 'client@partner_company.com') }
+    let(:client) do
+      create(:client, email: 'client@partner_company.com')
+    end
     subject { VerifyPartnershipService.new(client) }
 
     it 'returns true' do
