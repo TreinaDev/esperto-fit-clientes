@@ -12,3 +12,11 @@ $custom-pink-hover: #E6009E;
     background-color: $custom-pink-hover;
   }
 }
+
+.alert-notice {
+  @extend alert-info !optional;
+}
+
+.alert-alert {
+  @extend alert-danger !optional;
+}

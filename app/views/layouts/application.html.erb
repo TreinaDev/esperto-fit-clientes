@@ -11,9 +11,9 @@
 
   <body>
     <%= render 'layouts/shared/navbar' %>
-  
+
     <% flash.each do |key, msg| %>
-      <p class="<%= key %>"><%= msg %></p>
+      <p class="alert alert-<%= key %>"><%= msg %></p>
     <% end %>
     <%= yield %>
   </body>

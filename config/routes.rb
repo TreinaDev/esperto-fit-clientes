@@ -28,13 +28,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :clients, only: %i[index show]
+      post 'users/:cpf/ban', to: 'users#ban', as: 'user_ban'
     end
   end
 
   resources :enrolls, only: :create
   resources :profiles, only: [:index, :show, :new,:create, :edit, :update]
-
-  namespace :api do
-    post 'user/:cpf/ban', to: 'users#ban', as: 'user_ban'
-  end
 end

@@ -9,6 +9,8 @@
 
   <%= form.label :appointment_date %>
   <%= form.date_field :appointment_date, min: Date.current %>
+  <%= form.label :appointment_date %>
+  <%= form.time_field :appointment_time %>
 
   <%= form.label :price_per_hour %>
   <%= form.number_field :price_per_hour, min: 0%>

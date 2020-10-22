@@ -1,10 +1,10 @@
 class Plan
   attr_reader :id, :name, :monthly_payment, :permanency, :subsidiary
 
-  def initialize(id:, name:, monthly_payment:, permanency:, subsidiary:)
+  def initialize(id:, name:, price:, permanency:, subsidiary:)
     @id = id
     @name = name
-    @monthly_payment = monthly_payment
+    @monthly_payment = price
     @permanency = permanency
     @subsidiary = subsidiary
   end

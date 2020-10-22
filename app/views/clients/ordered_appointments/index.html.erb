@@ -1,3 +1,9 @@
-<% @ordered_appointments.each do |order_appointment| %>
-  <%= l order_appointment.appointment_date %>
-<% end %>
+<div class="container mt-5">
+  <% @ordered_appointments.each do |order_appointment| %>
+    <div class="row my-3">
+      <%= l order_appointment.appointment.appointment_date %>
+      <%= l order_appointment.appointment.appointment_time, format: :short %> -
+      <%= order_appointment.appointment.personal.name %>
+    </div>
+  <% end %>
+</div>

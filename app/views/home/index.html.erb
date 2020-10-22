@@ -6,21 +6,22 @@
   </section>
 
   <section class="home_subsidiaries">
-
-    <h2 id="subsidiaries" class="home_subsidiaries_text">Conheça nossas Unidades</h2>
+    <% if client_signed_in? && current_client.enroll.present? %>
+      <div>
+        <% if current_client.profile.nil?%>
+          <%= link_to 'Complete seu perfil', new_profile_path, class: 'btn btn-primary' %>
+        <% else %>
+          <%= link_to 'Meu perfil', profile_path(current_client.profile), class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    <% end %>
 
     <% if personal_signed_in? %>
       <p>Bem vindo, <%= current_personal.name %>!</p>
     <% end %>
 
+    <h2 id="subsidiaries" class="home_subsidiaries_text">Conheça nossas Unidades</h2>
 
-    <% if client_signed_in? && current_client.enroll.present? %>
-      <% if current_client.profile.nil?%>
-        <%= link_to 'Complete seu perfil', new_profile_path %>
-      <% else %>
-        <%= link_to 'Meu perfil', profile_path(current_client.profile) %>
-      <% end %>
-    <% end %>
 
     <% if @subsidiaries.empty? %>
       <h1>Nenhuma filial encontrada</h1>

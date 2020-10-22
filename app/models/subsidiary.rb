@@ -29,9 +29,15 @@ class Subsidiary
   end
 
   def plans
-    return mocked_plans if Rails.env.development?
-
-    api_plans if Rails.env.test?
+    response = Faraday.get("#{Rails.configuration.apis[:subsidiaries]}subsidiaries/#{id}")
+    if response.status == 200
+      json = JSON.parse(response.body, symbolize_names: true)
+      json[:subsidiary_plans].map do |item|
+        Plan.new(**item, subsidiary: json[:id])
+      end
+    else
+      []
+    end
   end
 
   def self.search(query)

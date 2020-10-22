@@ -1,18 +1,20 @@
-<dl>
-  <dt><%= t('.client.cpf') %></dt>
-  <dd><%= @enroll.client.cpf %></dd>
-  <dt><%= t('.client.email') %></dt>
-  <dd><%= @enroll.client.email %></dd>
-  <dt><%= t('.plan.name') %></dt>
-  <dd><%= @enroll.plan.name %></dd>
-  <dt><%= t('.payment_option.name')%></dt>
-  <dd><%= @enroll.payment_option.name %></dd>
-  <dt><%= t('.plan.permanency')%></dt>
-  <dd><%= "#{@enroll.plan.permanency} meses" %></dd>
-  <dt><%= t('.plan.monthly_payment')%></dt>
-  <dd><%= number_to_currency @enroll.plan.monthly_payment %></dd>
-</dl>
+<div class="container mt-5">
+  <dl>
+    <dt><%= t('.client.cpf') %></dt>
+    <dd><%= @enroll.client.cpf %></dd>
+    <dt><%= t('.client.email') %></dt>
+    <dd><%= @enroll.client.email %></dd>
+    <dt><%= t('.plan.name') %></dt>
+    <dd><%= @enroll.plan.name %></dd>
+    <dt><%= t('.payment_option.name')%></dt>
+    <dd><%= @enroll.payment_option.name %></dd>
+    <dt><%= t('.plan.permanency')%></dt>
+    <dd><%= "#{@enroll.plan.permanency} meses" %></dd>
+    <dt><%= t('.plan.monthly_payment')%></dt>
+    <dd><%= number_to_currency @enroll.plan.monthly_payment %></dd>
+  </dl>
 
-<%= link_to t('.confirm'), enrolls_path(enroll: @enroll.attributes), method: :post %>
+  <%= link_to t('.confirm'), enrolls_path(enroll: @enroll.attributes), method: :post, class: 'btn btn-primary' %>
 
-<%= link_to t('.back'), new_subsidiary_enroll_path(@enroll.subsidiary_id) %>
+  <%= link_to t('.back'), new_subsidiary_enroll_path(@enroll.subsidiary_id), class: 'btn btn-secondary' %>
+</div>

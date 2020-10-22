@@ -1,4 +1,4 @@
-class Api::UsersController < ActionController::API
+class Api::V1::UsersController < ActionController::API
   def ban
     unless CPF.valid?(cpf_param)
       return render status: :precondition_failed, json: { messages: [I18n.t('users.invalid_cpf')], status: 412 }

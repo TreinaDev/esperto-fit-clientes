@@ -1,7 +1,9 @@
-<div class="form-inline my-2 my-lg-0 ml-auto text-white">
-  <%= form_with url: search_subsidiaries_path, method: :get, local: true do |f| %>
-    <%= f.label :q, 'Busca de filiais' %>
-    <%= f.text_field :q, class: "form-control mr-sm-2" %>
+<div class="my-2 my-lg-0 ml-auto text-white">
+  <%= form_with url: search_subsidiaries_path, method: :get, local: true, html: { class: 'form-inline' } do |f| %>
+    <div class="form-group mx-3">
+      <%= f.label :q, 'Busca de filiais', class: 'mx-3' %>
+      <%= f.text_field :q, class: "form-control mr-sm-2" %>
+    </div>
     <%= f.submit t('.submit'), class: "btn btn-custom my-2 my-sm-0" %>
   <% end %>
 </div>
